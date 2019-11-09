@@ -1,0 +1,98 @@
+{
+	"name": "@wessberg/ts-clone-node",
+	"version": "1.1.73",
+	"description": "A library that helps you clone a Node from a Typescript AST",
+	"scripts": {
+		"generate:scaffold": "scaffold all --yes",
+		"generate:changelog": "standard-changelog --first-release",
+		"generate:all": "npm run generate:scaffold && npm run generate:changelog",
+		"clean:dist": "rm -rf dist",
+		"clean": "npm run clean:dist",
+		"lint": "tsc --noEmit && tslint -c tslint.json --project tsconfig.json",
+		"prettier": "prettier --write '{src,test,documentation}/**/*.{js,ts,json,html,xml,css,md}'",
+		"test": "ava",
+		"prebuild": "npm run clean:dist",
+		"build": "npm run rollup",
+		"watch": "npm run rollup -- --watch",
+		"rollup": "rollup -c rollup.config.js",
+		"preversion": "npm run lint && NODE_ENV=production npm run build",
+		"version": "npm run generate:all && git add .",
+		"release": "np --no-cleanup --no-yarn"
+	},
+	"keywords": [
+		"typescript",
+		"ast",
+		"node",
+		"clone",
+		"copy",
+		"duplicate"
+	],
+	"files": [
+		"dist/**/*.*"
+	],
+	"contributors": [
+		{
+			"name": "Frederik Wessberg",
+			"email": "frederikwessberg@hotmail.com",
+			"url": "https://github.com/wessberg",
+			"imageUrl": "https://avatars2.githubusercontent.com/u/20454213?s=460&v=4",
+			"github": "wessberg",
+			"role": "Lead Developer",
+			"twitter": "FredWessberg"
+		}
+	],
+	"license": "MIT",
+	"devDependencies": {
+		"@wessberg/rollup-plugin-ts": "^1.1.73",
+		"@wessberg/scaffold": "^1.0.20",
+		"@wessberg/ts-config": "^0.0.42",
+		"ava": "2.4.0",
+		"husky": "^3.0.9",
+		"np": "^5.1.2",
+		"prettier": "^1.18.2",
+		"pretty-quick": "^2.0.1",
+		"standard-changelog": "^2.0.15",
+		"ts-node": "8.4.1",
+		"tslint": "^5.20.1",
+		"rollup": "^1.26.3"
+	},
+	"dependencies": {
+		"@types/node": "^12.12.6",
+		"typescript": "^3.7.2"
+	},
+	"main": "./dist/cjs/index.js",
+	"module": "./dist/esm/index.js",
+	"browser": "./dist/esm/index.js",
+	"types": "./dist/esm/index.d.ts",
+	"typings": "./dist/esm/index.d.ts",
+	"es2015": "./dist/esm/index.js",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/wessberg/ts-clone-node.git"
+	},
+	"bugs": {
+		"url": "https://github.com/wessberg/ts-clone-node/issues"
+	},
+	"engines": {
+		"node": ">=8.0.0"
+	},
+	"husky": {
+		"hooks": {
+			"pre-commit": "pretty-quick --staged"
+		}
+	},
+	"ava": {
+		"files": [
+			"test/clone.test.ts"
+		],
+		"verbose": true,
+		"failFast": true,
+		"compileEnhancements": false,
+		"extensions": [
+			"ts"
+		],
+		"require": [
+			"ts-node/register"
+		]
+	}
+}
