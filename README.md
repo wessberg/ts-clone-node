@@ -6,7 +6,7 @@
 
 <!-- SHADOW_SECTION_DESCRIPTION_SHORT_START -->
 
-> A library that helps you clone a Node from a Typescript AST
+> A library that helps you clone Nodes from a Typescript AST
 
 <!-- SHADOW_SECTION_DESCRIPTION_SHORT_END -->
 
@@ -28,11 +28,21 @@
 
 <!-- SHADOW_SECTION_DESCRIPTION_LONG_END -->
 
+The Typescript Compiler API is very powerful and comes with a lot of `create` and `update` functions that can be used for creating and updating nodes in [Custom transformers](https://github.com/Microsoft/TypeScript/pull/13940) while visiting
+a `SourceFile`. Under such circumstances, it is easy to run into problems if you reuse a Node in another part of the tree without properly cloning it, since the `parent` chain, as well as the `pos` and `end` values will have wrong values and will lead to malformed output after your transformations have been applied.
+
+This can be cumbersome for example when you want to simply add or remove a specific modifier from an arbitrary node in a given position.
+This library exports a `cloneNode` function that makes it easy to clone a deep-clone a Node from a Typescript AST without any faulty parent links.
+Additionally, you get a simple hook with which you can do simple things such as edit the top-level properties of the cloned object such as its modifiers, decorators, etc.
+
 <!-- SHADOW_SECTION_FEATURES_START -->
 
 ### Features
 
 <!-- SHADOW_SECTION_FEATURES_END -->
+
+- Simple to use
+- Extensible
 
 <!-- SHADOW_SECTION_FEATURE_IMAGE_START -->
 
@@ -54,6 +64,7 @@
 - [Backers](#backers)
   - [Patreon](#patreon)
 - [FAQ](#faq)
+  - [What is the point of this library](#what-is-the-point-of-this-library)
 - [License](#license)
 
 <!-- SHADOW_SECTION_TOC_END -->
@@ -81,6 +92,30 @@ $ yarn add @wessberg/ts-clone-node
 ## Usage
 
 <!-- SHADOW_SECTION_USAGE_END -->
+
+To clone a Node from a Typescript AST, all you have to do is:
+
+```typescript
+import {cloneNode} from "@wessberg/ts-clone-node";
+
+// Clone the Node
+const clonedNode = cloneNode(someNode);
+```
+
+You can pass in a hook that enables you to modify the clone, agnostic to the kind of Node it is.
+For example:
+
+```typescript
+import {cloneNode} from "@wessberg/ts-clone-node";
+
+// Clone the Node, and alter the modifiers such that they don't include a modifier pointing
+// to the 'declare' keyword
+const clonedNode = cloneNode(someNode, {
+	hook: {
+		modifiers: modifiers => ensureNoDeclareModifier(modifiers)
+	}
+});
+```
 
 <!-- SHADOW_SECTION_CONTRIBUTING_START -->
 
@@ -117,6 +152,10 @@ Do you want to contribute? Awesome! Please follow [these recommendations](./CONT
 ## FAQ
 
 <!-- SHADOW_SECTION_FAQ_END -->
+
+### What is the point of this library
+
+If you've run into the kind of trouble I'm explaining here, you'll understand. If not, I'm happy for you. You can move along!
 
 <!-- SHADOW_SECTION_LICENSE_START -->
 
