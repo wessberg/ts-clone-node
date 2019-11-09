@@ -163,15 +163,15 @@ import {cloneExportSpecifier} from "./clone-export-specifier";
 import {cloneExportAssignment} from "./clone-export-assignment";
 
 export function cloneNode<T extends Node> (node: T, options?: Partial<CloneNodeOptions<T>>): T;
-export function cloneNode<T extends NodeFlags> (node: T, options?: Partial<CloneNodeOptions<Node>>): T;
-export function cloneNode<T extends SyntaxKind> (node: T, options?: Partial<CloneNodeOptions<Node>>): T;
+export function cloneNode<T extends NodeFlags> (node: T, options?: Partial<CloneNodeOptions>): T;
+export function cloneNode<T extends SyntaxKind> (node: T, options?: Partial<CloneNodeOptions>): T;
 export function cloneNode<T extends Node> (node: undefined, options?: Partial<CloneNodeOptions<T>>): undefined;
 export function cloneNode<T extends Node> (node: T|undefined, options?: Partial<CloneNodeOptions<T>>): T|undefined;
 export function cloneNode<T extends Node> (node: SyntaxKind|undefined, options?: Partial<CloneNodeOptions<T>>): SyntaxKind|undefined;
 export function cloneNode<T extends Node> (node: NodeFlags|undefined, options?: Partial<CloneNodeOptions<T>>): NodeFlags|undefined;
 export function cloneNode<T extends Node> (node: NodeFlags|T|undefined, options?: Partial<CloneNodeOptions<T>>): T|NodeFlags|undefined;
 export function cloneNode<T extends Node> (node: SyntaxKind|NodeFlags|T|undefined, options?: Partial<CloneNodeOptions<T>>): SyntaxKind|T|NodeFlags|undefined;
-export function cloneNode (node: SyntaxKind|NodeFlags|Node|undefined, options: Partial<CloneNodeOptions<Node>> = {}): SyntaxKind|Node|NodeFlags|undefined {
+export function cloneNode (node: SyntaxKind|NodeFlags|Node|undefined, options: Partial<CloneNodeOptions> = {}): SyntaxKind|Node|NodeFlags|undefined {
 	if (node === undefined) return undefined;
 	if (typeof node === "number") return node;
 	const internalOptions = toInternalOptions(options);

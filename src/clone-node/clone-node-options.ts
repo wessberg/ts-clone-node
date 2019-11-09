@@ -27,7 +27,7 @@ export function toInternalOptions<T extends Node> (options: Partial<CloneNodeOpt
 					return entry(value);
 				}
 			}
-			return value as NodeHookValue<T, typeof key>;
+			return value;
 		}
 	};
 }
