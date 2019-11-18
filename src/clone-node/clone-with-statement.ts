@@ -1,10 +1,12 @@
-import {createWith, WithStatement} from "typescript";
 import {CloneNodeInternalOptions} from "./clone-node-options";
 import {cloneNode} from "./clone-node";
+import {TS} from "./type/ts";
+import {nextOptions} from "./util/next-options";
+import {payload} from "./util/payload";
 
-export function cloneWithStatement (node: WithStatement, options: CloneNodeInternalOptions<WithStatement>): WithStatement {
-	return createWith(
-		options.hook("expression", cloneNode(node.expression)),
-		options.hook("statement", cloneNode(node.statement))
+export function cloneWithStatement(node: TS.WithStatement, options: CloneNodeInternalOptions<TS.WithStatement>): TS.WithStatement {
+	return options.typescript.createWith(
+		options.hook("expression", cloneNode(node.expression, nextOptions(options)), payload(options)),
+		options.hook("statement", cloneNode(node.statement, nextOptions(options)), payload(options))
 	);
 }

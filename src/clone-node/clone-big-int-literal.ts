@@ -1,8 +1,7 @@
-import {BigIntLiteral, createBigIntLiteral} from "typescript";
 import {CloneNodeInternalOptions} from "./clone-node-options";
+import {TS} from "./type/ts";
+import {payload} from "./util/payload";
 
-export function cloneBigIntLiteral (node: BigIntLiteral, options: CloneNodeInternalOptions<BigIntLiteral>): BigIntLiteral {
-	return createBigIntLiteral(
-		options.hook("text", node.text)
-	);
+export function cloneBigIntLiteral(node: TS.BigIntLiteral, options: CloneNodeInternalOptions<TS.BigIntLiteral>): TS.BigIntLiteral {
+	return options.typescript.createBigIntLiteral(options.hook("text", node.text, payload(options)));
 }

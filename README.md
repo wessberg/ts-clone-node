@@ -43,6 +43,7 @@ Additionally, you get a simple hook with which you can do simple things such as 
 
 - Simple to use
 - Extensible
+- Supports dynamic TypeScript versions
 
 <!-- SHADOW_SECTION_FEATURE_IMAGE_START -->
 
@@ -116,6 +117,19 @@ const clonedNode = cloneNode(someNode, {
 	}
 });
 ```
+
+### Passing a specific TypeScript version
+
+You can use pass a specific TypeScript to use as an option to `cloneNode`:
+
+```typescript
+cloneNode(someNode, {
+	typescript: specialTypescriptVersion
+});
+```
+
+This can be useful, for example, in an environment where multiple packages in the same project depends
+on different TypeScript versions and you're relying on `cloneNode`
 
 <!-- SHADOW_SECTION_CONTRIBUTING_START -->
 

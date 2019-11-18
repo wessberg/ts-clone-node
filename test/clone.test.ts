@@ -1,15 +1,12 @@
 import test from "ava";
 import {formatCode} from "./util/format-code";
 import {cloneAsText} from "./util/clone-as-text";
-import {createModifier, isFunctionDeclaration, SyntaxKind} from "typescript";
+import {TS as typescript} from "../src/clone-node/type/ts";
 
 test("Performs an identical clone. #1", t => {
 	const text = `export type Foo = "a"|"b"|"c"`;
 
-	t.deepEqual(
-		formatCode(cloneAsText(text)),
-		formatCode(text)
-	);
+	t.deepEqual(formatCode(cloneAsText(text, {typescript})), formatCode(text));
 });
 test("Performs an identical clone. #2", t => {
 	const text = `\
@@ -20,10 +17,7 @@ test("Performs an identical clone. #2", t => {
 	}
 `;
 
-	t.deepEqual(
-		formatCode(cloneAsText(text)),
-		formatCode(text)
-	);
+	t.deepEqual(formatCode(cloneAsText(text, {typescript})), formatCode(text));
 });
 
 test("Performs an identical clone. #3", t => {
@@ -58,10 +52,7 @@ test("Performs an identical clone. #3", t => {
 	};
 `;
 
-	t.deepEqual(
-		formatCode(cloneAsText(text)),
-		formatCode(text)
-	);
+	t.deepEqual(formatCode(cloneAsText(text, {typescript})), formatCode(text));
 });
 
 test("Performs an identical clone. #4", t => {
@@ -86,10 +77,7 @@ test("Performs an identical clone. #4", t => {
 	}
 `;
 
-	t.deepEqual(
-		formatCode(cloneAsText(text)),
-		formatCode(text)
-	);
+	t.deepEqual(formatCode(cloneAsText(text, {typescript})), formatCode(text));
 });
 
 test("Performs an identical clone. #5", t => {
@@ -97,10 +85,7 @@ test("Performs an identical clone. #5", t => {
 	const template = html\`<p>\${foo}</p>\`;
 `;
 
-	t.deepEqual(
-		formatCode(cloneAsText(text)),
-		formatCode(text)
-	);
+	t.deepEqual(formatCode(cloneAsText(text, {typescript})), formatCode(text));
 });
 
 test("Performs an identical clone. #6", t => {
@@ -118,10 +103,7 @@ test("Performs an identical clone. #6", t => {
 	}
 `;
 
-	t.deepEqual(
-		formatCode(cloneAsText(text)),
-		formatCode(text)
-	);
+	t.deepEqual(formatCode(cloneAsText(text, {typescript})), formatCode(text));
 });
 
 test("Performs an identical clone. #7", t => {
@@ -131,16 +113,18 @@ test("Performs an identical clone. #7", t => {
 	}
 `;
 
-	const cloneResult = cloneAsText(
-		text,
-		sourceFile => sourceFile.statements.filter(isFunctionDeclaration)[0], {
-			hook: {
-				modifiers: modifiers => modifiers == null ? [createModifier(SyntaxKind.ExportKeyword)] : [...modifiers, createModifier(SyntaxKind.ExportKeyword)]
-			}
-		});
+	const cloneResult = cloneAsText(text, {
+		typescript,
+		selectNode: sourceFile => sourceFile.statements.filter(typescript.isFunctionDeclaration)[0],
+		hook: {
+			modifiers: (modifiers, payload) =>
+				payload.depth > 0
+					? modifiers
+					: modifiers == null
+					? [typescript.createModifier(typescript.SyntaxKind.ExportKeyword)]
+					: [...modifiers, typescript.createModifier(typescript.SyntaxKind.ExportKeyword)]
+		}
+	});
 
-	t.deepEqual(
-		formatCode(cloneResult),
-		formatCode(`export ${text}`)
-	);
+	t.deepEqual(formatCode(cloneResult), formatCode(`export ${text}`));
 });

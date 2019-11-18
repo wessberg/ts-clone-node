@@ -1,18 +1,21 @@
-import {KeywordTypeNode, Node, SyntaxKind} from "typescript";
+import {TS} from "../type/ts";
 
-export function isKeywordTypeNode (node: Node): node is KeywordTypeNode {
+/**
+ * Returns true if the given Node is a KeywordTypeNode
+ */
+export function isKeywordTypeNode(node: TS.Node, typescript: typeof TS): node is TS.KeywordTypeNode {
 	switch (node.kind) {
-		case SyntaxKind.AnyKeyword:
-		case SyntaxKind.UnknownKeyword:
-		case SyntaxKind.BigIntKeyword:
-		case SyntaxKind.ObjectKeyword:
-		case SyntaxKind.BooleanKeyword:
-		case SyntaxKind.StringKeyword:
-		case SyntaxKind.SymbolKeyword:
-		case SyntaxKind.VoidKeyword:
-		case SyntaxKind.UndefinedKeyword:
-		case SyntaxKind.NullKeyword:
-		case SyntaxKind.NeverKeyword:
+		case typescript.SyntaxKind.AnyKeyword:
+		case typescript.SyntaxKind.UnknownKeyword:
+		case typescript.SyntaxKind.BigIntKeyword:
+		case typescript.SyntaxKind.ObjectKeyword:
+		case typescript.SyntaxKind.BooleanKeyword:
+		case typescript.SyntaxKind.StringKeyword:
+		case typescript.SyntaxKind.SymbolKeyword:
+		case typescript.SyntaxKind.VoidKeyword:
+		case typescript.SyntaxKind.UndefinedKeyword:
+		case typescript.SyntaxKind.NullKeyword:
+		case typescript.SyntaxKind.NeverKeyword:
 			return true;
 	}
 	return false;

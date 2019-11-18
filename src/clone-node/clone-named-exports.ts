@@ -1,9 +1,9 @@
-import {createNamedExports, NamedExports} from "typescript";
 import {CloneNodeInternalOptions} from "./clone-node-options";
 import {cloneNodes} from "./clone-nodes";
+import {TS} from "./type/ts";
+import {nextOptions} from "./util/next-options";
+import {payload} from "./util/payload";
 
-export function cloneNamedExports (node: NamedExports, options: CloneNodeInternalOptions<NamedExports>): NamedExports {
-	return createNamedExports(
-		options.hook("elements", cloneNodes(node.elements))
-	);
+export function cloneNamedExports(node: TS.NamedExports, options: CloneNodeInternalOptions<TS.NamedExports>): TS.NamedExports {
+	return options.typescript.createNamedExports(options.hook("elements", cloneNodes(node.elements, nextOptions(options)), payload(options)));
 }

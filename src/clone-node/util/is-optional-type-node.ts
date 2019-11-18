@@ -1,5 +1,8 @@
-import {Node, OptionalTypeNode, SyntaxKind} from "typescript";
+import {TS} from "../type/ts";
 
-export function isOptionalTypeNode (node: Node): node is OptionalTypeNode {
-	return node.kind === SyntaxKind.OptionalType;
+/**
+ * Returns true if the given Node is an OptionalTypeNode
+ */
+export function isOptionalTypeNode(node: TS.Node, typescript: typeof TS): node is TS.OptionalTypeNode {
+	return node.kind === typescript.SyntaxKind.OptionalType;
 }

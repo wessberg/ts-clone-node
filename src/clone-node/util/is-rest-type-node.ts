@@ -1,5 +1,8 @@
-import {Node, RestTypeNode, SyntaxKind} from "typescript";
+import {TS} from "../type/ts";
 
-export function isRestTypeNode (node: Node): node is RestTypeNode {
-	return node.kind === SyntaxKind.RestType;
+/**
+ * Returns true if the given Node is a RestTypeNode
+ */
+export function isRestTypeNode(node: TS.Node, typescript: typeof TS): node is TS.RestTypeNode {
+	return node.kind === typescript.SyntaxKind.RestType;
 }

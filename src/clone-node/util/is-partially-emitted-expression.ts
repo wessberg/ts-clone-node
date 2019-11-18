@@ -1,5 +1,8 @@
-import {Node, PartiallyEmittedExpression, SyntaxKind} from "typescript";
+import {TS} from "../type/ts";
 
-export function isPartiallyEmittedExpression (node: Node): node is PartiallyEmittedExpression {
-	return node.kind === SyntaxKind.PartiallyEmittedExpression;
+/**
+ * Returns true if the given Node is a PartiallyEmittedExpression
+ */
+export function isPartiallyEmittedExpression(node: TS.Node, typescript: typeof TS): node is TS.PartiallyEmittedExpression {
+	return node.kind === typescript.SyntaxKind.PartiallyEmittedExpression;
 }

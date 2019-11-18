@@ -1,9 +1,9 @@
-import {BooleanLiteral, createFalse, createTrue, SyntaxKind} from "typescript";
 import {CloneNodeInternalOptions} from "./clone-node-options";
+import {TS} from "./type/ts";
 
-export function cloneBooleanLiteral (node: BooleanLiteral, _options: CloneNodeInternalOptions<BooleanLiteral>): BooleanLiteral {
-	if (node.kind === SyntaxKind.TrueKeyword) {
-		return createTrue();
+export function cloneBooleanLiteral(node: TS.BooleanLiteral, options: CloneNodeInternalOptions<TS.BooleanLiteral>): TS.BooleanLiteral {
+	if (node.kind === options.typescript.SyntaxKind.TrueKeyword) {
+		return options.typescript.createTrue();
 	}
-	return createFalse();
+	return options.typescript.createFalse();
 }

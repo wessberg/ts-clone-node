@@ -1,6 +1,9 @@
-import {createSemicolonClassElement, SemicolonClassElement} from "typescript";
 import {CloneNodeInternalOptions} from "./clone-node-options";
+import {TS} from "./type/ts";
 
-export function cloneSemicolonClassElement (_node: SemicolonClassElement, _options: CloneNodeInternalOptions<SemicolonClassElement>): SemicolonClassElement {
-	return createSemicolonClassElement();
+export function cloneSemicolonClassElement(
+	_node: TS.SemicolonClassElement,
+	options: CloneNodeInternalOptions<TS.SemicolonClassElement>
+): TS.SemicolonClassElement {
+	return options.typescript.createSemicolonClassElement();
 }

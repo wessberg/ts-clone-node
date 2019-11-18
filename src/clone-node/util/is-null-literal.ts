@@ -1,5 +1,8 @@
-import {Node, NullLiteral, SyntaxKind} from "typescript";
+import {TS} from "../type/ts";
 
-export function isNullLiteral (node: Node): node is NullLiteral {
-	return node.kind === SyntaxKind.NullKeyword;
+/**
+ * Returns true if the given Node is the literal 'null'
+ */
+export function isNullLiteral(node: TS.Node, typescript: typeof TS): node is TS.NullLiteral {
+	return node.kind === typescript.SyntaxKind.NullKeyword;
 }

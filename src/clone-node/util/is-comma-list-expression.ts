@@ -1,5 +1,8 @@
-import {CommaListExpression, Node, SyntaxKind} from "typescript";
+import {TS} from "../type/ts";
 
-export function isCommaListExpression (node: Node): node is CommaListExpression {
-	return node.kind === SyntaxKind.CommaListExpression;
+/**
+ * Returns true if the given Node is a CommaListExpression
+ */
+export function isCommaListExpression(node: TS.Node, typescript: typeof TS): node is TS.CommaListExpression {
+	return node.kind === typescript.SyntaxKind.CommaListExpression;
 }

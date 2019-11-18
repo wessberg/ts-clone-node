@@ -1,10 +1,12 @@
-import {createImportClause, ImportClause} from "typescript";
 import {CloneNodeInternalOptions} from "./clone-node-options";
 import {cloneNode} from "./clone-node";
+import {TS} from "./type/ts";
+import {nextOptions} from "./util/next-options";
+import {payload} from "./util/payload";
 
-export function cloneImportClause (node: ImportClause, options: CloneNodeInternalOptions<ImportClause>): ImportClause {
-	return createImportClause(
-		options.hook("name", cloneNode(node.name)),
-		options.hook("namedBindings", cloneNode(node.namedBindings))
+export function cloneImportClause(node: TS.ImportClause, options: CloneNodeInternalOptions<TS.ImportClause>): TS.ImportClause {
+	return options.typescript.createImportClause(
+		options.hook("name", cloneNode(node.name, nextOptions(options)), payload(options)),
+		options.hook("namedBindings", cloneNode(node.namedBindings, nextOptions(options)), payload(options))
 	);
 }

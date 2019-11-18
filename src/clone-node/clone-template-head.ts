@@ -1,9 +1,10 @@
-import {createTemplateHead, TemplateHead} from "typescript";
 import {CloneNodeInternalOptions} from "./clone-node-options";
+import {TS} from "./type/ts";
+import {payload} from "./util/payload";
 
-export function cloneTemplateHead (node: TemplateHead, options: CloneNodeInternalOptions<TemplateHead>): TemplateHead {
-	return createTemplateHead(
-		options.hook("text", node.text),
-		options.hook("rawText", node.rawText)
+export function cloneTemplateHead(node: TS.TemplateHead, options: CloneNodeInternalOptions<TS.TemplateHead>): TS.TemplateHead {
+	return options.typescript.createTemplateHead(
+		options.hook("text", node.text, payload(options)),
+		options.hook("rawText", node.rawText, payload(options))
 	);
 }

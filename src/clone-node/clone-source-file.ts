@@ -1,17 +1,15 @@
-import {createSourceFile, SourceFile, updateSourceFileNode} from "typescript";
 import {CloneNodeInternalOptions} from "./clone-node-options";
 import {cloneNodes} from "./clone-nodes";
+import {TS} from "./type/ts";
+import {nextOptions} from "./util/next-options";
+import {payload} from "./util/payload";
 
-export function cloneSourceFile (node: SourceFile, options: CloneNodeInternalOptions<SourceFile>): SourceFile {
-	const sourceFile = createSourceFile(
-		node.fileName,
-		node.getText(),
-		node.languageVersion
-	);
+export function cloneSourceFile(node: TS.SourceFile, options: CloneNodeInternalOptions<TS.SourceFile>): TS.SourceFile {
+	const sourceFile = options.typescript.createSourceFile(node.fileName, node.getText(), node.languageVersion);
 
-	return updateSourceFileNode(
+	return options.typescript.updateSourceFileNode(
 		sourceFile,
-		options.hook("statements", cloneNodes(node.statements)),
+		options.hook("statements", cloneNodes(node.statements, nextOptions(options)), payload(options)),
 		node.isDeclarationFile,
 		node.referencedFiles,
 		node.typeReferenceDirectives,

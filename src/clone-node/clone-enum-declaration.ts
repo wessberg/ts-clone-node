@@ -1,13 +1,15 @@
-import {createEnumDeclaration, EnumDeclaration} from "typescript";
 import {CloneNodeInternalOptions} from "./clone-node-options";
 import {cloneNodes} from "./clone-nodes";
 import {cloneNode} from "./clone-node";
+import {TS} from "./type/ts";
+import {nextOptions} from "./util/next-options";
+import {payload} from "./util/payload";
 
-export function cloneEnumDeclaration (node: EnumDeclaration, options: CloneNodeInternalOptions<EnumDeclaration>): EnumDeclaration {
-	return createEnumDeclaration(
-		options.hook("decorators", cloneNodes(node.decorators)),
-		options.hook("modifiers", cloneNodes(node.modifiers)),
-		options.hook("name", cloneNode(node.name)),
-		options.hook("members", cloneNodes(node.members))
+export function cloneEnumDeclaration(node: TS.EnumDeclaration, options: CloneNodeInternalOptions<TS.EnumDeclaration>): TS.EnumDeclaration {
+	return options.typescript.createEnumDeclaration(
+		options.hook("decorators", cloneNodes(node.decorators, nextOptions(options)), payload(options)),
+		options.hook("modifiers", cloneNodes(node.modifiers, nextOptions(options)), payload(options)),
+		options.hook("name", cloneNode(node.name, nextOptions(options)), payload(options)),
+		options.hook("members", cloneNodes(node.members, nextOptions(options)), payload(options))
 	);
 }

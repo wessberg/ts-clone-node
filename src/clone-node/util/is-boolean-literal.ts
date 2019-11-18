@@ -1,12 +1,14 @@
-import {BooleanLiteral, Node, SyntaxKind} from "typescript";
+import {TS} from "../type/ts";
 
-export function isBooleanLiteral (node: Node): node is BooleanLiteral {
+/**
+ * Returns true if the given Node is either the boolean Literal 'true' or 'false'
+ */
+export function isBooleanLiteral(node: TS.Node, typescript: typeof TS): node is TS.BooleanLiteral {
 	switch (node.kind) {
-		case SyntaxKind.TrueKeyword:
-		case SyntaxKind.FalseKeyword:
+		case typescript.SyntaxKind.TrueKeyword:
+		case typescript.SyntaxKind.FalseKeyword:
 			return true;
 		default:
 			return false;
-
 	}
 }

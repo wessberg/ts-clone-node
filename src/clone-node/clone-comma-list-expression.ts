@@ -1,9 +1,12 @@
-import {CommaListExpression, createCommaList} from "typescript";
 import {CloneNodeInternalOptions} from "./clone-node-options";
 import {cloneNodes} from "./clone-nodes";
+import {TS} from "./type/ts";
+import {nextOptions} from "./util/next-options";
+import {payload} from "./util/payload";
 
-export function cloneCommaListExpression (node: CommaListExpression, options: CloneNodeInternalOptions<CommaListExpression>): CommaListExpression {
-	return createCommaList(
-		options.hook("elements", cloneNodes(node.elements))
-	);
+export function cloneCommaListExpression(
+	node: TS.CommaListExpression,
+	options: CloneNodeInternalOptions<TS.CommaListExpression>
+): TS.CommaListExpression {
+	return options.typescript.createCommaList(options.hook("elements", cloneNodes(node.elements, nextOptions(options)), payload(options)));
 }

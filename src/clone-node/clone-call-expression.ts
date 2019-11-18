@@ -1,12 +1,14 @@
-import {CallExpression, createCall} from "typescript";
 import {CloneNodeInternalOptions} from "./clone-node-options";
 import {cloneNode} from "./clone-node";
 import {cloneNodes} from "./clone-nodes";
+import {TS} from "./type/ts";
+import {nextOptions} from "./util/next-options";
+import {payload} from "./util/payload";
 
-export function cloneCallExpression (node: CallExpression, options: CloneNodeInternalOptions<CallExpression>): CallExpression {
-	return createCall(
-		options.hook("expression", cloneNode(node.expression)),
-		options.hook("typeArguments", cloneNodes(node.typeArguments)),
-		options.hook("arguments", cloneNodes(node.arguments))
+export function cloneCallExpression(node: TS.CallExpression, options: CloneNodeInternalOptions<TS.CallExpression>): TS.CallExpression {
+	return options.typescript.createCall(
+		options.hook("expression", cloneNode(node.expression, nextOptions(options)), payload(options)),
+		options.hook("typeArguments", cloneNodes(node.typeArguments, nextOptions(options)), payload(options)),
+		options.hook("arguments", cloneNodes(node.arguments, nextOptions(options)), payload(options))
 	);
 }

@@ -1,9 +1,8 @@
-import {createSourceFile, SourceFile, ScriptTarget, ScriptKind} from "typescript";
+import {TS} from "../../src/clone-node/type/ts";
 
 /**
  * Parses the given text into a SourceFile
- * @param text
  */
-export function parse (text: string): SourceFile {
-	return createSourceFile(`sourcefile.ts`, text, ScriptTarget.ESNext, true, ScriptKind.TS);
+export function parse(text: string, typescript: typeof TS): TS.SourceFile {
+	return typescript.createSourceFile(`sourcefile.ts`, text, typescript.ScriptTarget.ESNext, true, typescript.ScriptKind.TS);
 }

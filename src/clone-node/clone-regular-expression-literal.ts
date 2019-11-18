@@ -1,8 +1,10 @@
-import {createRegularExpressionLiteral, RegularExpressionLiteral} from "typescript";
 import {CloneNodeInternalOptions} from "./clone-node-options";
+import {TS} from "./type/ts";
+import {payload} from "./util/payload";
 
-export function cloneRegularExpressionLiteral (node: RegularExpressionLiteral, options: CloneNodeInternalOptions<RegularExpressionLiteral>): RegularExpressionLiteral {
-	return createRegularExpressionLiteral(
-		options.hook("text", node.text)
-	);
+export function cloneRegularExpressionLiteral(
+	node: TS.RegularExpressionLiteral,
+	options: CloneNodeInternalOptions<TS.RegularExpressionLiteral>
+): TS.RegularExpressionLiteral {
+	return options.typescript.createRegularExpressionLiteral(options.hook("text", node.text, payload(options)));
 }

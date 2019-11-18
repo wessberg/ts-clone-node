@@ -1,11 +1,13 @@
-import {createIf, IfStatement} from "typescript";
 import {CloneNodeInternalOptions} from "./clone-node-options";
 import {cloneNode} from "./clone-node";
+import {TS} from "./type/ts";
+import {nextOptions} from "./util/next-options";
+import {payload} from "./util/payload";
 
-export function cloneIfStatement (node: IfStatement, options: CloneNodeInternalOptions<IfStatement>): IfStatement {
-	return createIf(
-		options.hook("expression", cloneNode(node.expression)),
-		options.hook("thenStatement", cloneNode(node.thenStatement)),
-		options.hook("elseStatement", cloneNode(node.elseStatement))
+export function cloneIfStatement(node: TS.IfStatement, options: CloneNodeInternalOptions<TS.IfStatement>): TS.IfStatement {
+	return options.typescript.createIf(
+		options.hook("expression", cloneNode(node.expression, nextOptions(options)), payload(options)),
+		options.hook("thenStatement", cloneNode(node.thenStatement, nextOptions(options)), payload(options)),
+		options.hook("elseStatement", cloneNode(node.elseStatement, nextOptions(options)), payload(options))
 	);
 }

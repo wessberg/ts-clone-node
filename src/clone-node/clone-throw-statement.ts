@@ -1,9 +1,9 @@
-import {createThrow, ThrowStatement} from "typescript";
 import {CloneNodeInternalOptions} from "./clone-node-options";
 import {cloneNode} from "./clone-node";
+import {TS} from "./type/ts";
+import {nextOptions} from "./util/next-options";
+import {payload} from "./util/payload";
 
-export function cloneThrowStatement (node: ThrowStatement, options: CloneNodeInternalOptions<ThrowStatement>): ThrowStatement {
-	return createThrow(
-		options.hook("expression", cloneNode(node.expression))!
-	);
+export function cloneThrowStatement(node: TS.ThrowStatement, options: CloneNodeInternalOptions<TS.ThrowStatement>): TS.ThrowStatement {
+	return options.typescript.createThrow(options.hook("expression", cloneNode(node.expression, nextOptions(options)), payload(options))!);
 }

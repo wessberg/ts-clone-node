@@ -1,5 +1,8 @@
-import {Node, NotEmittedStatement, SyntaxKind} from "typescript";
+import {TS} from "../type/ts";
 
-export function isNotEmittedStatement (node: Node): node is NotEmittedStatement {
-	return node.kind === SyntaxKind.NotEmittedStatement;
+/**
+ * Returns true if the given Node is a NotEmittedStatement
+ */
+export function isNotEmittedStatement(node: TS.Node, typescript: typeof TS): node is TS.NotEmittedStatement {
+	return node.kind === typescript.SyntaxKind.NotEmittedStatement;
 }

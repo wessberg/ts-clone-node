@@ -1,10 +1,15 @@
-import {createPropertyAssignment, PropertyAssignment} from "typescript";
 import {cloneNode} from "./clone-node";
 import {CloneNodeInternalOptions} from "./clone-node-options";
+import {TS} from "./type/ts";
+import {nextOptions} from "./util/next-options";
+import {payload} from "./util/payload";
 
-export function clonePropertyAssignment (node: PropertyAssignment, options: CloneNodeInternalOptions<PropertyAssignment>): PropertyAssignment {
-	return createPropertyAssignment(
-		options.hook("name", cloneNode(node.name)),
-		options.hook("initializer", cloneNode(node.initializer))
+export function clonePropertyAssignment(
+	node: TS.PropertyAssignment,
+	options: CloneNodeInternalOptions<TS.PropertyAssignment>
+): TS.PropertyAssignment {
+	return options.typescript.createPropertyAssignment(
+		options.hook("name", cloneNode(node.name, nextOptions(options)), payload(options)),
+		options.hook("initializer", cloneNode(node.initializer, nextOptions(options)), payload(options))
 	);
 }

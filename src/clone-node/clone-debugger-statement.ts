@@ -1,6 +1,6 @@
-import {createDebuggerStatement, DebuggerStatement} from "typescript";
 import {CloneNodeInternalOptions} from "./clone-node-options";
+import {TS} from "./type/ts";
 
-export function cloneDebuggerStatement (_node: DebuggerStatement, _options: CloneNodeInternalOptions<DebuggerStatement>): DebuggerStatement {
-	return createDebuggerStatement();
+export function cloneDebuggerStatement(_node: TS.DebuggerStatement, options: CloneNodeInternalOptions<TS.DebuggerStatement>): TS.DebuggerStatement {
+	return options.typescript.createDebuggerStatement();
 }

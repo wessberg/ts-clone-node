@@ -1,10 +1,9 @@
-import {createPrinter, EmitHint, isSourceFile, Node} from "typescript";
+import {TS} from "../../src/clone-node/type/ts";
 
 /**
  * Prints the given SourceFile
- * @param node
  */
-export function print (node: Node): string {
-	if (isSourceFile(node)) return createPrinter().printFile(node);
-	return createPrinter().printNode(EmitHint.Unspecified, node, node.getSourceFile());
+export function print(node: TS.Node, typescript: typeof TS): string {
+	if (typescript.isSourceFile(node)) return typescript.createPrinter().printFile(node);
+	return typescript.createPrinter().printNode(typescript.EmitHint.Unspecified, node, node.getSourceFile());
 }

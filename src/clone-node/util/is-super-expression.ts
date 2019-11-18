@@ -1,5 +1,5 @@
-import {Node, SuperExpression, SyntaxKind} from "typescript";
+import {TS} from "../type/ts";
 
-export function isSuperExpression (node: Node): node is SuperExpression {
-	return node.kind === SyntaxKind.SuperKeyword;
+export function isSuperExpression(node: TS.Node, typescript: typeof TS): node is TS.SuperExpression {
+	return node.kind === typescript.SyntaxKind.SuperKeyword;
 }

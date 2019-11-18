@@ -1,6 +1,6 @@
-import {createEmptyStatement, EmptyStatement} from "typescript";
 import {CloneNodeInternalOptions} from "./clone-node-options";
+import {TS} from "./type/ts";
 
-export function cloneEmptyStatement (_node: EmptyStatement, _options: CloneNodeInternalOptions<EmptyStatement>): EmptyStatement {
-	return createEmptyStatement();
+export function cloneEmptyStatement(_node: TS.EmptyStatement, options: CloneNodeInternalOptions<TS.EmptyStatement>): TS.EmptyStatement {
+	return options.typescript.createEmptyStatement();
 }
