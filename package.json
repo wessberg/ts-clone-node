@@ -1,6 +1,6 @@
 {
 	"name": "@wessberg/ts-clone-node",
-	"version": "0.0.0",
+	"version": "0.1.0",
 	"description": "A library that helps you clone Nodes from a Typescript AST",
 	"scripts": {
 		"generate:scaffold": "scaffold all --yes",
