@@ -57,9 +57,11 @@ Additionally, you get a simple hook with which you can do simple things such as 
   - [Features](#features)
 - [Table of Contents](#table-of-contents)
 - [Install](#install)
-  - [NPM](#npm)
+  - [npm](#npm)
   - [Yarn](#yarn)
+  - [pnpm](#pnpm)
 - [Usage](#usage)
+  - [Passing a specific TypeScript version](#passing-a-specific-typescript-version)
 - [Contributing](#contributing)
 - [Maintainers](#maintainers)
 - [Backers](#backers)
@@ -74,7 +76,7 @@ Additionally, you get a simple hook with which you can do simple things such as 
 
 ## Install
 
-### NPM
+### npm
 
 ```
 $ npm install @wessberg/ts-clone-node
@@ -84,6 +86,12 @@ $ npm install @wessberg/ts-clone-node
 
 ```
 $ yarn add @wessberg/ts-clone-node
+```
+
+### pnpm
+
+```
+$ pnpm add @wessberg/ts-clone-node
 ```
 
 <!-- SHADOW_SECTION_INSTALL_END -->
