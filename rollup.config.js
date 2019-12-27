@@ -18,8 +18,7 @@ export default {
 	],
 	plugins: [
 		ts({
-			tsconfig: "tsconfig.build.json",
-			debug: true
+			tsconfig: "tsconfig.build.json"
 		})
 	],
 	external: [...builtinModules, ...Object.keys(packageJson.dependencies), ...Object.keys(packageJson.devDependencies)]
