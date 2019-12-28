@@ -450,8 +450,9 @@ export function cloneNode(
 		return cloneNumericLiteral(node, internalOptions as CloneNodeInternalOptions<TS.NumericLiteral>);
 	}
 
-	// Handle the Node
-	else if (internalOptions.typescript.isBigIntLiteral(node)) {
+	// Handle the Node.
+	// Note: isBigIntLiteral may not be supported by the provided TypeScript version, so the invocation is optional.
+	else if (internalOptions.typescript.isBigIntLiteral?.(node)) {
 		return cloneBigIntLiteral(node, internalOptions as CloneNodeInternalOptions<TS.BigIntLiteral>);
 	}
 
@@ -681,7 +682,8 @@ export function cloneNode(
 	}
 
 	// Handle the Node
-	else if (internalOptions.typescript.isMappedTypeNode(node)) {
+	// Note: isMappedTypeNode may not be supported by the provided TypeScript version, so the invocation is optional.
+	else if (internalOptions.typescript.isMappedTypeNode?.(node)) {
 		return cloneMappedTypeNode(node, internalOptions as CloneNodeInternalOptions<TS.MappedTypeNode>);
 	}
 
