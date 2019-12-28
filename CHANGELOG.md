@@ -1,3 +1,5 @@
+## [0.1.3](https://github.com/wessberg/ts-clone-node/compare/v0.1.2...v0.1.3) (2019-12-28)
+
 ## [0.1.2](https://github.com/wessberg/ts-clone-node/compare/v0.1.1...v0.1.2) (2019-12-28)
 
 ### Bug Fixes
