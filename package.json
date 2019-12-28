@@ -43,6 +43,7 @@
 	],
 	"license": "MIT",
 	"devDependencies": {
+		"@types/node": "^13.1.1",
 		"@types/prettier": "^1.19.0",
 		"@wessberg/rollup-plugin-ts": "^1.1.83",
 		"@wessberg/scaffold": "^1.0.23",
@@ -57,12 +58,10 @@
 		"standard-changelog": "^2.0.21",
 		"ts-node": "8.5.4",
 		"tslint": "^5.20.1",
-		"typescript": "^3.7.4"
-	},
-	"dependencies": {
-		"@types/node": "^13.1.1",
+		"typescript": "^3.7.4",
 		"tslib": "^1.10.0"
 	},
+	"dependencies": {},
 	"peerDependencies": {
 		"typescript": "^3.x"
 	},
