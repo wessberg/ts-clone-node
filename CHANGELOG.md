@@ -1,3 +1,9 @@
+## [0.1.4](https://github.com/wessberg/ts-clone-node/compare/v0.1.3...v0.1.4) (2020-01-02)
+
+### Bug Fixes
+
+- fix issue with cloning MethodSignatures with modifiers ([c392fc9](https://github.com/wessberg/ts-clone-node/commit/c392fc9dd5f0115258c0ef9d3cbd10637b624c86))
+
 ## [0.1.3](https://github.com/wessberg/ts-clone-node/compare/v0.1.2...v0.1.3) (2019-12-28)
 
 ## [0.1.2](https://github.com/wessberg/ts-clone-node/compare/v0.1.1...v0.1.2) (2019-12-28)
