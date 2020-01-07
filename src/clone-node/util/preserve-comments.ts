@@ -1,21 +1,19 @@
-import {CloneNodeInternalOptions, NodeHookValue} from "../clone-node-options";
+import {CloneNodeInternalOptions, CloneNodeOptions} from "../clone-node-options";
 import {MetaNode} from "../type/meta-node";
 import {cloneNodes} from "../clone-nodes";
 import {nextOptions} from "./next-options";
 import {payload} from "./payload";
 import {TS} from "../type/ts";
+import {toInternalOptions} from "./to-internal-options";
 
 function formatCommentRange({pos, end}: TS.CommentRange): string {
 	return `${pos}:${end}`;
 }
 
-export function preserveComments<T extends MetaNode>(node: T, oldNode: T, options: CloneNodeInternalOptions<T>): T {
-	node.jsDoc = options.hook(
-		"jsDoc",
-		cloneNodes(oldNode.jsDoc, nextOptions(options)) as NodeHookValue<T, "jsDoc">,
-		oldNode.jsDoc as NodeHookValue<T, "jsDoc">,
-		payload(options)
-	) as TS.JSDoc[] | undefined;
+export function preserveComments<T extends MetaNode>(node: T, oldNode: T, options: Partial<CloneNodeOptions<T>> | CloneNodeInternalOptions = {}): T {
+	const internalOptions = toInternalOptions(node, options);
+
+	node.jsDoc = internalOptions.hook("jsDoc", cloneNodes(oldNode.jsDoc, nextOptions(internalOptions)), oldNode.jsDoc, payload(internalOptions));
 
 	const oldSourceFile = options.sourceFile;
 	if (oldSourceFile == null) return node;
@@ -24,16 +22,16 @@ export function preserveComments<T extends MetaNode>(node: T, oldNode: T, option
 	const comments: [string, boolean, TS.SyntaxKind.SingleLineCommentTrivia | TS.SyntaxKind.MultiLineCommentTrivia, boolean][] = [];
 
 	for (const leadingOrTrailing of ["getLeadingCommentRanges", "getTrailingCommentRanges"] as const) {
-		const leadingCommentRanges = options.typescript[leadingOrTrailing](oldSourceFile.text, oldNode.pos) ?? [];
-		const trailingCommentRanges = options.typescript[leadingOrTrailing](oldSourceFile.text, oldNode.end) ?? [];
+		const leadingCommentRanges = internalOptions.typescript[leadingOrTrailing](oldSourceFile.text, oldNode.pos) ?? [];
+		const trailingCommentRanges = internalOptions.typescript[leadingOrTrailing](oldSourceFile.text, oldNode.end) ?? [];
 		const commentRanges = [
 			...leadingCommentRanges.map(range => ({...range, hasTrailingNewLine: Boolean(range.hasTrailingNewLine), leading: true})),
 			...trailingCommentRanges.map(range => ({...range, hasTrailingNewLine: Boolean(range.hasTrailingNewLine), leading: false}))
 		];
 
 		for (const commentRange of commentRanges) {
-			if (options.commentRanges.has(formatCommentRange(commentRange))) continue;
-			options.commentRanges.add(formatCommentRange(commentRange));
+			if (internalOptions.commentRanges.has(formatCommentRange(commentRange))) continue;
+			internalOptions.commentRanges.add(formatCommentRange(commentRange));
 			let text = sourceFileText.substring(commentRange.pos, commentRange.end);
 
 			if (!text.startsWith("//") && !text.startsWith("/*")) continue;
@@ -60,9 +58,9 @@ export function preserveComments<T extends MetaNode>(node: T, oldNode: T, option
 		}
 
 		if (leading) {
-			options.typescript.addSyntheticLeadingComment(node, commentKind, slicedComment, hasTrailingNewLine);
+			internalOptions.typescript.addSyntheticLeadingComment(node, commentKind, slicedComment, hasTrailingNewLine);
 		} else {
-			options.typescript.addSyntheticTrailingComment(node, commentKind, slicedComment, hasTrailingNewLine);
+			internalOptions.typescript.addSyntheticTrailingComment(node, commentKind, slicedComment, hasTrailingNewLine);
 		}
 	}
 
