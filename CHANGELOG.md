@@ -1,3 +1,9 @@
+# [0.2.0](https://github.com/wessberg/ts-clone-node/compare/v0.1.4...v0.2.0) (2020-01-07)
+
+### Bug Fixes
+
+- add support for cloning comments ([73887ae](https://github.com/wessberg/ts-clone-node/commit/73887aeba63fb33e49b30ecfeda2ea2073e1d5c9))
+
 ## [0.1.4](https://github.com/wessberg/ts-clone-node/compare/v0.1.3...v0.1.4) (2020-01-02)
 
 ### Bug Fixes
