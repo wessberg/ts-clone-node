@@ -9,6 +9,6 @@ export function cloneJsxSpreadAttribute(
 	options: CloneNodeInternalOptions<TS.JsxSpreadAttribute>
 ): TS.JsxSpreadAttribute {
 	return options.typescript.createJsxSpreadAttribute(
-		options.hook("expression", cloneNode(node.expression, nextOptions(options)), node.expression, payload(options))
+		options.hook("expression", cloneNode(node.expression, nextOptions(node.expression, options)), node.expression, payload(options))
 	);
 }

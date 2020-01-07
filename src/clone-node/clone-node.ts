@@ -1090,12 +1090,15 @@ function executeCloneNode(node: MetaNode, options: CloneNodeInternalOptions): Me
 	throw new TypeError(`Could not handle Node of kind: '${TS.SyntaxKind[node.kind]}'`);
 }
 
-export function cloneNode<T extends MetaNode>(node: T, options?: Partial<CloneNodeOptions<T>> | CloneNodeInternalOptions): T;
-export function cloneNode<T extends MetaNode>(node: undefined, options?: Partial<CloneNodeOptions<T>> | CloneNodeInternalOptions): undefined;
-export function cloneNode<T extends MetaNode>(node: T | undefined, options?: Partial<CloneNodeOptions<T>> | CloneNodeInternalOptions): T | undefined;
+export function cloneNode<T extends MetaNode>(node: T, options?: Partial<CloneNodeOptions<T>> | CloneNodeInternalOptions<T>): T;
+export function cloneNode<T extends MetaNode>(node: undefined, options?: Partial<CloneNodeOptions<T>> | CloneNodeInternalOptions<T>): undefined;
 export function cloneNode<T extends MetaNode>(
 	node: T | undefined,
-	options: Partial<CloneNodeOptions> | CloneNodeInternalOptions = {}
+	options?: Partial<CloneNodeOptions<T>> | CloneNodeInternalOptions<T>
+): T | undefined;
+export function cloneNode<T extends MetaNode>(
+	node: T | undefined,
+	options: Partial<CloneNodeOptions<T>> | CloneNodeInternalOptions<T> = {}
 ): T | undefined {
 	if (node === undefined) return undefined;
 	const internalOptions = toInternalOptions(node, options);

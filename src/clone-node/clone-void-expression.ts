@@ -6,6 +6,6 @@ import {payload} from "./util/payload";
 
 export function cloneVoidExpression(node: TS.VoidExpression, options: CloneNodeInternalOptions<TS.VoidExpression>): TS.VoidExpression {
 	return options.typescript.createVoid(
-		options.hook("expression", cloneNode(node.expression, nextOptions(options)), node.expression, payload(options))
+		options.hook("expression", cloneNode(node.expression, nextOptions(node.expression, options)), node.expression, payload(options))
 	);
 }

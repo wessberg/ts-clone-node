@@ -10,10 +10,15 @@ export function cloneJSDocTemplateTag(node: TS.JSDocTemplateTag, options: CloneN
 	const baseNode = options.typescript.createNode(options.typescript.SyntaxKind.JSDocTemplateTag, -1, -1) as TS.JSDocTemplateTag;
 	baseNode.flags = options.hook("flags", (node.flags |= 8), (node.flags |= 8), payload(options));
 	baseNode.comment = options.hook("comment", node.comment, node.comment, payload(options));
-	baseNode.tagName = options.hook("tagName", cloneNode(node.tagName, nextOptions(options)), node.tagName, payload(options));
-	baseNode.constraint = options.hook("constraint", cloneNode(node.constraint, nextOptions(options)), node.constraint, payload(options));
+	baseNode.tagName = options.hook("tagName", cloneNode(node.tagName, nextOptions(node.tagName, options)), node.tagName, payload(options));
+	baseNode.constraint = options.hook(
+		"constraint",
+		cloneNode(node.constraint, nextOptions(node.constraint, options)),
+		node.constraint,
+		payload(options)
+	);
 	baseNode.typeParameters = ensureNodeArray(
-		options.hook("typeParameters", cloneNodes(node.typeParameters, nextOptions(options)), node.typeParameters, payload(options)),
+		options.hook("typeParameters", cloneNodes(node.typeParameters, nextOptions(node.typeParameters, options)), node.typeParameters, payload(options)),
 		options.typescript
 	);
 

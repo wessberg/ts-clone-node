@@ -5,5 +5,7 @@ import {nextOptions} from "./util/next-options";
 import {payload} from "./util/payload";
 
 export function cloneUnionTypeNode(node: TS.UnionTypeNode, options: CloneNodeInternalOptions<TS.UnionTypeNode>): TS.UnionTypeNode {
-	return options.typescript.createUnionTypeNode(options.hook("types", cloneNodes(node.types, nextOptions(options)), node.types, payload(options)));
+	return options.typescript.createUnionTypeNode(
+		options.hook("types", cloneNodes(node.types, nextOptions(node.types, options)), node.types, payload(options))
+	);
 }

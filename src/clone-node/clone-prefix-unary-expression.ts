@@ -10,6 +10,6 @@ export function clonePrefixUnaryExpression(
 ): TS.PrefixUnaryExpression {
 	return options.typescript.createPrefix(
 		options.hook("operator", node.operator, node.operator, payload(options)),
-		options.hook("operand", cloneNode(node.operand, nextOptions(options)), node.operand, payload(options))
+		options.hook("operand", cloneNode(node.operand, nextOptions(node.operand, options)), node.operand, payload(options))
 	);
 }

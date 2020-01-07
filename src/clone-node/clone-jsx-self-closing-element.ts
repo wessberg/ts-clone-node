@@ -10,8 +10,8 @@ export function cloneJsxSelfClosingElement(
 	options: CloneNodeInternalOptions<TS.JsxSelfClosingElement>
 ): TS.JsxSelfClosingElement {
 	return options.typescript.createJsxSelfClosingElement(
-		options.hook("tagName", cloneNode(node.tagName, nextOptions(options)), node.tagName, payload(options)),
-		options.hook("typeArguments", cloneNodes(node.typeArguments, nextOptions(options)), node.typeArguments, payload(options)),
-		options.hook("attributes", cloneNode(node.attributes, nextOptions(options)), node.attributes, payload(options))
+		options.hook("tagName", cloneNode(node.tagName, nextOptions(node.tagName, options)), node.tagName, payload(options)),
+		options.hook("typeArguments", cloneNodes(node.typeArguments, nextOptions(node.typeArguments, options)), node.typeArguments, payload(options)),
+		options.hook("attributes", cloneNode(node.attributes, nextOptions(node.attributes, options)), node.attributes, payload(options))
 	);
 }

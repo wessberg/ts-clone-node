@@ -8,5 +8,7 @@ export function cloneParenthesizedTypeNode(
 	node: TS.ParenthesizedTypeNode,
 	options: CloneNodeInternalOptions<TS.ParenthesizedTypeNode>
 ): TS.ParenthesizedTypeNode {
-	return options.typescript.createParenthesizedType(options.hook("type", cloneNode(node.type, nextOptions(options)), node.type, payload(options)));
+	return options.typescript.createParenthesizedType(
+		options.hook("type", cloneNode(node.type, nextOptions(node.type, options)), node.type, payload(options))
+	);
 }

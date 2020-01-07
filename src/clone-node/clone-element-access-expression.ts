@@ -9,7 +9,12 @@ export function cloneElementAccessExpression(
 	options: CloneNodeInternalOptions<TS.ElementAccessExpression>
 ): TS.ElementAccessExpression {
 	return options.typescript.createElementAccess(
-		options.hook("expression", cloneNode(node.expression, nextOptions(options)), node.expression, payload(options)),
-		options.hook("argumentExpression", cloneNode(node.argumentExpression, nextOptions(options)), node.argumentExpression, payload(options))
+		options.hook("expression", cloneNode(node.expression, nextOptions(node.expression, options)), node.expression, payload(options)),
+		options.hook(
+			"argumentExpression",
+			cloneNode(node.argumentExpression, nextOptions(node.argumentExpression, options)),
+			node.argumentExpression,
+			payload(options)
+		)
 	);
 }

@@ -6,6 +6,6 @@ import {payload} from "./util/payload";
 
 export function cloneDecorator(node: TS.Decorator, options: CloneNodeInternalOptions<TS.Decorator>): TS.Decorator {
 	return options.typescript.createDecorator(
-		options.hook("expression", cloneNode(node.expression, nextOptions(options)), node.expression, payload(options))
+		options.hook("expression", cloneNode(node.expression, nextOptions(node.expression, options)), node.expression, payload(options))
 	);
 }

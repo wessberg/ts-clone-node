@@ -9,6 +9,6 @@ export function cloneComputedPropertyName(
 	options: CloneNodeInternalOptions<TS.ComputedPropertyName>
 ): TS.ComputedPropertyName {
 	return options.typescript.createComputedPropertyName(
-		options.hook("expression", cloneNode(node.expression, nextOptions(options)), node.expression, payload(options))
+		options.hook("expression", cloneNode(node.expression, nextOptions(node.expression, options)), node.expression, payload(options))
 	);
 }

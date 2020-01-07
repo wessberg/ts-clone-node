@@ -6,6 +6,6 @@ import {payload} from "./util/payload";
 
 export function cloneAwaitExpression(node: TS.AwaitExpression, options: CloneNodeInternalOptions<TS.AwaitExpression>): TS.AwaitExpression {
 	return options.typescript.createAwait(
-		options.hook("expression", cloneNode(node.expression, nextOptions(options)), node.expression, payload(options))
+		options.hook("expression", cloneNode(node.expression, nextOptions(node.expression, options)), node.expression, payload(options))
 	);
 }

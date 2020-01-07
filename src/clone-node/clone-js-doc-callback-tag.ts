@@ -8,12 +8,12 @@ export function cloneJSDocCallbackTag(node: TS.JSDocCallbackTag, options: CloneN
 	const baseNode = options.typescript.createNode(options.typescript.SyntaxKind.JSDocCallbackTag, -1, -1) as TS.JSDocCallbackTag;
 	baseNode.flags = options.hook("flags", (node.flags |= 8), (node.flags |= 8), payload(options));
 	baseNode.comment = options.hook("comment", node.comment, node.comment, payload(options));
-	baseNode.tagName = options.hook("tagName", cloneNode(node.tagName, nextOptions(options)), node.tagName, payload(options));
-	baseNode.fullName = options.hook("fullName", cloneNode(node.fullName, nextOptions(options)), node.fullName, payload(options));
-	baseNode.name = options.hook("name", cloneNode(node.name, nextOptions(options)), node.name, payload(options));
+	baseNode.tagName = options.hook("tagName", cloneNode(node.tagName, nextOptions(node.tagName, options)), node.tagName, payload(options));
+	baseNode.fullName = options.hook("fullName", cloneNode(node.fullName, nextOptions(node.fullName, options)), node.fullName, payload(options));
+	baseNode.name = options.hook("name", cloneNode(node.name, nextOptions(node.name, options)), node.name, payload(options));
 	baseNode.typeExpression = options.hook(
 		"typeExpression",
-		cloneNode(node.typeExpression, nextOptions(options)),
+		cloneNode(node.typeExpression, nextOptions(node.typeExpression, options)),
 		node.typeExpression,
 		payload(options)
 	);

@@ -9,6 +9,6 @@ export function cloneIntersectionTypeNode(
 	options: CloneNodeInternalOptions<TS.IntersectionTypeNode>
 ): TS.IntersectionTypeNode {
 	return options.typescript.createIntersectionTypeNode(
-		options.hook("types", cloneNodes(node.types, nextOptions(options)), node.types, payload(options))
+		options.hook("types", cloneNodes(node.types, nextOptions(node.types, options)), node.types, payload(options))
 	);
 }

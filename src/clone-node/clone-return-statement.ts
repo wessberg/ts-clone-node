@@ -6,6 +6,6 @@ import {payload} from "./util/payload";
 
 export function cloneReturnStatement(node: TS.ReturnStatement, options: CloneNodeInternalOptions<TS.ReturnStatement>): TS.ReturnStatement {
 	return options.typescript.createReturn(
-		options.hook("expression", cloneNode(node.expression, nextOptions(options)), node.expression, payload(options))
+		options.hook("expression", cloneNode(node.expression, nextOptions(node.expression, options)), node.expression, payload(options))
 	);
 }

@@ -9,6 +9,6 @@ export function cloneObjectLiteralExpression(
 	options: CloneNodeInternalOptions<TS.ObjectLiteralExpression>
 ): TS.ObjectLiteralExpression {
 	return options.typescript.createObjectLiteral(
-		options.hook("properties", cloneNodes(node.properties, nextOptions(options)), node.properties, payload(options))
+		options.hook("properties", cloneNodes(node.properties, nextOptions(node.properties, options)), node.properties, payload(options))
 	);
 }

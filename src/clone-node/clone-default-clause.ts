@@ -6,6 +6,6 @@ import {payload} from "./util/payload";
 
 export function cloneDefaultClause(node: TS.DefaultClause, options: CloneNodeInternalOptions<TS.DefaultClause>): TS.DefaultClause {
 	return options.typescript.createDefaultClause(
-		options.hook("statements", cloneNodes(node.statements, nextOptions(options)), node.statements, payload(options))
+		options.hook("statements", cloneNodes(node.statements, nextOptions(node.statements, options)), node.statements, payload(options))
 	);
 }

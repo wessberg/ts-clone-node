@@ -6,6 +6,6 @@ import {payload} from "./util/payload";
 
 export function cloneJsxClosingElement(node: TS.JsxClosingElement, options: CloneNodeInternalOptions<TS.JsxClosingElement>): TS.JsxClosingElement {
 	return options.typescript.createJsxClosingElement(
-		options.hook("tagName", cloneNode(node.tagName, nextOptions(options)), node.tagName, payload(options))
+		options.hook("tagName", cloneNode(node.tagName, nextOptions(node.tagName, options)), node.tagName, payload(options))
 	);
 }

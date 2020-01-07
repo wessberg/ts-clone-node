@@ -10,12 +10,12 @@ export function cloneFunctionExpression(
 	options: CloneNodeInternalOptions<TS.FunctionExpression>
 ): TS.FunctionExpression {
 	return options.typescript.createFunctionExpression(
-		options.hook("modifiers", cloneNodes(node.modifiers, nextOptions(options)), node.modifiers, payload(options)),
-		options.hook("asteriskToken", cloneNode(node.asteriskToken, nextOptions(options)), node.asteriskToken, payload(options)),
-		options.hook("name", cloneNode(node.name, nextOptions(options)), node.name, payload(options)),
-		options.hook("typeParameters", cloneNodes(node.typeParameters, nextOptions(options)), node.typeParameters, payload(options)),
-		options.hook("parameters", cloneNodes(node.parameters, nextOptions(options)), node.parameters, payload(options)),
-		options.hook("type", cloneNode(node.type, nextOptions(options)), node.type, payload(options)),
-		options.hook("body", cloneNode(node.body, nextOptions(options)), node.body, payload(options))
+		options.hook("modifiers", cloneNodes(node.modifiers, nextOptions(node.modifiers, options)), node.modifiers, payload(options)),
+		options.hook("asteriskToken", cloneNode(node.asteriskToken, nextOptions(node.asteriskToken, options)), node.asteriskToken, payload(options)),
+		options.hook("name", cloneNode(node.name, nextOptions(node.name, options)), node.name, payload(options)),
+		options.hook("typeParameters", cloneNodes(node.typeParameters, nextOptions(node.typeParameters, options)), node.typeParameters, payload(options)),
+		options.hook("parameters", cloneNodes(node.parameters, nextOptions(node.parameters, options)), node.parameters, payload(options)),
+		options.hook("type", cloneNode(node.type, nextOptions(node.type, options)), node.type, payload(options)),
+		options.hook("body", cloneNode(node.body, nextOptions(node.body, options)), node.body, payload(options))
 	);
 }

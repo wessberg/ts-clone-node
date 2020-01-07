@@ -9,7 +9,7 @@ export function clonePropertyAssignment(
 	options: CloneNodeInternalOptions<TS.PropertyAssignment>
 ): TS.PropertyAssignment {
 	return options.typescript.createPropertyAssignment(
-		options.hook("name", cloneNode(node.name, nextOptions(options)), node.name, payload(options)),
-		options.hook("initializer", cloneNode(node.initializer, nextOptions(options)), node.initializer, payload(options))
+		options.hook("name", cloneNode(node.name, nextOptions(node.name, options)), node.name, payload(options)),
+		options.hook("initializer", cloneNode(node.initializer, nextOptions(node.initializer, options)), node.initializer, payload(options))
 	);
 }

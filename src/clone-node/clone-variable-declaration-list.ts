@@ -9,7 +9,7 @@ export function cloneVariableDeclarationList(
 	options: CloneNodeInternalOptions<TS.VariableDeclarationList>
 ): TS.VariableDeclarationList {
 	return options.typescript.createVariableDeclarationList(
-		options.hook("declarations", cloneNodes(node.declarations, nextOptions(options)), node.declarations, payload(options)),
+		options.hook("declarations", cloneNodes(node.declarations, nextOptions(node.declarations, options)), node.declarations, payload(options)),
 		options.hook("flags", node.flags, node.flags, payload(options))
 	);
 }

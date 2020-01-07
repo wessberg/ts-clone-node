@@ -10,12 +10,12 @@ export function cloneParameterDeclaration(
 	options: CloneNodeInternalOptions<TS.ParameterDeclaration>
 ): TS.ParameterDeclaration {
 	return options.typescript.createParameter(
-		options.hook("decorators", cloneNodes(node.decorators, nextOptions(options)), node.decorators, payload(options)),
-		options.hook("modifiers", cloneNodes(node.modifiers, nextOptions(options)), node.modifiers, payload(options)),
-		options.hook("dotDotDotToken", cloneNode(node.dotDotDotToken, nextOptions(options)), node.dotDotDotToken, payload(options)),
-		options.hook("name", cloneNode(node.name, nextOptions(options)), node.name, payload(options)),
-		options.hook("questionToken", cloneNode(node.questionToken, nextOptions(options)), node.questionToken, payload(options)),
-		options.hook("type", cloneNode(node.type, nextOptions(options)), node.type, payload(options)),
-		options.hook("initializer", cloneNode(node.initializer, nextOptions(options)), node.initializer, payload(options))
+		options.hook("decorators", cloneNodes(node.decorators, nextOptions(node.decorators, options)), node.decorators, payload(options)),
+		options.hook("modifiers", cloneNodes(node.modifiers, nextOptions(node.modifiers, options)), node.modifiers, payload(options)),
+		options.hook("dotDotDotToken", cloneNode(node.dotDotDotToken, nextOptions(node.dotDotDotToken, options)), node.dotDotDotToken, payload(options)),
+		options.hook("name", cloneNode(node.name, nextOptions(node.name, options)), node.name, payload(options)),
+		options.hook("questionToken", cloneNode(node.questionToken, nextOptions(node.questionToken, options)), node.questionToken, payload(options)),
+		options.hook("type", cloneNode(node.type, nextOptions(node.type, options)), node.type, payload(options)),
+		options.hook("initializer", cloneNode(node.initializer, nextOptions(node.initializer, options)), node.initializer, payload(options))
 	);
 }

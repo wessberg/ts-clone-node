@@ -5,5 +5,7 @@ import {nextOptions} from "./util/next-options";
 import {payload} from "./util/payload";
 
 export function cloneOptionalTypeNode(node: TS.OptionalTypeNode, options: CloneNodeInternalOptions<TS.OptionalTypeNode>): TS.OptionalTypeNode {
-	return options.typescript.createOptionalTypeNode(options.hook("type", cloneNode(node.type, nextOptions(options)), node.type, payload(options)));
+	return options.typescript.createOptionalTypeNode(
+		options.hook("type", cloneNode(node.type, nextOptions(node.type, options)), node.type, payload(options))
+	);
 }

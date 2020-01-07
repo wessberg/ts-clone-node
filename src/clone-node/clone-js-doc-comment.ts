@@ -10,7 +10,10 @@ export function cloneJsDoc(node: TS.JSDoc, options: CloneNodeInternalOptions<TS.
 
 	baseNode.flags = options.hook("flags", (node.flags |= 8), (node.flags |= 8), payload(options));
 	baseNode.comment = options.hook("comment", node.comment, node.comment, payload(options));
-	baseNode.tags = ensureNodeArray(options.hook("tags", cloneNodes(node.tags, nextOptions(options)), node.tags, payload(options)), options.typescript);
+	baseNode.tags = ensureNodeArray(
+		options.hook("tags", cloneNodes(node.tags, nextOptions(node.tags, options)), node.tags, payload(options)),
+		options.typescript
+	);
 
 	return baseNode;
 }

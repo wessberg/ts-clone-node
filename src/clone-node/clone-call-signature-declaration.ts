@@ -10,8 +10,8 @@ export function cloneCallSignatureDeclaration(
 	options: CloneNodeInternalOptions<TS.CallSignatureDeclaration>
 ): TS.CallSignatureDeclaration {
 	return options.typescript.createCallSignature(
-		options.hook("typeParameters", cloneNodes(node.typeParameters, nextOptions(options)), node.typeParameters, payload(options)),
-		options.hook("parameters", cloneNodes(node.parameters, nextOptions(options)), node.parameters, payload(options)),
-		options.hook("type", cloneNode(node.type, nextOptions(options)), node.type, payload(options))
+		options.hook("typeParameters", cloneNodes(node.typeParameters, nextOptions(node.typeParameters, options)), node.typeParameters, payload(options)),
+		options.hook("parameters", cloneNodes(node.parameters, nextOptions(node.parameters, options)), node.parameters, payload(options)),
+		options.hook("type", cloneNode(node.type, nextOptions(node.type, options)), node.type, payload(options))
 	);
 }

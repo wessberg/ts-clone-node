@@ -7,6 +7,6 @@ import {payload} from "./util/payload";
 export function cloneHeritageClause(node: TS.HeritageClause, options: CloneNodeInternalOptions<TS.HeritageClause>): TS.HeritageClause {
 	return options.typescript.createHeritageClause(
 		options.hook("token", node.token, node.token, payload(options)),
-		options.hook("types", cloneNodes(node.types, nextOptions(options)), node.types, payload(options))
+		options.hook("types", cloneNodes(node.types, nextOptions(node.types, options)), node.types, payload(options))
 	);
 }

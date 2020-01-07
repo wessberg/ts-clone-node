@@ -9,6 +9,6 @@ export function cloneParenthesizedExpression(
 	options: CloneNodeInternalOptions<TS.ParenthesizedExpression>
 ): TS.ParenthesizedExpression {
 	return options.typescript.createParen(
-		options.hook("expression", cloneNode(node.expression, nextOptions(options)), node.expression, payload(options))
+		options.hook("expression", cloneNode(node.expression, nextOptions(node.expression, options)), node.expression, payload(options))
 	);
 }

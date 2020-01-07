@@ -9,6 +9,6 @@ export function cloneCommaListExpression(
 	options: CloneNodeInternalOptions<TS.CommaListExpression>
 ): TS.CommaListExpression {
 	return options.typescript.createCommaList(
-		options.hook("elements", cloneNodes(node.elements, nextOptions(options)), node.elements, payload(options))
+		options.hook("elements", cloneNodes(node.elements, nextOptions(node.elements, options)), node.elements, payload(options))
 	);
 }

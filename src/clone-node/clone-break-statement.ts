@@ -5,5 +5,5 @@ import {nextOptions} from "./util/next-options";
 import {payload} from "./util/payload";
 
 export function cloneBreakStatement(node: TS.BreakStatement, options: CloneNodeInternalOptions<TS.BreakStatement>): TS.BreakStatement {
-	return options.typescript.createBreak(options.hook("label", cloneNode(node.label, nextOptions(options)), node.label, payload(options)));
+	return options.typescript.createBreak(options.hook("label", cloneNode(node.label, nextOptions(node.label, options)), node.label, payload(options)));
 }

@@ -6,6 +6,6 @@ import {payload} from "./util/payload";
 
 export function cloneThrowStatement(node: TS.ThrowStatement, options: CloneNodeInternalOptions<TS.ThrowStatement>): TS.ThrowStatement {
 	return options.typescript.createThrow(
-		options.hook("expression", cloneNode(node.expression, nextOptions(options)), node.expression, payload(options))!
+		options.hook("expression", cloneNode(node.expression, nextOptions(node.expression, options)), node.expression, payload(options))!
 	);
 }

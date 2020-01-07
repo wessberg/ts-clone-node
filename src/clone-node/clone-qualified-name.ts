@@ -6,7 +6,7 @@ import {payload} from "./util/payload";
 
 export function cloneQualifiedName(node: TS.QualifiedName, options: CloneNodeInternalOptions<TS.QualifiedName>): TS.QualifiedName {
 	return options.typescript.createQualifiedName(
-		options.hook("left", cloneNode(node.left, nextOptions(options)), node.left, payload(options)),
-		options.hook("right", cloneNode(node.right, nextOptions(options)), node.right, payload(options))
+		options.hook("left", cloneNode(node.left, nextOptions(node.left, options)), node.left, payload(options)),
+		options.hook("right", cloneNode(node.right, nextOptions(node.right, options)), node.right, payload(options))
 	);
 }

@@ -6,6 +6,6 @@ import {payload} from "./util/payload";
 
 export function cloneTupleTypeNode(node: TS.TupleTypeNode, options: CloneNodeInternalOptions<TS.TupleTypeNode>): TS.TupleTypeNode {
 	return options.typescript.createTupleTypeNode(
-		options.hook("elementTypes", cloneNodes(node.elementTypes, nextOptions(options)), node.elementTypes, payload(options))
+		options.hook("elementTypes", cloneNodes(node.elementTypes, nextOptions(node.elementTypes, options)), node.elementTypes, payload(options))
 	);
 }

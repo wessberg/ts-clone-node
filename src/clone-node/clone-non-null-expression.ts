@@ -6,6 +6,6 @@ import {payload} from "./util/payload";
 
 export function cloneNonNullExpression(node: TS.NonNullExpression, options: CloneNodeInternalOptions<TS.NonNullExpression>): TS.NonNullExpression {
 	return options.typescript.createNonNullExpression(
-		options.hook("expression", cloneNode(node.expression, nextOptions(options)), node.expression, payload(options))
+		options.hook("expression", cloneNode(node.expression, nextOptions(node.expression, options)), node.expression, payload(options))
 	);
 }

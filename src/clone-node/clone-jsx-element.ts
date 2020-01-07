@@ -7,8 +7,8 @@ import {payload} from "./util/payload";
 
 export function cloneJsxElement(node: TS.JsxElement, options: CloneNodeInternalOptions<TS.JsxElement>): TS.JsxElement {
 	return options.typescript.createJsxElement(
-		options.hook("openingElement", cloneNode(node.openingElement, nextOptions(options)), node.openingElement, payload(options)),
-		options.hook("children", cloneNodes(node.children, nextOptions(options)), node.children, payload(options)),
-		options.hook("closingElement", cloneNode(node.closingElement, nextOptions(options)), node.closingElement, payload(options))
+		options.hook("openingElement", cloneNode(node.openingElement, nextOptions(node.openingElement, options)), node.openingElement, payload(options)),
+		options.hook("children", cloneNodes(node.children, nextOptions(node.children, options)), node.children, payload(options)),
+		options.hook("closingElement", cloneNode(node.closingElement, nextOptions(node.closingElement, options)), node.closingElement, payload(options))
 	);
 }

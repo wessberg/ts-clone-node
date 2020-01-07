@@ -6,7 +6,12 @@ import {payload} from "./util/payload";
 
 export function cloneCatchClause(node: TS.CatchClause, options: CloneNodeInternalOptions<TS.CatchClause>): TS.CatchClause {
 	return options.typescript.createCatchClause(
-		options.hook("variableDeclaration", cloneNode(node.variableDeclaration, nextOptions(options)), node.variableDeclaration, payload(options)),
-		options.hook("block", cloneNode(node.block, nextOptions(options)), node.block, payload(options))
+		options.hook(
+			"variableDeclaration",
+			cloneNode(node.variableDeclaration, nextOptions(node.variableDeclaration, options)),
+			node.variableDeclaration,
+			payload(options)
+		),
+		options.hook("block", cloneNode(node.block, nextOptions(node.block, options)), node.block, payload(options))
 	);
 }

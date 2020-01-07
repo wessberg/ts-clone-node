@@ -6,6 +6,6 @@ import {payload} from "./util/payload";
 
 export function cloneArrayTypeNode(node: TS.ArrayTypeNode, options: CloneNodeInternalOptions<TS.ArrayTypeNode>): TS.ArrayTypeNode {
 	return options.typescript.createArrayTypeNode(
-		options.hook("elementType", cloneNode(node.elementType, nextOptions(options)), node.elementType, payload(options))
+		options.hook("elementType", cloneNode(node.elementType, nextOptions(node.elementType, options)), node.elementType, payload(options))
 	);
 }

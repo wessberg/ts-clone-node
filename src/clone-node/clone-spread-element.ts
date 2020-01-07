@@ -6,6 +6,6 @@ import {payload} from "./util/payload";
 
 export function cloneSpreadElement(node: TS.SpreadElement, options: CloneNodeInternalOptions<TS.SpreadElement>): TS.SpreadElement {
 	return options.typescript.createSpread(
-		options.hook("expression", cloneNode(node.expression, nextOptions(options)), node.expression, payload(options))
+		options.hook("expression", cloneNode(node.expression, nextOptions(node.expression, options)), node.expression, payload(options))
 	);
 }

@@ -9,6 +9,6 @@ export function clonePartiallyEmittedExpression(
 	options: CloneNodeInternalOptions<TS.PartiallyEmittedExpression>
 ): TS.PartiallyEmittedExpression {
 	return options.typescript.createPartiallyEmittedExpression(
-		options.hook("expression", cloneNode(node.expression, nextOptions(options)), node.expression, payload(options))
+		options.hook("expression", cloneNode(node.expression, nextOptions(node.expression, options)), node.expression, payload(options))
 	);
 }

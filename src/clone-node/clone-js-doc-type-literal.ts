@@ -8,7 +8,7 @@ export function cloneJSDocTypeLiteral(node: TS.JSDocTypeLiteral, options: CloneN
 	const baseNode = options.typescript.createNode(options.typescript.SyntaxKind.JSDocTypeLiteral, -1, -1) as TS.JSDocTypeLiteral;
 	baseNode.jsDocPropertyTags = options.hook(
 		"jsDocPropertyTags",
-		cloneNodes(node.jsDocPropertyTags, nextOptions(options)),
+		cloneNodes(node.jsDocPropertyTags, nextOptions(node.jsDocPropertyTags, options)),
 		node.jsDocPropertyTags,
 		payload(options)
 	);

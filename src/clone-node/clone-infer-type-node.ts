@@ -6,6 +6,6 @@ import {payload} from "./util/payload";
 
 export function cloneInferTypeNode(node: TS.InferTypeNode, options: CloneNodeInternalOptions<TS.InferTypeNode>): TS.InferTypeNode {
 	return options.typescript.createInferTypeNode(
-		options.hook("typeParameter", cloneNode(node.typeParameter, nextOptions(options)), node.typeParameter, payload(options))
+		options.hook("typeParameter", cloneNode(node.typeParameter, nextOptions(node.typeParameter, options)), node.typeParameter, payload(options))
 	);
 }

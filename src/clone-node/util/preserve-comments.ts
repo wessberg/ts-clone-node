@@ -13,7 +13,12 @@ function formatCommentRange({pos, end}: TS.CommentRange): string {
 export function preserveComments<T extends MetaNode>(node: T, oldNode: T, options: Partial<CloneNodeOptions<T>> | CloneNodeInternalOptions = {}): T {
 	const internalOptions = toInternalOptions(node, options);
 
-	node.jsDoc = internalOptions.hook("jsDoc", cloneNodes(oldNode.jsDoc, nextOptions(internalOptions)), oldNode.jsDoc, payload(internalOptions));
+	node.jsDoc = internalOptions.hook(
+		"jsDoc",
+		cloneNodes(oldNode.jsDoc, nextOptions(oldNode.jsDoc, internalOptions)),
+		oldNode.jsDoc,
+		payload(internalOptions)
+	);
 
 	const oldSourceFile = options.sourceFile;
 	if (oldSourceFile == null) return node;

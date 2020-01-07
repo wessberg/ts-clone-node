@@ -9,6 +9,6 @@ export function cloneExpressionStatement(
 	options: CloneNodeInternalOptions<TS.ExpressionStatement>
 ): TS.ExpressionStatement {
 	return options.typescript.createExpressionStatement(
-		options.hook("expression", cloneNode(node.expression, nextOptions(options)), node.expression, payload(options))
+		options.hook("expression", cloneNode(node.expression, nextOptions(node.expression, options)), node.expression, payload(options))
 	);
 }

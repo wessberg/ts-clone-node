@@ -6,6 +6,6 @@ import {payload} from "./util/payload";
 
 export function cloneDeleteExpression(node: TS.DeleteExpression, options: CloneNodeInternalOptions<TS.DeleteExpression>): TS.DeleteExpression {
 	return options.typescript.createDelete(
-		options.hook("expression", cloneNode(node.expression, nextOptions(options)), node.expression, payload(options))
+		options.hook("expression", cloneNode(node.expression, nextOptions(node.expression, options)), node.expression, payload(options))
 	);
 }

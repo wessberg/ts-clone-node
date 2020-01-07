@@ -6,6 +6,6 @@ import {payload} from "./util/payload";
 
 export function cloneBlock(node: TS.Block, options: CloneNodeInternalOptions<TS.Block>): TS.Block {
 	return options.typescript.createBlock(
-		options.hook("statements", cloneNodes(node.statements, nextOptions(options)), node.statements, payload(options))
+		options.hook("statements", cloneNodes(node.statements, nextOptions(node.statements, options)), node.statements, payload(options))
 	);
 }

@@ -9,7 +9,7 @@ export function cloneIndexedAccessTypeNode(
 	options: CloneNodeInternalOptions<TS.IndexedAccessTypeNode>
 ): TS.IndexedAccessTypeNode {
 	return options.typescript.createIndexedAccessTypeNode(
-		options.hook("objectType", cloneNode(node.objectType, nextOptions(options)), node.objectType, payload(options)),
-		options.hook("indexType", cloneNode(node.indexType, nextOptions(options)), node.indexType, payload(options))
+		options.hook("objectType", cloneNode(node.objectType, nextOptions(node.objectType, options)), node.objectType, payload(options)),
+		options.hook("indexType", cloneNode(node.indexType, nextOptions(node.indexType, options)), node.indexType, payload(options))
 	);
 }

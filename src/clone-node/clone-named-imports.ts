@@ -6,6 +6,6 @@ import {payload} from "./util/payload";
 
 export function cloneNamedImports(node: TS.NamedImports, options: CloneNodeInternalOptions<TS.NamedImports>): TS.NamedImports {
 	return options.typescript.createNamedImports(
-		options.hook("elements", cloneNodes(node.elements, nextOptions(options)), node.elements, payload(options))
+		options.hook("elements", cloneNodes(node.elements, nextOptions(node.elements, options)), node.elements, payload(options))
 	);
 }

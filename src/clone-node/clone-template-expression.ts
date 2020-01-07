@@ -10,7 +10,7 @@ export function cloneTemplateExpression(
 	options: CloneNodeInternalOptions<TS.TemplateExpression>
 ): TS.TemplateExpression {
 	return options.typescript.createTemplateExpression(
-		options.hook("head", cloneNode(node.head, nextOptions(options)), node.head, payload(options)),
-		options.hook("templateSpans", cloneNodes(node.templateSpans, nextOptions(options)), node.templateSpans, payload(options))
+		options.hook("head", cloneNode(node.head, nextOptions(node.head, options)), node.head, payload(options)),
+		options.hook("templateSpans", cloneNodes(node.templateSpans, nextOptions(node.templateSpans, options)), node.templateSpans, payload(options))
 	);
 }

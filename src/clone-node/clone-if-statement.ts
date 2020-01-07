@@ -6,8 +6,8 @@ import {payload} from "./util/payload";
 
 export function cloneIfStatement(node: TS.IfStatement, options: CloneNodeInternalOptions<TS.IfStatement>): TS.IfStatement {
 	return options.typescript.createIf(
-		options.hook("expression", cloneNode(node.expression, nextOptions(options)), node.expression, payload(options)),
-		options.hook("thenStatement", cloneNode(node.thenStatement, nextOptions(options)), node.thenStatement, payload(options)),
-		options.hook("elseStatement", cloneNode(node.elseStatement, nextOptions(options)), node.elseStatement, payload(options))
+		options.hook("expression", cloneNode(node.expression, nextOptions(node.expression, options)), node.expression, payload(options)),
+		options.hook("thenStatement", cloneNode(node.thenStatement, nextOptions(node.thenStatement, options)), node.thenStatement, payload(options)),
+		options.hook("elseStatement", cloneNode(node.elseStatement, nextOptions(node.elseStatement, options)), node.elseStatement, payload(options))
 	);
 }

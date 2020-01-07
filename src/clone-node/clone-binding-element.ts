@@ -6,9 +6,9 @@ import {payload} from "./util/payload";
 
 export function cloneBindingElement(node: TS.BindingElement, options: CloneNodeInternalOptions<TS.BindingElement>): TS.BindingElement {
 	return options.typescript.createBindingElement(
-		options.hook("dotDotDotToken", cloneNode(node.dotDotDotToken, nextOptions(options)), node.dotDotDotToken, payload(options)),
-		options.hook("propertyName", cloneNode(node.propertyName, nextOptions(options)), node.propertyName, payload(options)),
-		options.hook("name", cloneNode(node.name, nextOptions(options)), node.name, payload(options)),
-		options.hook("initializer", cloneNode(node.initializer, nextOptions(options)), node.initializer, payload(options))
+		options.hook("dotDotDotToken", cloneNode(node.dotDotDotToken, nextOptions(node.dotDotDotToken, options)), node.dotDotDotToken, payload(options)),
+		options.hook("propertyName", cloneNode(node.propertyName, nextOptions(node.propertyName, options)), node.propertyName, payload(options)),
+		options.hook("name", cloneNode(node.name, nextOptions(node.name, options)), node.name, payload(options)),
+		options.hook("initializer", cloneNode(node.initializer, nextOptions(node.initializer, options)), node.initializer, payload(options))
 	);
 }

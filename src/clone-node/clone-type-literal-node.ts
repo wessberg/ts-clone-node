@@ -6,6 +6,6 @@ import {payload} from "./util/payload";
 
 export function cloneTypeLiteralNode(node: TS.TypeLiteralNode, options: CloneNodeInternalOptions<TS.TypeLiteralNode>): TS.TypeLiteralNode {
 	return options.typescript.createTypeLiteralNode(
-		options.hook("members", cloneNodes(node.members, nextOptions(options)), node.members, payload(options))
+		options.hook("members", cloneNodes(node.members, nextOptions(node.members, options)), node.members, payload(options))
 	);
 }

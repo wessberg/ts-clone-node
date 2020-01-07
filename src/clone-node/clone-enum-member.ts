@@ -6,7 +6,7 @@ import {payload} from "./util/payload";
 
 export function cloneEnumMember(node: TS.EnumMember, options: CloneNodeInternalOptions<TS.EnumMember>): TS.EnumMember {
 	return options.typescript.createEnumMember(
-		options.hook("name", cloneNode(node.name, nextOptions(options)), node.name, payload(options)),
-		options.hook("initializer", cloneNode(node.initializer, nextOptions(options)), node.initializer, payload(options))
+		options.hook("name", cloneNode(node.name, nextOptions(node.name, options)), node.name, payload(options)),
+		options.hook("initializer", cloneNode(node.initializer, nextOptions(node.initializer, options)), node.initializer, payload(options))
 	);
 }
