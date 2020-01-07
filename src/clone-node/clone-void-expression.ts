@@ -5,5 +5,7 @@ import {nextOptions} from "./util/next-options";
 import {payload} from "./util/payload";
 
 export function cloneVoidExpression(node: TS.VoidExpression, options: CloneNodeInternalOptions<TS.VoidExpression>): TS.VoidExpression {
-	return options.typescript.createVoid(options.hook("expression", cloneNode(node.expression, nextOptions(options)), payload(options)));
+	return options.typescript.createVoid(
+		options.hook("expression", cloneNode(node.expression, nextOptions(options)), node.expression, payload(options))
+	);
 }

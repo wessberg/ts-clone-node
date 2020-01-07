@@ -7,10 +7,10 @@ import {payload} from "./util/payload";
 
 export function clonePropertySignature(node: TS.PropertySignature, options: CloneNodeInternalOptions<TS.PropertySignature>): TS.PropertySignature {
 	return options.typescript.createPropertySignature(
-		options.hook("modifiers", cloneNodes(node.modifiers, nextOptions(options)), payload(options)),
-		options.hook("name", cloneNode(node.name, nextOptions(options)), payload(options)),
-		options.hook("questionToken", cloneNode(node.questionToken, nextOptions(options)), payload(options)),
-		options.hook("type", cloneNode(node.type, nextOptions(options)), payload(options)),
-		options.hook("initializer", cloneNode(node.initializer, nextOptions(options)), payload(options))
+		options.hook("modifiers", cloneNodes(node.modifiers, nextOptions(options)), node.modifiers, payload(options)),
+		options.hook("name", cloneNode(node.name, nextOptions(options)), node.name, payload(options)),
+		options.hook("questionToken", cloneNode(node.questionToken, nextOptions(options)), node.questionToken, payload(options)),
+		options.hook("type", cloneNode(node.type, nextOptions(options)), node.type, payload(options)),
+		options.hook("initializer", cloneNode(node.initializer, nextOptions(options)), node.initializer, payload(options))
 	);
 }

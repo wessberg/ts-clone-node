@@ -6,8 +6,8 @@ import {payload} from "./util/payload";
 
 export function cloneBinaryExpression(node: TS.BinaryExpression, options: CloneNodeInternalOptions<TS.BinaryExpression>): TS.BinaryExpression {
 	return options.typescript.createBinary(
-		options.hook("left", cloneNode(node.left, nextOptions(options)), payload(options)),
-		options.hook("operatorToken", cloneNode(node.operatorToken, nextOptions(options)), payload(options)),
-		options.hook("right", cloneNode(node.right, nextOptions(options)), payload(options))
+		options.hook("left", cloneNode(node.left, nextOptions(options)), node.left, payload(options)),
+		options.hook("operatorToken", cloneNode(node.operatorToken, nextOptions(options)), node.operatorToken, payload(options)),
+		options.hook("right", cloneNode(node.right, nextOptions(options)), node.right, payload(options))
 	);
 }

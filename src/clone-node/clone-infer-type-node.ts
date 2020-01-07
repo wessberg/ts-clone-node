@@ -5,5 +5,7 @@ import {nextOptions} from "./util/next-options";
 import {payload} from "./util/payload";
 
 export function cloneInferTypeNode(node: TS.InferTypeNode, options: CloneNodeInternalOptions<TS.InferTypeNode>): TS.InferTypeNode {
-	return options.typescript.createInferTypeNode(options.hook("typeParameter", cloneNode(node.typeParameter, nextOptions(options)), payload(options)));
+	return options.typescript.createInferTypeNode(
+		options.hook("typeParameter", cloneNode(node.typeParameter, nextOptions(options)), node.typeParameter, payload(options))
+	);
 }

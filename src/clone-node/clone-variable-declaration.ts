@@ -9,8 +9,8 @@ export function cloneVariableDeclaration(
 	options: CloneNodeInternalOptions<TS.VariableDeclaration>
 ): TS.VariableDeclaration {
 	return options.typescript.createVariableDeclaration(
-		options.hook("name", cloneNode(node.name, nextOptions(options)), payload(options)),
-		options.hook("type", cloneNode(node.type, nextOptions(options)), payload(options)),
-		options.hook("initializer", cloneNode(node.initializer, nextOptions(options)), payload(options))
+		options.hook("name", cloneNode(node.name, nextOptions(options)), node.name, payload(options)),
+		options.hook("type", cloneNode(node.type, nextOptions(options)), node.type, payload(options)),
+		options.hook("initializer", cloneNode(node.initializer, nextOptions(options)), node.initializer, payload(options))
 	);
 }

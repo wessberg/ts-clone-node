@@ -5,5 +5,7 @@ import {nextOptions} from "./util/next-options";
 import {payload} from "./util/payload";
 
 export function cloneJsxAttributes(node: TS.JsxAttributes, options: CloneNodeInternalOptions<TS.JsxAttributes>): TS.JsxAttributes {
-	return options.typescript.createJsxAttributes(options.hook("properties", cloneNodes(node.properties, nextOptions(options)), payload(options)));
+	return options.typescript.createJsxAttributes(
+		options.hook("properties", cloneNodes(node.properties, nextOptions(options)), node.properties, payload(options))
+	);
 }

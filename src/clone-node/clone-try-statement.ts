@@ -6,8 +6,8 @@ import {payload} from "./util/payload";
 
 export function cloneTryStatement(node: TS.TryStatement, options: CloneNodeInternalOptions<TS.TryStatement>): TS.TryStatement {
 	return options.typescript.createTry(
-		options.hook("tryBlock", cloneNode(node.tryBlock, nextOptions(options)), payload(options)),
-		options.hook("catchClause", cloneNode(node.catchClause, nextOptions(options)), payload(options)),
-		options.hook("finallyBlock", cloneNode(node.finallyBlock, nextOptions(options)), payload(options))
+		options.hook("tryBlock", cloneNode(node.tryBlock, nextOptions(options)), node.tryBlock, payload(options)),
+		options.hook("catchClause", cloneNode(node.catchClause, nextOptions(options)), node.catchClause, payload(options)),
+		options.hook("finallyBlock", cloneNode(node.finallyBlock, nextOptions(options)), node.finallyBlock, payload(options))
 	);
 }

@@ -7,9 +7,9 @@ import {payload} from "./util/payload";
 
 export function cloneImportTypeNode(node: TS.ImportTypeNode, options: CloneNodeInternalOptions<TS.ImportTypeNode>): TS.ImportTypeNode {
 	return options.typescript.createImportTypeNode(
-		options.hook("argument", cloneNode(node.argument, nextOptions(options)), payload(options)),
-		options.hook("qualifier", cloneNode(node.qualifier, nextOptions(options)), payload(options)),
-		options.hook("typeArguments", cloneNodes(node.typeArguments, nextOptions(options)), payload(options)),
-		options.hook("isTypeOf", node.isTypeOf, payload(options))
+		options.hook("argument", cloneNode(node.argument, nextOptions(options)), node.argument, payload(options)),
+		options.hook("qualifier", cloneNode(node.qualifier, nextOptions(options)), node.qualifier, payload(options)),
+		options.hook("typeArguments", cloneNodes(node.typeArguments, nextOptions(options)), node.typeArguments, payload(options)),
+		options.hook("isTypeOf", node.isTypeOf, node.isTypeOf, payload(options))
 	);
 }

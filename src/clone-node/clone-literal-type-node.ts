@@ -5,5 +5,7 @@ import {nextOptions} from "./util/next-options";
 import {payload} from "./util/payload";
 
 export function cloneLiteralTypeNode(node: TS.LiteralTypeNode, options: CloneNodeInternalOptions<TS.LiteralTypeNode>): TS.LiteralTypeNode {
-	return options.typescript.createLiteralTypeNode(options.hook("literal", cloneNode(node.literal, nextOptions(options)), payload(options)));
+	return options.typescript.createLiteralTypeNode(
+		options.hook("literal", cloneNode(node.literal, nextOptions(options)), node.literal, payload(options))
+	);
 }

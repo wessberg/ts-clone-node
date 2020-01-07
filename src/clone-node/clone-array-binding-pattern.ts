@@ -8,5 +8,7 @@ export function cloneArrayBindingPattern(
 	node: TS.ArrayBindingPattern,
 	options: CloneNodeInternalOptions<TS.ArrayBindingPattern>
 ): TS.ArrayBindingPattern {
-	return options.typescript.createArrayBindingPattern(options.hook("elements", cloneNodes(node.elements, nextOptions(options)), payload(options)));
+	return options.typescript.createArrayBindingPattern(
+		options.hook("elements", cloneNodes(node.elements, nextOptions(options)), node.elements, payload(options))
+	);
 }

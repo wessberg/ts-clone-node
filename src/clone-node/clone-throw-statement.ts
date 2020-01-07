@@ -5,5 +5,7 @@ import {nextOptions} from "./util/next-options";
 import {payload} from "./util/payload";
 
 export function cloneThrowStatement(node: TS.ThrowStatement, options: CloneNodeInternalOptions<TS.ThrowStatement>): TS.ThrowStatement {
-	return options.typescript.createThrow(options.hook("expression", cloneNode(node.expression, nextOptions(options)), payload(options))!);
+	return options.typescript.createThrow(
+		options.hook("expression", cloneNode(node.expression, nextOptions(options)), node.expression, payload(options))!
+	);
 }

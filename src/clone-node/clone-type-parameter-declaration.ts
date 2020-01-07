@@ -9,8 +9,8 @@ export function cloneTypeParameterDeclaration(
 	options: CloneNodeInternalOptions<TS.TypeParameterDeclaration>
 ): TS.TypeParameterDeclaration {
 	return options.typescript.createTypeParameterDeclaration(
-		options.hook("name", cloneNode(node.name, nextOptions(options)), payload(options)),
-		options.hook("constraint", cloneNode(node.constraint, nextOptions(options)), payload(options)),
-		options.hook("default", cloneNode(node.default, nextOptions(options)), payload(options))
+		options.hook("name", cloneNode(node.name, nextOptions(options)), node.name, payload(options)),
+		options.hook("constraint", cloneNode(node.constraint, nextOptions(options)), node.constraint, payload(options)),
+		options.hook("default", cloneNode(node.default, nextOptions(options)), node.default, payload(options))
 	);
 }

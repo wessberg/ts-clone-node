@@ -6,7 +6,7 @@ import {payload} from "./util/payload";
 
 export function cloneTypeOperatorNode(node: TS.TypeOperatorNode, options: CloneNodeInternalOptions<TS.TypeOperatorNode>): TS.TypeOperatorNode {
 	return options.typescript.createTypeOperatorNode(
-		options.hook("operator", cloneNode(node.operator, nextOptions(options)), payload(options)),
-		options.hook("type", cloneNode(node.type, nextOptions(options)), payload(options))
+		options.hook("operator", node.operator, node.operator, payload(options)),
+		options.hook("type", cloneNode(node.type, nextOptions(options)), node.type, payload(options))
 	);
 }

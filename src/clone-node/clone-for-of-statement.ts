@@ -6,9 +6,9 @@ import {payload} from "./util/payload";
 
 export function cloneForOfStatement(node: TS.ForOfStatement, options: CloneNodeInternalOptions<TS.ForOfStatement>): TS.ForOfStatement {
 	return options.typescript.createForOf(
-		options.hook("awaitModifier", cloneNode(node.awaitModifier, nextOptions(options)), payload(options)),
-		options.hook("initializer", cloneNode(node.initializer, nextOptions(options)), payload(options)),
-		options.hook("expression", cloneNode(node.expression, nextOptions(options)), payload(options)),
-		options.hook("statement", cloneNode(node.statement, nextOptions(options)), payload(options))
+		options.hook("awaitModifier", cloneNode(node.awaitModifier, nextOptions(options)), node.awaitModifier, payload(options)),
+		options.hook("initializer", cloneNode(node.initializer, nextOptions(options)), node.initializer, payload(options)),
+		options.hook("expression", cloneNode(node.expression, nextOptions(options)), node.expression, payload(options)),
+		options.hook("statement", cloneNode(node.statement, nextOptions(options)), node.statement, payload(options))
 	);
 }

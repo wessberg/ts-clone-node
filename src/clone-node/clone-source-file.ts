@@ -9,7 +9,7 @@ export function cloneSourceFile(node: TS.SourceFile, options: CloneNodeInternalO
 
 	return options.typescript.updateSourceFileNode(
 		sourceFile,
-		options.hook("statements", cloneNodes(node.statements, nextOptions(options)), payload(options)),
+		options.hook("statements", cloneNodes(node.statements, nextOptions(options)), node.statements, payload(options)),
 		node.isDeclarationFile,
 		node.referencedFiles,
 		node.typeReferenceDirectives,

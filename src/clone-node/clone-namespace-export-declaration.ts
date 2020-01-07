@@ -8,5 +8,7 @@ export function cloneNamespaceExportDeclaration(
 	node: TS.NamespaceExportDeclaration,
 	options: CloneNodeInternalOptions<TS.NamespaceExportDeclaration>
 ): TS.NamespaceExportDeclaration {
-	return options.typescript.createNamespaceExportDeclaration(options.hook("name", cloneNode(node.name, nextOptions(options)), payload(options)));
+	return options.typescript.createNamespaceExportDeclaration(
+		options.hook("name", cloneNode(node.name, nextOptions(options)), node.name, payload(options))
+	);
 }

@@ -7,8 +7,8 @@ import {payload} from "./util/payload";
 
 export function cloneJsxFragment(node: TS.JsxFragment, options: CloneNodeInternalOptions<TS.JsxFragment>): TS.JsxFragment {
 	return options.typescript.createJsxFragment(
-		options.hook("openingFragment", cloneNode(node.openingFragment, nextOptions(options)), payload(options)),
-		options.hook("children", cloneNodes(node.children, nextOptions(options)), payload(options)),
-		options.hook("closingFragment", cloneNode(node.closingFragment, nextOptions(options)), payload(options))
+		options.hook("openingFragment", cloneNode(node.openingFragment, nextOptions(options)), node.openingFragment, payload(options)),
+		options.hook("children", cloneNodes(node.children, nextOptions(options)), node.children, payload(options)),
+		options.hook("closingFragment", cloneNode(node.closingFragment, nextOptions(options)), node.closingFragment, payload(options))
 	);
 }

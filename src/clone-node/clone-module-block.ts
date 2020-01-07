@@ -5,5 +5,7 @@ import {nextOptions} from "./util/next-options";
 import {payload} from "./util/payload";
 
 export function cloneModuleBlock(node: TS.ModuleBlock, options: CloneNodeInternalOptions<TS.ModuleBlock>): TS.ModuleBlock {
-	return options.typescript.createModuleBlock(options.hook("statements", cloneNodes(node.statements, nextOptions(options)), payload(options)));
+	return options.typescript.createModuleBlock(
+		options.hook("statements", cloneNodes(node.statements, nextOptions(options)), node.statements, payload(options))
+	);
 }

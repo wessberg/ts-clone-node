@@ -6,7 +6,7 @@ import {payload} from "./util/payload";
 
 export function cloneYieldExpression(node: TS.YieldExpression, options: CloneNodeInternalOptions<TS.YieldExpression>): TS.YieldExpression {
 	return options.typescript.createYield(
-		options.hook("asteriskToken", cloneNode(node.asteriskToken, nextOptions(options)), payload(options)),
-		options.hook("expression", cloneNode(node.expression, nextOptions(options)), payload(options))!
+		options.hook("asteriskToken", cloneNode(node.asteriskToken, nextOptions(options)), node.asteriskToken, payload(options)),
+		options.hook("expression", cloneNode(node.expression, nextOptions(options)), node.expression, payload(options))!
 	);
 }

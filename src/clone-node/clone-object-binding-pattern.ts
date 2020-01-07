@@ -8,5 +8,7 @@ export function cloneObjectBindingPattern(
 	node: TS.ObjectBindingPattern,
 	options: CloneNodeInternalOptions<TS.ObjectBindingPattern>
 ): TS.ObjectBindingPattern {
-	return options.typescript.createObjectBindingPattern(options.hook("elements", cloneNodes(node.elements, nextOptions(options)), payload(options)));
+	return options.typescript.createObjectBindingPattern(
+		options.hook("elements", cloneNodes(node.elements, nextOptions(options)), node.elements, payload(options))
+	);
 }

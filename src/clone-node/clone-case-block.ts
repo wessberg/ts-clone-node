@@ -5,5 +5,5 @@ import {nextOptions} from "./util/next-options";
 import {payload} from "./util/payload";
 
 export function cloneCaseBlock(node: TS.CaseBlock, options: CloneNodeInternalOptions<TS.CaseBlock>): TS.CaseBlock {
-	return options.typescript.createCaseBlock(options.hook("clauses", cloneNodes(node.clauses, nextOptions(options)), payload(options)));
+	return options.typescript.createCaseBlock(options.hook("clauses", cloneNodes(node.clauses, nextOptions(options)), node.clauses, payload(options)));
 }

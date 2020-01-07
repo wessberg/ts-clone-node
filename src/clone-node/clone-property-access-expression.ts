@@ -9,7 +9,7 @@ export function clonePropertyAccessExpression(
 	options: CloneNodeInternalOptions<TS.PropertyAccessExpression>
 ): TS.PropertyAccessExpression {
 	return options.typescript.createPropertyAccess(
-		options.hook("expression", cloneNode(node.expression, nextOptions(options)), payload(options)),
-		options.hook("name", cloneNode(node.name, nextOptions(options)), payload(options))
+		options.hook("expression", cloneNode(node.expression, nextOptions(options)), node.expression, payload(options)),
+		options.hook("name", cloneNode(node.name, nextOptions(options)), node.name, payload(options))
 	);
 }

@@ -7,7 +7,7 @@ export function cloneNoSubstitutionTemplateLiteral(
 	options: CloneNodeInternalOptions<TS.NoSubstitutionTemplateLiteral>
 ): TS.NoSubstitutionTemplateLiteral {
 	return options.typescript.createNoSubstitutionTemplateLiteral(
-		options.hook("text", node.text, payload(options)),
-		options.hook("rawText", node.rawText, payload(options))
+		options.hook("text", node.text, node.text, payload(options)),
+		options.hook("rawText", node.rawText, node.text, payload(options))
 	);
 }

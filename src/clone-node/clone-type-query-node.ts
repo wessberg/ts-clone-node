@@ -5,5 +5,7 @@ import {nextOptions} from "./util/next-options";
 import {payload} from "./util/payload";
 
 export function cloneTypeQueryNode(node: TS.TypeQueryNode, options: CloneNodeInternalOptions<TS.TypeQueryNode>): TS.TypeQueryNode {
-	return options.typescript.createTypeQueryNode(options.hook("exprName", cloneNode(node.exprName, nextOptions(options)), payload(options)));
+	return options.typescript.createTypeQueryNode(
+		options.hook("exprName", cloneNode(node.exprName, nextOptions(options)), node.exprName, payload(options))
+	);
 }

@@ -6,9 +6,9 @@ import {payload} from "./util/payload";
 
 export function cloneMappedTypeNode(node: TS.MappedTypeNode, options: CloneNodeInternalOptions<TS.MappedTypeNode>): TS.MappedTypeNode {
 	return options.typescript.createMappedTypeNode(
-		options.hook("readonlyToken", cloneNode(node.readonlyToken, nextOptions(options)), payload(options)),
-		options.hook("typeParameter", cloneNode(node.typeParameter, nextOptions(options)), payload(options)),
-		options.hook("questionToken", cloneNode(node.questionToken, nextOptions(options)), payload(options)),
-		options.hook("type", cloneNode(node.type, nextOptions(options)), payload(options))
+		options.hook("readonlyToken", cloneNode(node.readonlyToken, nextOptions(options)), node.readonlyToken, payload(options)),
+		options.hook("typeParameter", cloneNode(node.typeParameter, nextOptions(options)), node.typeParameter, payload(options)),
+		options.hook("questionToken", cloneNode(node.questionToken, nextOptions(options)), node.questionToken, payload(options)),
+		options.hook("type", cloneNode(node.type, nextOptions(options)), node.type, payload(options))
 	);
 }

@@ -6,7 +6,7 @@ import {payload} from "./util/payload";
 
 export function cloneExportSpecifier(node: TS.ExportSpecifier, options: CloneNodeInternalOptions<TS.ExportSpecifier>): TS.ExportSpecifier {
 	return options.typescript.createExportSpecifier(
-		options.hook("propertyName", cloneNode(node.propertyName, nextOptions(options)), payload(options)),
-		options.hook("name", cloneNode(node.name, nextOptions(options)), payload(options))
+		options.hook("propertyName", cloneNode(node.propertyName, nextOptions(options)), node.propertyName, payload(options)),
+		options.hook("name", cloneNode(node.name, nextOptions(options)), node.name, payload(options))
 	);
 }

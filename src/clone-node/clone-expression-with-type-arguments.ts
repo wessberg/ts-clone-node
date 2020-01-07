@@ -10,7 +10,7 @@ export function cloneExpressionWithTypeArguments(
 	options: CloneNodeInternalOptions<TS.ExpressionWithTypeArguments>
 ): TS.ExpressionWithTypeArguments {
 	return options.typescript.createExpressionWithTypeArguments(
-		options.hook("typeArguments", cloneNodes(node.typeArguments, nextOptions(options)), payload(options)),
-		options.hook("expression", cloneNode(node.expression, nextOptions(options)), payload(options))
+		options.hook("typeArguments", cloneNodes(node.typeArguments, nextOptions(options)), node.typeArguments, payload(options)),
+		options.hook("expression", cloneNode(node.expression, nextOptions(options)), node.expression, payload(options))
 	);
 }

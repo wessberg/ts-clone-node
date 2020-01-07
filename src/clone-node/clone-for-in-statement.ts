@@ -6,8 +6,8 @@ import {payload} from "./util/payload";
 
 export function cloneForInStatement(node: TS.ForInStatement, options: CloneNodeInternalOptions<TS.ForInStatement>): TS.ForInStatement {
 	return options.typescript.createForIn(
-		options.hook("initializer", cloneNode(node.initializer, nextOptions(options)), payload(options)),
-		options.hook("expression", cloneNode(node.expression, nextOptions(options)), payload(options)),
-		options.hook("statement", cloneNode(node.statement, nextOptions(options)), payload(options))
+		options.hook("initializer", cloneNode(node.initializer, nextOptions(options)), node.initializer, payload(options)),
+		options.hook("expression", cloneNode(node.expression, nextOptions(options)), node.expression, payload(options)),
+		options.hook("statement", cloneNode(node.statement, nextOptions(options)), node.statement, payload(options))
 	);
 }

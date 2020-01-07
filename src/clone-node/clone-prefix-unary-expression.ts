@@ -9,7 +9,7 @@ export function clonePrefixUnaryExpression(
 	options: CloneNodeInternalOptions<TS.PrefixUnaryExpression>
 ): TS.PrefixUnaryExpression {
 	return options.typescript.createPrefix(
-		options.hook("operator", cloneNode(node.operator, nextOptions(options)), payload(options)),
-		options.hook("operand", cloneNode(node.operand, nextOptions(options)), payload(options))
+		options.hook("operator", node.operator, node.operator, payload(options)),
+		options.hook("operand", cloneNode(node.operand, nextOptions(options)), node.operand, payload(options))
 	);
 }

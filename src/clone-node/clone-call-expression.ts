@@ -7,8 +7,8 @@ import {payload} from "./util/payload";
 
 export function cloneCallExpression(node: TS.CallExpression, options: CloneNodeInternalOptions<TS.CallExpression>): TS.CallExpression {
 	return options.typescript.createCall(
-		options.hook("expression", cloneNode(node.expression, nextOptions(options)), payload(options)),
-		options.hook("typeArguments", cloneNodes(node.typeArguments, nextOptions(options)), payload(options)),
-		options.hook("arguments", cloneNodes(node.arguments, nextOptions(options)), payload(options))
+		options.hook("expression", cloneNode(node.expression, nextOptions(options)), node.expression, payload(options)),
+		options.hook("typeArguments", cloneNodes(node.typeArguments, nextOptions(options)), node.typeArguments, payload(options)),
+		options.hook("arguments", cloneNodes(node.arguments, nextOptions(options)), node.arguments, payload(options))
 	);
 }

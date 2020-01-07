@@ -10,8 +10,8 @@ export function cloneTaggedTemplateExpression(
 	options: CloneNodeInternalOptions<TS.TaggedTemplateExpression>
 ): TS.TaggedTemplateExpression {
 	return options.typescript.createTaggedTemplate(
-		options.hook("tag", cloneNode(node.tag, nextOptions(options)), payload(options)),
-		options.hook("typeArguments", cloneNodes(node.typeArguments, nextOptions(options)), payload(options)),
-		options.hook("template", cloneNode(node.template, nextOptions(options)), payload(options))
+		options.hook("tag", cloneNode(node.tag, nextOptions(options)), node.tag, payload(options)),
+		options.hook("typeArguments", cloneNodes(node.typeArguments, nextOptions(options)), node.typeArguments, payload(options)),
+		options.hook("template", cloneNode(node.template, nextOptions(options)), node.template, payload(options))
 	);
 }

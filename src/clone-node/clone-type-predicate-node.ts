@@ -6,7 +6,7 @@ import {payload} from "./util/payload";
 
 export function cloneTypePredicateNode(node: TS.TypePredicateNode, options: CloneNodeInternalOptions<TS.TypePredicateNode>): TS.TypePredicateNode {
 	return options.typescript.createTypePredicateNode(
-		options.hook("parameterName", cloneNode(node.parameterName, nextOptions(options)), payload(options)),
-		options.hook("type", cloneNode(node.type, nextOptions(options)), payload(options))!
+		options.hook("parameterName", cloneNode(node.parameterName, nextOptions(options)), node.parameterName, payload(options)),
+		options.hook("type", cloneNode(node.type, nextOptions(options)), node.type, payload(options))!
 	);
 }

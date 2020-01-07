@@ -9,6 +9,6 @@ export function cloneExternalModuleReference(
 	options: CloneNodeInternalOptions<TS.ExternalModuleReference>
 ): TS.ExternalModuleReference {
 	return options.typescript.createExternalModuleReference(
-		options.hook("expression", cloneNode(node.expression, nextOptions(options)), payload(options))
+		options.hook("expression", cloneNode(node.expression, nextOptions(options)), node.expression, payload(options))
 	);
 }

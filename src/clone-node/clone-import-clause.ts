@@ -6,7 +6,7 @@ import {payload} from "./util/payload";
 
 export function cloneImportClause(node: TS.ImportClause, options: CloneNodeInternalOptions<TS.ImportClause>): TS.ImportClause {
 	return options.typescript.createImportClause(
-		options.hook("name", cloneNode(node.name, nextOptions(options)), payload(options)),
-		options.hook("namedBindings", cloneNode(node.namedBindings, nextOptions(options)), payload(options))
+		options.hook("name", cloneNode(node.name, nextOptions(options)), node.name, payload(options)),
+		options.hook("namedBindings", cloneNode(node.namedBindings, nextOptions(options)), node.namedBindings, payload(options))
 	);
 }

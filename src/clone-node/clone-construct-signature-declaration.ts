@@ -10,8 +10,8 @@ export function cloneConstructSignatureDeclaration(
 	options: CloneNodeInternalOptions<TS.ConstructSignatureDeclaration>
 ): TS.ConstructSignatureDeclaration {
 	return options.typescript.createConstructSignature(
-		options.hook("typeParameters", cloneNodes(node.typeParameters, nextOptions(options)), payload(options)),
-		options.hook("parameters", cloneNodes(node.parameters, nextOptions(options)), payload(options)),
-		options.hook("type", cloneNode(node.type, nextOptions(options)), payload(options))
+		options.hook("typeParameters", cloneNodes(node.typeParameters, nextOptions(options)), node.typeParameters, payload(options)),
+		options.hook("parameters", cloneNodes(node.parameters, nextOptions(options)), node.parameters, payload(options)),
+		options.hook("type", cloneNode(node.type, nextOptions(options)), node.type, payload(options))
 	);
 }

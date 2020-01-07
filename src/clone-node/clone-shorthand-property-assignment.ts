@@ -9,7 +9,12 @@ export function cloneShorthandPropertyAssignment(
 	options: CloneNodeInternalOptions<TS.ShorthandPropertyAssignment>
 ): TS.ShorthandPropertyAssignment {
 	return options.typescript.createShorthandPropertyAssignment(
-		options.hook("name", cloneNode(node.name, nextOptions(options)), payload(options)),
-		options.hook("objectAssignmentInitializer", cloneNode(node.objectAssignmentInitializer, nextOptions(options)), payload(options))
+		options.hook("name", cloneNode(node.name, nextOptions(options)), node.name, payload(options)),
+		options.hook(
+			"objectAssignmentInitializer",
+			cloneNode(node.objectAssignmentInitializer, nextOptions(options)),
+			node.objectAssignmentInitializer,
+			payload(options)
+		)
 	);
 }
