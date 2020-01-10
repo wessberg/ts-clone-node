@@ -32,7 +32,7 @@ The Typescript Compiler API is very powerful and comes with a lot of `create` an
 a `SourceFile`. Under such circumstances, it is easy to run into problems if you reuse a Node in another part of the tree without properly cloning it, since the `parent` chain, as well as the `pos` and `end` values will have wrong values and will lead to malformed output after your transformations have been applied.
 
 This can be cumbersome for example when you want to simply add or remove a specific modifier from an arbitrary node in a given position.
-This library exports a `cloneNode` function that makes it easy to clone a deep-clone a Node from a Typescript AST without any faulty parent links.
+This library exports a `cloneNode` function that makes it easy to deep-clone a Node from a Typescript AST without any faulty parent links.
 Additionally, you get a simple hook with which you can do simple things such as edit the top-level properties of the cloned object such as its modifiers, decorators, etc.
 
 <!-- SHADOW_SECTION_FEATURES_START -->
