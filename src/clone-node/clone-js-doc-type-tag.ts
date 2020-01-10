@@ -1,20 +1,12 @@
-import {CloneNodeInternalOptions} from "./clone-node-options";
 import {TS} from "./type/ts";
-import {nextOptions} from "./util/next-options";
-import {payload} from "./util/payload";
-import {cloneNode} from "./clone-node";
+import {CloneNodeVisitorOptions} from "./clone-node-options";
 
-export function cloneJsDocTypeTag(node: TS.JSDocTypeTag, options: CloneNodeInternalOptions<TS.JSDocTypeTag>): TS.JSDocTypeTag {
+export function cloneJsDocTypeTag(node: TS.JSDocTypeTag, options: CloneNodeVisitorOptions<TS.JSDocTypeTag>): TS.JSDocTypeTag {
 	const baseNode = options.typescript.createNode(options.typescript.SyntaxKind.JSDocTypeTag, -1, -1) as TS.JSDocTypeTag;
-	baseNode.flags = options.hook("flags", (node.flags |= 8), (node.flags |= 8), payload(options));
-	baseNode.comment = options.hook("comment", node.comment, node.comment, payload(options));
-	baseNode.tagName = options.hook("tagName", cloneNode(node.tagName, nextOptions(node.tagName, options)), node.tagName, payload(options));
-	baseNode.typeExpression = options.hook(
-		"typeExpression",
-		cloneNode(node.typeExpression, nextOptions(node.typeExpression, options)),
-		node.typeExpression,
-		payload(options)
-	);
+	baseNode.flags = options.hook("flags", (node.flags |= 8), (node.flags |= 8));
+	baseNode.comment = options.hook("comment", node.comment, node.comment);
+	baseNode.tagName = options.hook("tagName", options.nextNode(node.tagName), node.tagName);
+	baseNode.typeExpression = options.hook("typeExpression", options.nextNode(node.typeExpression), node.typeExpression);
 
 	return baseNode;
 }

@@ -1,9 +1,9 @@
-import {CloneNodeInternalOptions} from "./clone-node-options";
 import {TS} from "./type/ts";
+import {CloneNodeVisitorOptions} from "./clone-node-options";
 
 export function cloneSemicolonClassElement(
 	_node: TS.SemicolonClassElement,
-	options: CloneNodeInternalOptions<TS.SemicolonClassElement>
+	options: CloneNodeVisitorOptions<TS.SemicolonClassElement>
 ): TS.SemicolonClassElement {
 	return options.typescript.createSemicolonClassElement();
 }

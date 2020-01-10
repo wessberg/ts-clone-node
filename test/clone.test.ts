@@ -116,14 +116,15 @@ test("Performs an identical clone. #7", t => {
 	const cloneResult = cloneAsText(text, {
 		typescript,
 		selectNode: sourceFile => sourceFile.statements.filter(typescript.isFunctionDeclaration)[0],
-		hook: {
-			modifiers: (modifiers, _, payload) => {
-				return payload.depth > 0
-					? modifiers
-					: modifiers == null
-					? [typescript.createModifier(typescript.SyntaxKind.ExportKeyword)]
-					: [...modifiers, typescript.createModifier(typescript.SyntaxKind.ExportKeyword)];
-			}
+		hook: (_, {depth}) => {
+			return depth > 0
+				? {}
+				: {
+						modifiers: modifiers =>
+							modifiers == null
+								? [typescript.createModifier(typescript.SyntaxKind.ExportKeyword)]
+								: [...modifiers, typescript.createModifier(typescript.SyntaxKind.ExportKeyword)]
+				  };
 		}
 	});
 

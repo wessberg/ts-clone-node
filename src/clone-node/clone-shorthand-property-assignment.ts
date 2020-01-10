@@ -1,20 +1,12 @@
-import {cloneNode} from "./clone-node";
-import {CloneNodeInternalOptions} from "./clone-node-options";
 import {TS} from "./type/ts";
-import {nextOptions} from "./util/next-options";
-import {payload} from "./util/payload";
+import {CloneNodeVisitorOptions} from "./clone-node-options";
 
 export function cloneShorthandPropertyAssignment(
 	node: TS.ShorthandPropertyAssignment,
-	options: CloneNodeInternalOptions<TS.ShorthandPropertyAssignment>
+	options: CloneNodeVisitorOptions<TS.ShorthandPropertyAssignment>
 ): TS.ShorthandPropertyAssignment {
 	return options.typescript.createShorthandPropertyAssignment(
-		options.hook("name", cloneNode(node.name, nextOptions(node.name, options)), node.name, payload(options)),
-		options.hook(
-			"objectAssignmentInitializer",
-			cloneNode(node.objectAssignmentInitializer, nextOptions(node.objectAssignmentInitializer, options)),
-			node.objectAssignmentInitializer,
-			payload(options)
-		)
+		options.hook("name", options.nextNode(node.name), node.name),
+		options.hook("objectAssignmentInitializer", options.nextNode(node.objectAssignmentInitializer), node.objectAssignmentInitializer)
 	);
 }

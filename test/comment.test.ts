@@ -93,13 +93,43 @@ test("Clones comments correctly. #7", t => {
 
 test("Clones comments correctly. #8", t => {
 	const text = `\
-	 export class Foo {
-		/**
-     * Does something
-     * @returns {void}
-     */
-     doFoo(): void {}
+	 class Foo {
+	 
+	 	/**
+	   * Foo
+	   */
+	 	doStuff (): void {
+	 	}
    }
+`;
+
+	t.deepEqual(formatCode(cloneAsText(text, {typescript})), formatCode(text));
+});
+
+test("Clones comments correctly. #9", t => {
+	const text = `\
+	/**
+	 * Comment
+	 */
+	 interface Foo {
+	 /**
+	  * Comment #2
+	  */
+	 	member: string;
+	 	/**
+	 	 * Comment #3
+	 	 * @param {string} arg - An Argument
+	 	 * @returns {string}
+	 	 */
+	 	method (arg: string): string;
+	 }
+	 export const foo: Foo = {
+	 	member: "",
+	 	method (arg: string): string {
+	 		// Single-line comment
+	 		return arg.toUppercase();
+	 	}
+	 };
 `;
 
 	t.deepEqual(formatCode(cloneAsText(text, {typescript})), formatCode(text));

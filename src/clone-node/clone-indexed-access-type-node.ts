@@ -1,15 +1,12 @@
-import {CloneNodeInternalOptions} from "./clone-node-options";
-import {cloneNode} from "./clone-node";
 import {TS} from "./type/ts";
-import {nextOptions} from "./util/next-options";
-import {payload} from "./util/payload";
+import {CloneNodeVisitorOptions} from "./clone-node-options";
 
 export function cloneIndexedAccessTypeNode(
 	node: TS.IndexedAccessTypeNode,
-	options: CloneNodeInternalOptions<TS.IndexedAccessTypeNode>
+	options: CloneNodeVisitorOptions<TS.IndexedAccessTypeNode>
 ): TS.IndexedAccessTypeNode {
 	return options.typescript.createIndexedAccessTypeNode(
-		options.hook("objectType", cloneNode(node.objectType, nextOptions(node.objectType, options)), node.objectType, payload(options)),
-		options.hook("indexType", cloneNode(node.indexType, nextOptions(node.indexType, options)), node.indexType, payload(options))
+		options.hook("objectType", options.nextNode(node.objectType), node.objectType),
+		options.hook("indexType", options.nextNode(node.indexType), node.indexType)
 	);
 }

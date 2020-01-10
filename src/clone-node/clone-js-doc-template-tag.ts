@@ -1,24 +1,15 @@
-import {CloneNodeInternalOptions} from "./clone-node-options";
 import {TS} from "./type/ts";
-import {nextOptions} from "./util/next-options";
-import {payload} from "./util/payload";
-import {cloneNode} from "./clone-node";
-import {cloneNodes} from "./clone-nodes";
+import {CloneNodeVisitorOptions} from "./clone-node-options";
 import {ensureNodeArray} from "./util/ensure-node-array";
 
-export function cloneJSDocTemplateTag(node: TS.JSDocTemplateTag, options: CloneNodeInternalOptions<TS.JSDocTemplateTag>): TS.JSDocTemplateTag {
+export function cloneJSDocTemplateTag(node: TS.JSDocTemplateTag, options: CloneNodeVisitorOptions<TS.JSDocTemplateTag>): TS.JSDocTemplateTag {
 	const baseNode = options.typescript.createNode(options.typescript.SyntaxKind.JSDocTemplateTag, -1, -1) as TS.JSDocTemplateTag;
-	baseNode.flags = options.hook("flags", (node.flags |= 8), (node.flags |= 8), payload(options));
-	baseNode.comment = options.hook("comment", node.comment, node.comment, payload(options));
-	baseNode.tagName = options.hook("tagName", cloneNode(node.tagName, nextOptions(node.tagName, options)), node.tagName, payload(options));
-	baseNode.constraint = options.hook(
-		"constraint",
-		cloneNode(node.constraint, nextOptions(node.constraint, options)),
-		node.constraint,
-		payload(options)
-	);
+	baseNode.flags = options.hook("flags", (node.flags |= 8), (node.flags |= 8));
+	baseNode.comment = options.hook("comment", node.comment, node.comment);
+	baseNode.tagName = options.hook("tagName", options.nextNode(node.tagName), node.tagName);
+	baseNode.constraint = options.hook("constraint", options.nextNode(node.constraint), node.constraint);
 	baseNode.typeParameters = ensureNodeArray(
-		options.hook("typeParameters", cloneNodes(node.typeParameters, nextOptions(node.typeParameters, options)), node.typeParameters, payload(options)),
+		options.hook("typeParameters", options.nextNodes(node.typeParameters), node.typeParameters),
 		options.typescript
 	);
 

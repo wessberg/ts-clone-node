@@ -1,10 +1,9 @@
-import {CloneNodeInternalOptions} from "./clone-node-options";
 import {TS} from "./type/ts";
-import {payload} from "./util/payload";
+import {CloneNodeVisitorOptions} from "./clone-node-options";
 
-export function cloneJsxText(node: TS.JsxText, options: CloneNodeInternalOptions<TS.JsxText>): TS.JsxText {
+export function cloneJsxText(node: TS.JsxText, options: CloneNodeVisitorOptions<TS.JsxText>): TS.JsxText {
 	return options.typescript.createJsxText(
-		options.hook("text", node.text, node.text, payload(options)),
-		options.hook("containsOnlyTriviaWhiteSpaces", node.containsOnlyTriviaWhiteSpaces, node.containsOnlyTriviaWhiteSpaces, payload(options))
+		options.hook("text", node.text, node.text),
+		options.hook("containsOnlyTriviaWhiteSpaces", node.containsOnlyTriviaWhiteSpaces, node.containsOnlyTriviaWhiteSpaces)
 	);
 }

@@ -1,17 +1,13 @@
-import {CloneNodeInternalOptions} from "./clone-node-options";
-import {cloneNode} from "./clone-node";
-import {cloneNodes} from "./clone-nodes";
 import {TS} from "./type/ts";
-import {nextOptions} from "./util/next-options";
-import {payload} from "./util/payload";
+import {CloneNodeVisitorOptions} from "./clone-node-options";
 
 export function cloneTaggedTemplateExpression(
 	node: TS.TaggedTemplateExpression,
-	options: CloneNodeInternalOptions<TS.TaggedTemplateExpression>
+	options: CloneNodeVisitorOptions<TS.TaggedTemplateExpression>
 ): TS.TaggedTemplateExpression {
 	return options.typescript.createTaggedTemplate(
-		options.hook("tag", cloneNode(node.tag, nextOptions(node.tag, options)), node.tag, payload(options)),
-		options.hook("typeArguments", cloneNodes(node.typeArguments, nextOptions(node.typeArguments, options)), node.typeArguments, payload(options)),
-		options.hook("template", cloneNode(node.template, nextOptions(node.template, options)), node.template, payload(options))
+		options.hook("tag", options.nextNode(node.tag), node.tag),
+		options.hook("typeArguments", options.nextNodes(node.typeArguments), node.typeArguments),
+		options.hook("template", options.nextNode(node.template), node.template)
 	);
 }

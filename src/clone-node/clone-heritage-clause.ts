@@ -1,12 +1,9 @@
-import {CloneNodeInternalOptions} from "./clone-node-options";
-import {cloneNodes} from "./clone-nodes";
 import {TS} from "./type/ts";
-import {nextOptions} from "./util/next-options";
-import {payload} from "./util/payload";
+import {CloneNodeVisitorOptions} from "./clone-node-options";
 
-export function cloneHeritageClause(node: TS.HeritageClause, options: CloneNodeInternalOptions<TS.HeritageClause>): TS.HeritageClause {
+export function cloneHeritageClause(node: TS.HeritageClause, options: CloneNodeVisitorOptions<TS.HeritageClause>): TS.HeritageClause {
 	return options.typescript.createHeritageClause(
-		options.hook("token", node.token, node.token, payload(options)),
-		options.hook("types", cloneNodes(node.types, nextOptions(node.types, options)), node.types, payload(options))
+		options.hook("token", node.token, node.token),
+		options.hook("types", options.nextNodes(node.types), node.types)
 	);
 }

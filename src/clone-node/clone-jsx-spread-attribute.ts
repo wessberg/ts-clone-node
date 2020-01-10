@@ -1,14 +1,6 @@
-import {CloneNodeInternalOptions} from "./clone-node-options";
-import {cloneNode} from "./clone-node";
 import {TS} from "./type/ts";
-import {nextOptions} from "./util/next-options";
-import {payload} from "./util/payload";
+import {CloneNodeVisitorOptions} from "./clone-node-options";
 
-export function cloneJsxSpreadAttribute(
-	node: TS.JsxSpreadAttribute,
-	options: CloneNodeInternalOptions<TS.JsxSpreadAttribute>
-): TS.JsxSpreadAttribute {
-	return options.typescript.createJsxSpreadAttribute(
-		options.hook("expression", cloneNode(node.expression, nextOptions(node.expression, options)), node.expression, payload(options))
-	);
+export function cloneJsxSpreadAttribute(node: TS.JsxSpreadAttribute, options: CloneNodeVisitorOptions<TS.JsxSpreadAttribute>): TS.JsxSpreadAttribute {
+	return options.typescript.createJsxSpreadAttribute(options.hook("expression", options.nextNode(node.expression), node.expression));
 }

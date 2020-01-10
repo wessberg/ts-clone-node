@@ -1,12 +1,9 @@
-import {CloneNodeInternalOptions} from "./clone-node-options";
-import {cloneNode} from "./clone-node";
 import {TS} from "./type/ts";
-import {nextOptions} from "./util/next-options";
-import {payload} from "./util/payload";
+import {CloneNodeVisitorOptions} from "./clone-node-options";
 
-export function cloneLabeledStatement(node: TS.LabeledStatement, options: CloneNodeInternalOptions<TS.LabeledStatement>): TS.LabeledStatement {
+export function cloneLabeledStatement(node: TS.LabeledStatement, options: CloneNodeVisitorOptions<TS.LabeledStatement>): TS.LabeledStatement {
 	return options.typescript.createLabel(
-		options.hook("label", cloneNode(node.label, nextOptions(node.label, options)), node.label, payload(options)),
-		options.hook("statement", cloneNode(node.statement, nextOptions(node.statement, options)), node.statement, payload(options))
+		options.hook("label", options.nextNode(node.label), node.label),
+		options.hook("statement", options.nextNode(node.statement), node.statement)
 	);
 }

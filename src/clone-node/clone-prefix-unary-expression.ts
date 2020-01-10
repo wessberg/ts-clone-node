@@ -1,15 +1,12 @@
-import {CloneNodeInternalOptions} from "./clone-node-options";
-import {cloneNode} from "./clone-node";
 import {TS} from "./type/ts";
-import {nextOptions} from "./util/next-options";
-import {payload} from "./util/payload";
+import {CloneNodeVisitorOptions} from "./clone-node-options";
 
 export function clonePrefixUnaryExpression(
 	node: TS.PrefixUnaryExpression,
-	options: CloneNodeInternalOptions<TS.PrefixUnaryExpression>
+	options: CloneNodeVisitorOptions<TS.PrefixUnaryExpression>
 ): TS.PrefixUnaryExpression {
 	return options.typescript.createPrefix(
-		options.hook("operator", node.operator, node.operator, payload(options)),
-		options.hook("operand", cloneNode(node.operand, nextOptions(node.operand, options)), node.operand, payload(options))
+		options.hook("operator", node.operator, node.operator),
+		options.hook("operand", options.nextNode(node.operand), node.operand)
 	);
 }

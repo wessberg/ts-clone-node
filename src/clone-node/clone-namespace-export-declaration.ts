@@ -1,14 +1,9 @@
-import {CloneNodeInternalOptions} from "./clone-node-options";
-import {cloneNode} from "./clone-node";
 import {TS} from "./type/ts";
-import {nextOptions} from "./util/next-options";
-import {payload} from "./util/payload";
+import {CloneNodeVisitorOptions} from "./clone-node-options";
 
 export function cloneNamespaceExportDeclaration(
 	node: TS.NamespaceExportDeclaration,
-	options: CloneNodeInternalOptions<TS.NamespaceExportDeclaration>
+	options: CloneNodeVisitorOptions<TS.NamespaceExportDeclaration>
 ): TS.NamespaceExportDeclaration {
-	return options.typescript.createNamespaceExportDeclaration(
-		options.hook("name", cloneNode(node.name, nextOptions(node.name, options)), node.name, payload(options))
-	);
+	return options.typescript.createNamespaceExportDeclaration(options.hook("name", options.nextNode(node.name), node.name));
 }

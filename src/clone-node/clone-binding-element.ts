@@ -1,14 +1,11 @@
-import {cloneNode} from "./clone-node";
-import {CloneNodeInternalOptions} from "./clone-node-options";
 import {TS} from "./type/ts";
-import {nextOptions} from "./util/next-options";
-import {payload} from "./util/payload";
+import {CloneNodeVisitorOptions} from "./clone-node-options";
 
-export function cloneBindingElement(node: TS.BindingElement, options: CloneNodeInternalOptions<TS.BindingElement>): TS.BindingElement {
+export function cloneBindingElement(node: TS.BindingElement, options: CloneNodeVisitorOptions<TS.BindingElement>): TS.BindingElement {
 	return options.typescript.createBindingElement(
-		options.hook("dotDotDotToken", cloneNode(node.dotDotDotToken, nextOptions(node.dotDotDotToken, options)), node.dotDotDotToken, payload(options)),
-		options.hook("propertyName", cloneNode(node.propertyName, nextOptions(node.propertyName, options)), node.propertyName, payload(options)),
-		options.hook("name", cloneNode(node.name, nextOptions(node.name, options)), node.name, payload(options)),
-		options.hook("initializer", cloneNode(node.initializer, nextOptions(node.initializer, options)), node.initializer, payload(options))
+		options.hook("dotDotDotToken", options.nextNode(node.dotDotDotToken), node.dotDotDotToken),
+		options.hook("propertyName", options.nextNode(node.propertyName), node.propertyName),
+		options.hook("name", options.nextNode(node.name), node.name),
+		options.hook("initializer", options.nextNode(node.initializer), node.initializer)
 	);
 }

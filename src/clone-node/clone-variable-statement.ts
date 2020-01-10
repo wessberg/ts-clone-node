@@ -1,18 +1,9 @@
-import {CloneNodeInternalOptions} from "./clone-node-options";
-import {cloneNodes} from "./clone-nodes";
-import {cloneNode} from "./clone-node";
 import {TS} from "./type/ts";
-import {nextOptions} from "./util/next-options";
-import {payload} from "./util/payload";
+import {CloneNodeVisitorOptions} from "./clone-node-options";
 
-export function cloneVariableStatement(node: TS.VariableStatement, options: CloneNodeInternalOptions<TS.VariableStatement>): TS.VariableStatement {
+export function cloneVariableStatement(node: TS.VariableStatement, options: CloneNodeVisitorOptions<TS.VariableStatement>): TS.VariableStatement {
 	return options.typescript.createVariableStatement(
-		options.hook("modifiers", cloneNodes(node.modifiers, nextOptions(node.modifiers, options)), node.modifiers, payload(options)),
-		options.hook(
-			"declarationList",
-			cloneNode(node.declarationList, nextOptions(node.declarationList, options)),
-			node.declarationList,
-			payload(options)
-		)
+		options.hook("modifiers", options.nextNodes(node.modifiers), node.modifiers),
+		options.hook("declarationList", options.nextNode(node.declarationList), node.declarationList)
 	);
 }

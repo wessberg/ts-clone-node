@@ -1,14 +1,9 @@
-import {CloneNodeInternalOptions} from "./clone-node-options";
-import {cloneNodes} from "./clone-nodes";
+import {CloneNodeVisitorOptions} from "./clone-node-options";
 import {TS} from "./type/ts";
-import {nextOptions} from "./util/next-options";
-import {payload} from "./util/payload";
 
 export function cloneArrayLiteralExpression(
 	node: TS.ArrayLiteralExpression,
-	options: CloneNodeInternalOptions<TS.ArrayLiteralExpression>
+	options: CloneNodeVisitorOptions<TS.ArrayLiteralExpression>
 ): TS.ArrayLiteralExpression {
-	return options.typescript.createArrayLiteral(
-		options.hook("elements", cloneNodes(node.elements, nextOptions(node.elements, options)), node.elements, payload(options))
-	);
+	return options.typescript.createArrayLiteral(options.hook("elements", options.nextNodes(node.elements), node.elements));
 }

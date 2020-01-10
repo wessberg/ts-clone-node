@@ -1,11 +1,6 @@
-import {CloneNodeInternalOptions} from "./clone-node-options";
-import {cloneNodes} from "./clone-nodes";
 import {TS} from "./type/ts";
-import {nextOptions} from "./util/next-options";
-import {payload} from "./util/payload";
+import {CloneNodeVisitorOptions} from "./clone-node-options";
 
-export function cloneUnionTypeNode(node: TS.UnionTypeNode, options: CloneNodeInternalOptions<TS.UnionTypeNode>): TS.UnionTypeNode {
-	return options.typescript.createUnionTypeNode(
-		options.hook("types", cloneNodes(node.types, nextOptions(node.types, options)), node.types, payload(options))
-	);
+export function cloneUnionTypeNode(node: TS.UnionTypeNode, options: CloneNodeVisitorOptions<TS.UnionTypeNode>): TS.UnionTypeNode {
+	return options.typescript.createUnionTypeNode(options.hook("types", options.nextNodes(node.types), node.types));
 }

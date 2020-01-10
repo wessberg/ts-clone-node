@@ -1,11 +1,6 @@
-import {CloneNodeInternalOptions} from "./clone-node-options";
-import {cloneNode} from "./clone-node";
 import {TS} from "./type/ts";
-import {nextOptions} from "./util/next-options";
-import {payload} from "./util/payload";
+import {CloneNodeVisitorOptions} from "./clone-node-options";
 
-export function cloneLiteralTypeNode(node: TS.LiteralTypeNode, options: CloneNodeInternalOptions<TS.LiteralTypeNode>): TS.LiteralTypeNode {
-	return options.typescript.createLiteralTypeNode(
-		options.hook("literal", cloneNode(node.literal, nextOptions(node.literal, options)), node.literal, payload(options))
-	);
+export function cloneLiteralTypeNode(node: TS.LiteralTypeNode, options: CloneNodeVisitorOptions<TS.LiteralTypeNode>): TS.LiteralTypeNode {
+	return options.typescript.createLiteralTypeNode(options.hook("literal", options.nextNode(node.literal), node.literal));
 }

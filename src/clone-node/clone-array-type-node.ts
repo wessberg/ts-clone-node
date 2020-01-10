@@ -1,11 +1,9 @@
-import {CloneNodeInternalOptions} from "./clone-node-options";
-import {cloneNode} from "./clone-node";
 import {TS} from "./type/ts";
-import {nextOptions} from "./util/next-options";
-import {payload} from "./util/payload";
+import {CloneNodeVisitorOptions} from "./clone-node-options";
 
-export function cloneArrayTypeNode(node: TS.ArrayTypeNode, options: CloneNodeInternalOptions<TS.ArrayTypeNode>): TS.ArrayTypeNode {
+export function cloneArrayTypeNode(node: TS.ArrayTypeNode, options: CloneNodeVisitorOptions<TS.ArrayTypeNode>): TS.ArrayTypeNode {
 	return options.typescript.createArrayTypeNode(
-		options.hook("elementType", cloneNode(node.elementType, nextOptions(node.elementType, options)), node.elementType, payload(options))
+		options.hook("elementType", node.elementType, node.elementType)
+		// options.hook("elementType", options.nextNode(node.elementType), node.elementType)
 	);
 }

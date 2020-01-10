@@ -1,17 +1,13 @@
-import {cloneNode} from "./clone-node";
-import {CloneNodeInternalOptions} from "./clone-node-options";
-import {cloneNodes} from "./clone-nodes";
+import {CloneNodeVisitorOptions} from "./clone-node-options";
 import {TS} from "./type/ts";
-import {nextOptions} from "./util/next-options";
-import {payload} from "./util/payload";
 
 export function cloneCallSignatureDeclaration(
 	node: TS.CallSignatureDeclaration,
-	options: CloneNodeInternalOptions<TS.CallSignatureDeclaration>
+	options: CloneNodeVisitorOptions<TS.CallSignatureDeclaration>
 ): TS.CallSignatureDeclaration {
 	return options.typescript.createCallSignature(
-		options.hook("typeParameters", cloneNodes(node.typeParameters, nextOptions(node.typeParameters, options)), node.typeParameters, payload(options)),
-		options.hook("parameters", cloneNodes(node.parameters, nextOptions(node.parameters, options)), node.parameters, payload(options)),
-		options.hook("type", cloneNode(node.type, nextOptions(node.type, options)), node.type, payload(options))
+		options.hook("typeParameters", options.nextNodes(node.typeParameters), node.typeParameters),
+		options.hook("parameters", options.nextNodes(node.parameters), node.parameters),
+		options.hook("type", options.nextNode(node.type), node.type)
 	);
 }

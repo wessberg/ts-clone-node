@@ -1,11 +1,6 @@
-import {CloneNodeInternalOptions} from "./clone-node-options";
-import {cloneNode} from "./clone-node";
 import {TS} from "./type/ts";
-import {nextOptions} from "./util/next-options";
-import {payload} from "./util/payload";
+import {CloneNodeVisitorOptions} from "./clone-node-options";
 
-export function cloneNonNullExpression(node: TS.NonNullExpression, options: CloneNodeInternalOptions<TS.NonNullExpression>): TS.NonNullExpression {
-	return options.typescript.createNonNullExpression(
-		options.hook("expression", cloneNode(node.expression, nextOptions(node.expression, options)), node.expression, payload(options))
-	);
+export function cloneNonNullExpression(node: TS.NonNullExpression, options: CloneNodeVisitorOptions<TS.NonNullExpression>): TS.NonNullExpression {
+	return options.typescript.createNonNullExpression(options.hook("expression", options.nextNode(node.expression), node.expression));
 }

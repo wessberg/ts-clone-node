@@ -1,11 +1,6 @@
-import {CloneNodeInternalOptions} from "./clone-node-options";
-import {cloneNodes} from "./clone-nodes";
 import {TS} from "./type/ts";
-import {nextOptions} from "./util/next-options";
-import {payload} from "./util/payload";
+import {CloneNodeVisitorOptions} from "./clone-node-options";
 
-export function cloneTupleTypeNode(node: TS.TupleTypeNode, options: CloneNodeInternalOptions<TS.TupleTypeNode>): TS.TupleTypeNode {
-	return options.typescript.createTupleTypeNode(
-		options.hook("elementTypes", cloneNodes(node.elementTypes, nextOptions(node.elementTypes, options)), node.elementTypes, payload(options))
-	);
+export function cloneTupleTypeNode(node: TS.TupleTypeNode, options: CloneNodeVisitorOptions<TS.TupleTypeNode>): TS.TupleTypeNode {
+	return options.typescript.createTupleTypeNode(options.hook("elementTypes", options.nextNodes(node.elementTypes), node.elementTypes));
 }

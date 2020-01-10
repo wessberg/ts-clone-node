@@ -1,12 +1,9 @@
-import {CloneNodeInternalOptions} from "./clone-node-options";
-import {cloneNode} from "./clone-node";
 import {TS} from "./type/ts";
-import {nextOptions} from "./util/next-options";
-import {payload} from "./util/payload";
+import {CloneNodeVisitorOptions} from "./clone-node-options";
 
-export function cloneYieldExpression(node: TS.YieldExpression, options: CloneNodeInternalOptions<TS.YieldExpression>): TS.YieldExpression {
+export function cloneYieldExpression(node: TS.YieldExpression, options: CloneNodeVisitorOptions<TS.YieldExpression>): TS.YieldExpression {
 	return options.typescript.createYield(
-		options.hook("asteriskToken", cloneNode(node.asteriskToken, nextOptions(node.asteriskToken, options)), node.asteriskToken, payload(options)),
-		options.hook("expression", cloneNode(node.expression, nextOptions(node.expression, options)), node.expression, payload(options))!
+		options.hook("asteriskToken", options.nextNode(node.asteriskToken), node.asteriskToken),
+		options.hook("expression", options.nextNode(node.expression), node.expression)!
 	);
 }

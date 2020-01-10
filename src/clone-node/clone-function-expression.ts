@@ -1,21 +1,14 @@
-import {CloneNodeInternalOptions} from "./clone-node-options";
-import {cloneNodes} from "./clone-nodes";
-import {cloneNode} from "./clone-node";
 import {TS} from "./type/ts";
-import {nextOptions} from "./util/next-options";
-import {payload} from "./util/payload";
+import {CloneNodeVisitorOptions} from "./clone-node-options";
 
-export function cloneFunctionExpression(
-	node: TS.FunctionExpression,
-	options: CloneNodeInternalOptions<TS.FunctionExpression>
-): TS.FunctionExpression {
+export function cloneFunctionExpression(node: TS.FunctionExpression, options: CloneNodeVisitorOptions<TS.FunctionExpression>): TS.FunctionExpression {
 	return options.typescript.createFunctionExpression(
-		options.hook("modifiers", cloneNodes(node.modifiers, nextOptions(node.modifiers, options)), node.modifiers, payload(options)),
-		options.hook("asteriskToken", cloneNode(node.asteriskToken, nextOptions(node.asteriskToken, options)), node.asteriskToken, payload(options)),
-		options.hook("name", cloneNode(node.name, nextOptions(node.name, options)), node.name, payload(options)),
-		options.hook("typeParameters", cloneNodes(node.typeParameters, nextOptions(node.typeParameters, options)), node.typeParameters, payload(options)),
-		options.hook("parameters", cloneNodes(node.parameters, nextOptions(node.parameters, options)), node.parameters, payload(options)),
-		options.hook("type", cloneNode(node.type, nextOptions(node.type, options)), node.type, payload(options)),
-		options.hook("body", cloneNode(node.body, nextOptions(node.body, options)), node.body, payload(options))
+		options.hook("modifiers", options.nextNodes(node.modifiers), node.modifiers),
+		options.hook("asteriskToken", options.nextNode(node.asteriskToken), node.asteriskToken),
+		options.hook("name", options.nextNode(node.name), node.name),
+		options.hook("typeParameters", options.nextNodes(node.typeParameters), node.typeParameters),
+		options.hook("parameters", options.nextNodes(node.parameters), node.parameters),
+		options.hook("type", options.nextNode(node.type), node.type),
+		options.hook("body", options.nextNode(node.body), node.body)
 	);
 }

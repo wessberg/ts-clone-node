@@ -1,11 +1,6 @@
-import {CloneNodeInternalOptions} from "./clone-node-options";
-import {cloneNodes} from "./clone-nodes";
 import {TS} from "./type/ts";
-import {nextOptions} from "./util/next-options";
-import {payload} from "./util/payload";
+import {CloneNodeVisitorOptions} from "./clone-node-options";
 
-export function cloneModuleBlock(node: TS.ModuleBlock, options: CloneNodeInternalOptions<TS.ModuleBlock>): TS.ModuleBlock {
-	return options.typescript.createModuleBlock(
-		options.hook("statements", cloneNodes(node.statements, nextOptions(node.statements, options)), node.statements, payload(options))
-	);
+export function cloneModuleBlock(node: TS.ModuleBlock, options: CloneNodeVisitorOptions<TS.ModuleBlock>): TS.ModuleBlock {
+	return options.typescript.createModuleBlock(options.hook("statements", options.nextNodes(node.statements), node.statements));
 }

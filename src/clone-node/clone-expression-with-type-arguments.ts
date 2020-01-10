@@ -1,16 +1,12 @@
-import {CloneNodeInternalOptions} from "./clone-node-options";
-import {cloneNode} from "./clone-node";
-import {cloneNodes} from "./clone-nodes";
 import {TS} from "./type/ts";
-import {nextOptions} from "./util/next-options";
-import {payload} from "./util/payload";
+import {CloneNodeVisitorOptions} from "./clone-node-options";
 
 export function cloneExpressionWithTypeArguments(
 	node: TS.ExpressionWithTypeArguments,
-	options: CloneNodeInternalOptions<TS.ExpressionWithTypeArguments>
+	options: CloneNodeVisitorOptions<TS.ExpressionWithTypeArguments>
 ): TS.ExpressionWithTypeArguments {
 	return options.typescript.createExpressionWithTypeArguments(
-		options.hook("typeArguments", cloneNodes(node.typeArguments, nextOptions(node.typeArguments, options)), node.typeArguments, payload(options)),
-		options.hook("expression", cloneNode(node.expression, nextOptions(node.expression, options)), node.expression, payload(options))
+		options.hook("typeArguments", options.nextNodes(node.typeArguments), node.typeArguments),
+		options.hook("expression", options.nextNode(node.expression), node.expression)
 	);
 }

@@ -1,18 +1,14 @@
-import {CloneNodeInternalOptions} from "./clone-node-options";
-import {cloneNodes} from "./clone-nodes";
-import {cloneNode} from "./clone-node";
+import {CloneNodeVisitorOptions} from "./clone-node-options";
 import {TS} from "./type/ts";
-import {nextOptions} from "./util/next-options";
-import {payload} from "./util/payload";
 
 export function cloneIndexSignatureDeclaration(
 	node: TS.IndexSignatureDeclaration,
-	options: CloneNodeInternalOptions<TS.IndexSignatureDeclaration>
+	options: CloneNodeVisitorOptions<TS.IndexSignatureDeclaration>
 ): TS.IndexSignatureDeclaration {
 	return options.typescript.createIndexSignature(
-		options.hook("decorators", cloneNodes(node.decorators, nextOptions(node.decorators, options)), node.decorators, payload(options)),
-		options.hook("modifiers", cloneNodes(node.modifiers, nextOptions(node.modifiers, options)), node.modifiers, payload(options)),
-		options.hook("parameters", cloneNodes(node.parameters, nextOptions(node.parameters, options)), node.parameters, payload(options)),
-		options.hook("type", cloneNode(node.type, nextOptions(node.type, options)), node.type, payload(options))!
+		options.hook("decorators", options.nextNodes(node.decorators), node.decorators),
+		options.hook("modifiers", options.nextNodes(node.modifiers), node.modifiers),
+		options.hook("parameters", options.nextNodes(node.parameters), node.parameters),
+		options.hook("type", options.nextNode(node.type), node.type)!
 	);
 }

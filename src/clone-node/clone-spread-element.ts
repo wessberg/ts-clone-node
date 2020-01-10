@@ -1,11 +1,6 @@
-import {cloneNode} from "./clone-node";
-import {CloneNodeInternalOptions} from "./clone-node-options";
 import {TS} from "./type/ts";
-import {nextOptions} from "./util/next-options";
-import {payload} from "./util/payload";
+import {CloneNodeVisitorOptions} from "./clone-node-options";
 
-export function cloneSpreadElement(node: TS.SpreadElement, options: CloneNodeInternalOptions<TS.SpreadElement>): TS.SpreadElement {
-	return options.typescript.createSpread(
-		options.hook("expression", cloneNode(node.expression, nextOptions(node.expression, options)), node.expression, payload(options))
-	);
+export function cloneSpreadElement(node: TS.SpreadElement, options: CloneNodeVisitorOptions<TS.SpreadElement>): TS.SpreadElement {
+	return options.typescript.createSpread(options.hook("expression", options.nextNode(node.expression), node.expression));
 }

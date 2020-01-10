@@ -111,6 +111,10 @@ import {cloneNode} from "@wessberg/ts-clone-node";
 const clonedNode = cloneNode(someNode);
 ```
 
+## Configuration
+
+### Hooking into and altering transformations
+
 You can pass in a hook that enables you to modify the clone, agnostic to the kind of Node it is.
 For example:
 
@@ -120,13 +124,24 @@ import {cloneNode} from "@wessberg/ts-clone-node";
 // Clone the Node, and alter the modifiers such that they don't include a modifier pointing
 // to the 'declare' keyword
 const clonedNode = cloneNode(someNode, {
-	hook: {
-		modifiers: modifiers => ensureNoDeclareModifier(modifiers)
+	hook: node => {
+		return {
+			modifiers: modifiers => ensureNoDeclareModifier(modifiers)
+		};
 	}
 });
 ```
 
-### Passing a specific TypeScript version
+There is also a _'finalize'_ which is invoked after a node has been cloned at any recursive step from the top node, allowing you to perform
+final alterations or track the node for other purposes.
+
+```typescript
+const clonedNode = cloneNode(someNode, {
+	finalize: (clonedNode, oldNode) => trackSomething(clonedNode, oldNode)
+});
+```
+
+### Passing in a specific TypeScript version
 
 You can use pass a specific TypeScript to use as an option to `cloneNode`:
 
@@ -137,7 +152,29 @@ cloneNode(someNode, {
 ```
 
 This can be useful, for example, in an environment where multiple packages in the same project depends
-on different TypeScript versions and you're relying on `cloneNode`
+on different TypeScript versions and you're relying on `cloneNode`.
+
+### Setting parent pointers
+
+By default, when you clone a node, it will recursively update all parent pointers such that you and TypeScripts compiler APIs can traverse the parent tree.
+You can toggle this behavior with the `setParents` option:
+
+```typescript
+cloneNode(someNode, {
+	setParents: true
+});
+```
+
+### Preserving comments
+
+By default, when you clone a node, comments will be preserved as much as possible and added to the cloned nodes as `emitNodes`.
+You can toggle this behavior with the `preserveComments` option:
+
+```typescript
+cloneNode(someNode, {
+	preserveComments: false
+});
+```
 
 <!-- SHADOW_SECTION_CONTRIBUTING_START -->
 

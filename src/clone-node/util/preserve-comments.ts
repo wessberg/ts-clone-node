@@ -1,73 +1,113 @@
-import {CloneNodeInternalOptions, CloneNodeOptions} from "../clone-node-options";
 import {MetaNode} from "../type/meta-node";
-import {cloneNodes} from "../clone-nodes";
-import {nextOptions} from "./next-options";
-import {payload} from "./payload";
 import {TS} from "../type/ts";
-import {toInternalOptions} from "./to-internal-options";
+import {CloneNodeInternalOptions} from "../clone-node-options";
 
 function formatCommentRange({pos, end}: TS.CommentRange): string {
 	return `${pos}:${end}`;
 }
 
-export function preserveComments<T extends MetaNode>(node: T, oldNode: T, options: Partial<CloneNodeOptions<T>> | CloneNodeInternalOptions = {}): T {
-	const internalOptions = toInternalOptions(node, options);
+export interface TSComment {
+	pos: number;
+	end: number;
+	text: string;
+	isLeading: boolean;
+	kind: TS.SyntaxKind.SingleLineCommentTrivia | TS.SyntaxKind.MultiLineCommentTrivia;
+	hasTrailingNewLine: boolean;
+}
 
-	node.jsDoc = internalOptions.hook(
-		"jsDoc",
-		cloneNodes(oldNode.jsDoc, nextOptions(oldNode.jsDoc, internalOptions)),
-		oldNode.jsDoc,
-		payload(internalOptions)
-	);
+export interface PreserveCommentsOptions extends CloneNodeInternalOptions {
+	leading: boolean;
+}
 
-	const oldSourceFile = options.sourceFile;
-	if (oldSourceFile == null) return node;
-	const sourceFileText = oldSourceFile.text;
+function getCommentRanges<T extends MetaNode>(node: T, options: PreserveCommentsOptions): TSComment[] {
+	const comments: TSComment[] = [];
+	const originalNode = options.typescript.getOriginalNode(node);
 
-	const comments: [string, boolean, TS.SyntaxKind.SingleLineCommentTrivia | TS.SyntaxKind.MultiLineCommentTrivia, boolean][] = [];
+	const sourceFile = originalNode.getSourceFile();
 
-	for (const leadingOrTrailing of ["getLeadingCommentRanges", "getTrailingCommentRanges"] as const) {
-		const leadingCommentRanges = internalOptions.typescript[leadingOrTrailing](oldSourceFile.text, oldNode.pos) ?? [];
-		const trailingCommentRanges = internalOptions.typescript[leadingOrTrailing](oldSourceFile.text, oldNode.end) ?? [];
-		const commentRanges = [
-			...leadingCommentRanges.map(range => ({...range, hasTrailingNewLine: Boolean(range.hasTrailingNewLine), leading: true})),
-			...trailingCommentRanges.map(range => ({...range, hasTrailingNewLine: Boolean(range.hasTrailingNewLine), leading: false}))
-		];
+	if (sourceFile == null || originalNode.pos === -1 || originalNode.end === -1) return [];
+	const commentRanges = (options.leading
+		? [
+				...(options.typescript.getLeadingCommentRanges(sourceFile.text, originalNode.pos) ?? []),
+				...(options.typescript.getTrailingCommentRanges(sourceFile.text, originalNode.pos) ?? [])
+		  ]
+		: [
+				...(options.typescript.getLeadingCommentRanges(sourceFile.text, originalNode.end) ?? []),
+				...(options.typescript.getTrailingCommentRanges(sourceFile.text, originalNode.end) ?? [])
+		  ]
+	).map(range => ({...range, hasTrailingNewLine: Boolean(range.hasTrailingNewLine), isLeading: options.leading}));
 
-		for (const commentRange of commentRanges) {
-			if (internalOptions.commentRanges.has(formatCommentRange(commentRange))) continue;
-			internalOptions.commentRanges.add(formatCommentRange(commentRange));
-			let text = sourceFileText.substring(commentRange.pos, commentRange.end);
+	for (const commentRange of commentRanges) {
+		if (options.commentRanges.has(formatCommentRange(commentRange))) continue;
+		options.commentRanges.add(formatCommentRange(commentRange));
+		let text = sourceFile.text.substring(commentRange.pos, commentRange.end);
 
-			if (!text.startsWith("//") && !text.startsWith("/*")) continue;
+		if (!text.startsWith("//") && !text.startsWith("/*")) continue;
+		const isUsingLineCarriages = text.includes("\r\n");
+		const isJsDoc = text.startsWith("/**");
 
-			comments.push([text, commentRange.leading, commentRange.kind, commentRange.hasTrailingNewLine]);
-		}
+		comments.push({
+			...commentRange,
+			text: text
+				.split(/\r?\n/)
+				.map(line => line.trim())
+				.map(line => (!isJsDoc || line.startsWith("/**") ? line : ` ${line}`))
+				.join(isUsingLineCarriages ? `\r\n` : `\n`)
+		});
+	}
+	return comments;
+}
+
+export function preserveAllComments<T extends MetaNode>(node: T, options: PreserveCommentsOptions): void {
+	preserveCommentsForOriginalNode(node, options);
+	options.typescript.forEachChild(node, child => {
+		preserveAllComments(child, options);
+	});
+}
+
+export function preserveCommentsForOriginalNode<T extends MetaNode>(node: T, options: PreserveCommentsOptions): void {
+	if (options.typescript.isSourceFile(node)) return;
+	const originalNode = options.typescript.getOriginalNode(node);
+	if (node !== originalNode) preserveComments(node, originalNode, options);
+}
+
+export function preserveComments<T extends MetaNode>(node: T, oldNode: T, options: PreserveCommentsOptions): T {
+	if (node.pos > -1 && node.end >= -1) {
+		return node;
 	}
 
-	for (const [comment, leading, commentKind, hasTrailingNewLine] of comments) {
+	if (node.jsDoc == null && oldNode.jsDoc != null) {
+		node.jsDoc = oldNode.jsDoc;
+	}
+
+	const comments = getCommentRanges(oldNode, options);
+
+	if (comments.length > 0) {
+		options.typescript.setSyntheticLeadingComments(node, undefined);
+	}
+
+	for (const {isLeading, text, hasTrailingNewLine, kind} of comments) {
 		let slicedComment: string;
 
-		if (comment.startsWith("/**")) {
+		if (text.startsWith("/**")) {
 			// 'addSyntheticLeadingComment' will place the leading '/*' and the trailing '*/', so these two parts must be stripped
 			// from the text before passing it to TypeScript
-			slicedComment = comment.slice(2, comment.length - 2);
-		} else if (comment.startsWith("/*")) {
+			slicedComment = text.slice(2, text.length - 2);
+		} else if (text.startsWith("/*")) {
 			// 'addSyntheticLeadingComment' will place the leading '/*' and the trailing '*/', so these two parts must be stripped
 			// from the text before passing it to TypeScript
-			slicedComment = comment.slice(2, comment.length - 2);
+			slicedComment = text.slice(2, text.length - 2);
 		} else {
 			// 'addSyntheticLeadingComment' will place the leading '//', so this part must be stripped
 			// from the text before passing it to TypeScript
-			slicedComment = comment.slice(2);
+			slicedComment = text.slice(2);
 		}
 
-		if (leading) {
-			internalOptions.typescript.addSyntheticLeadingComment(node, commentKind, slicedComment, hasTrailingNewLine);
+		if (isLeading) {
+			options.typescript.addSyntheticLeadingComment(node, kind, slicedComment, hasTrailingNewLine);
 		} else {
-			internalOptions.typescript.addSyntheticTrailingComment(node, commentKind, slicedComment, hasTrailingNewLine);
+			options.typescript.addSyntheticTrailingComment(node, kind, slicedComment, hasTrailingNewLine);
 		}
 	}
-
 	return node;
 }

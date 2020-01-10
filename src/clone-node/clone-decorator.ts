@@ -1,11 +1,6 @@
-import {cloneNode} from "./clone-node";
-import {CloneNodeInternalOptions} from "./clone-node-options";
 import {TS} from "./type/ts";
-import {nextOptions} from "./util/next-options";
-import {payload} from "./util/payload";
+import {CloneNodeVisitorOptions} from "./clone-node-options";
 
-export function cloneDecorator(node: TS.Decorator, options: CloneNodeInternalOptions<TS.Decorator>): TS.Decorator {
-	return options.typescript.createDecorator(
-		options.hook("expression", cloneNode(node.expression, nextOptions(node.expression, options)), node.expression, payload(options))
-	);
+export function cloneDecorator(node: TS.Decorator, options: CloneNodeVisitorOptions<TS.Decorator>): TS.Decorator {
+	return options.typescript.createDecorator(options.hook("expression", options.nextNode(node.expression), node.expression));
 }

@@ -1,14 +1,9 @@
-import {CloneNodeInternalOptions} from "./clone-node-options";
-import {cloneNode} from "./clone-node";
 import {TS} from "./type/ts";
-import {nextOptions} from "./util/next-options";
-import {payload} from "./util/payload";
+import {CloneNodeVisitorOptions} from "./clone-node-options";
 
 export function cloneExternalModuleReference(
 	node: TS.ExternalModuleReference,
-	options: CloneNodeInternalOptions<TS.ExternalModuleReference>
+	options: CloneNodeVisitorOptions<TS.ExternalModuleReference>
 ): TS.ExternalModuleReference {
-	return options.typescript.createExternalModuleReference(
-		options.hook("expression", cloneNode(node.expression, nextOptions(node.expression, options)), node.expression, payload(options))
-	);
+	return options.typescript.createExternalModuleReference(options.hook("expression", options.nextNode(node.expression), node.expression));
 }

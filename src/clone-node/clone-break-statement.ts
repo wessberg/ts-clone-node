@@ -1,9 +1,6 @@
-import {CloneNodeInternalOptions} from "./clone-node-options";
-import {cloneNode} from "./clone-node";
 import {TS} from "./type/ts";
-import {nextOptions} from "./util/next-options";
-import {payload} from "./util/payload";
+import {CloneNodeVisitorOptions} from "./clone-node-options";
 
-export function cloneBreakStatement(node: TS.BreakStatement, options: CloneNodeInternalOptions<TS.BreakStatement>): TS.BreakStatement {
-	return options.typescript.createBreak(options.hook("label", cloneNode(node.label, nextOptions(node.label, options)), node.label, payload(options)));
+export function cloneBreakStatement(node: TS.BreakStatement, options: CloneNodeVisitorOptions<TS.BreakStatement>): TS.BreakStatement {
+	return options.typescript.createBreak(options.hook("label", options.nextNode(node.label), node.label));
 }

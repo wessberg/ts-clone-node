@@ -1,13 +1,10 @@
-import {CloneNodeInternalOptions} from "./clone-node-options";
-import {cloneNode} from "./clone-node";
 import {TS} from "./type/ts";
-import {nextOptions} from "./util/next-options";
-import {payload} from "./util/payload";
+import {CloneNodeVisitorOptions} from "./clone-node-options";
 
-export function cloneForInStatement(node: TS.ForInStatement, options: CloneNodeInternalOptions<TS.ForInStatement>): TS.ForInStatement {
+export function cloneForInStatement(node: TS.ForInStatement, options: CloneNodeVisitorOptions<TS.ForInStatement>): TS.ForInStatement {
 	return options.typescript.createForIn(
-		options.hook("initializer", cloneNode(node.initializer, nextOptions(node.initializer, options)), node.initializer, payload(options)),
-		options.hook("expression", cloneNode(node.expression, nextOptions(node.expression, options)), node.expression, payload(options)),
-		options.hook("statement", cloneNode(node.statement, nextOptions(node.statement, options)), node.statement, payload(options))
+		options.hook("initializer", options.nextNode(node.initializer), node.initializer),
+		options.hook("expression", options.nextNode(node.expression), node.expression),
+		options.hook("statement", options.nextNode(node.statement), node.statement)
 	);
 }

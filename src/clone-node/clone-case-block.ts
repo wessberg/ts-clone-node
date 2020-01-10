@@ -1,11 +1,6 @@
-import {CloneNodeInternalOptions} from "./clone-node-options";
-import {cloneNodes} from "./clone-nodes";
 import {TS} from "./type/ts";
-import {nextOptions} from "./util/next-options";
-import {payload} from "./util/payload";
+import {CloneNodeVisitorOptions} from "./clone-node-options";
 
-export function cloneCaseBlock(node: TS.CaseBlock, options: CloneNodeInternalOptions<TS.CaseBlock>): TS.CaseBlock {
-	return options.typescript.createCaseBlock(
-		options.hook("clauses", cloneNodes(node.clauses, nextOptions(node.clauses, options)), node.clauses, payload(options))
-	);
+export function cloneCaseBlock(node: TS.CaseBlock, options: CloneNodeVisitorOptions<TS.CaseBlock>): TS.CaseBlock {
+	return options.typescript.createCaseBlock(options.hook("clauses", options.nextNodes(node.clauses), node.clauses));
 }

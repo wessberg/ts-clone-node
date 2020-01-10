@@ -7,37 +7,51 @@ export type NodeHookValue<T extends MetaNode, Key extends keyof T> = T[Key] exte
 	? ElementTypeB[] | TS.NodeArray<ElementTypeB> | undefined
 	: T[Key];
 
-export interface CloneNodePayload {
+export interface CloneNodeHookFactoryPayload {
 	depth: number;
 }
 
-export type CloneNodeHookCallbackWithKey<T extends MetaNode> = <Key extends keyof T>(
-	key: Key,
-	value: NodeHookValue<T, Key>,
-	oldValue: NodeHookValue<T, Key>,
-	payload: CloneNodePayload
-) => NodeHookValue<T, Key>;
 export type CloneNodeHookCallback<T extends MetaNode, Key extends keyof T> = (
 	value: NodeHookValue<T, Key>,
-	oldValue: NodeHookValue<T, Key>,
-	payload: CloneNodePayload
+	oldValue: NodeHookValue<T, Key>
 ) => NodeHookValue<T, Key>;
 
-export type CloneNodeHook<T extends MetaNode> =
-	| CloneNodeHookCallbackWithKey<T>
-	| {
-			[Key in keyof T]?: CloneNodeHookCallback<T, Key>;
-	  };
+export type CloneNodeFinalizerCallback<T extends MetaNode> = (newNode: T, oldNode: T, payload: CloneNodeHookFactoryPayload) => void | undefined;
+
+export type CloneNodeHook<T extends MetaNode> = {
+	[Key in keyof T]?: CloneNodeHookCallback<T, Key>;
+};
+
+export type CloneNodeHookFactory<T extends MetaNode> = (node: T, payload: CloneNodeHookFactoryPayload) => CloneNodeHook<T> | undefined;
+
+export type CloneNodeHookInternal<T extends MetaNode> = <Key extends keyof T>(
+	key: Key,
+	newValue: NodeHookValue<T, Key>,
+	oldValue: NodeHookValue<T, Key>
+) => NodeHookValue<T, Key>;
 
 export interface CloneNodeOptions<T extends MetaNode = MetaNode> {
-	hook: CloneNodeHook<T>;
+	hook: CloneNodeHookFactory<T>;
+	finalize: CloneNodeFinalizerCallback<T>;
 	typescript: typeof TS;
-	sourceFile: TS.SourceFile;
+	setParents: boolean;
+	preserveComments: boolean;
 }
 
 export interface CloneNodeInternalOptions<T extends MetaNode = MetaNode> extends Omit<CloneNodeOptions<T>, "hook"> {
-	internal: true;
-	depth: number;
-	hook: CloneNodeHookCallbackWithKey<T>;
+	hook: CloneNodeHookFactory<T>;
 	commentRanges: Set<string>;
+	depth: number;
+}
+
+export interface CloneNodeVisitorOptions<T extends MetaNode = MetaNode> extends Omit<CloneNodeInternalOptions<T>, "hook" | "finalize"> {
+	hook: CloneNodeHookInternal<T>;
+
+	nextNode<Next extends MetaNode>(node: Next): Next;
+	nextNode<Next extends MetaNode>(node: Next | undefined): Next | undefined;
+
+	nextNodes<Next extends MetaNode>(nodes: readonly Next[]): Next[];
+	nextNodes<Next extends MetaNode>(nodes: Next[]): Next[];
+	nextNodes<Next extends MetaNode>(nodes: undefined): undefined;
+	nextNodes<Next extends MetaNode>(nodes: readonly Next[] | Next[] | undefined): undefined;
 }

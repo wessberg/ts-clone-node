@@ -1,11 +1,6 @@
-import {CloneNodeInternalOptions} from "./clone-node-options";
-import {cloneNode} from "./clone-node";
 import {TS} from "./type/ts";
-import {nextOptions} from "./util/next-options";
-import {payload} from "./util/payload";
+import {CloneNodeVisitorOptions} from "./clone-node-options";
 
-export function cloneInferTypeNode(node: TS.InferTypeNode, options: CloneNodeInternalOptions<TS.InferTypeNode>): TS.InferTypeNode {
-	return options.typescript.createInferTypeNode(
-		options.hook("typeParameter", cloneNode(node.typeParameter, nextOptions(node.typeParameter, options)), node.typeParameter, payload(options))
-	);
+export function cloneInferTypeNode(node: TS.InferTypeNode, options: CloneNodeVisitorOptions<TS.InferTypeNode>): TS.InferTypeNode {
+	return options.typescript.createInferTypeNode(options.hook("typeParameter", options.nextNode(node.typeParameter), node.typeParameter));
 }

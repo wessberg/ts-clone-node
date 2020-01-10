@@ -1,20 +1,12 @@
-import {CloneNodeInternalOptions} from "./clone-node-options";
-import {cloneNode} from "./clone-node";
 import {TS} from "./type/ts";
-import {nextOptions} from "./util/next-options";
-import {payload} from "./util/payload";
+import {CloneNodeVisitorOptions} from "./clone-node-options";
 
 export function cloneElementAccessExpression(
 	node: TS.ElementAccessExpression,
-	options: CloneNodeInternalOptions<TS.ElementAccessExpression>
+	options: CloneNodeVisitorOptions<TS.ElementAccessExpression>
 ): TS.ElementAccessExpression {
 	return options.typescript.createElementAccess(
-		options.hook("expression", cloneNode(node.expression, nextOptions(node.expression, options)), node.expression, payload(options)),
-		options.hook(
-			"argumentExpression",
-			cloneNode(node.argumentExpression, nextOptions(node.argumentExpression, options)),
-			node.argumentExpression,
-			payload(options)
-		)
+		options.hook("expression", options.nextNode(node.expression), node.expression),
+		options.hook("argumentExpression", options.nextNode(node.argumentExpression), node.argumentExpression)
 	);
 }

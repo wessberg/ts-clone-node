@@ -1,13 +1,9 @@
-import {CloneNodeInternalOptions} from "./clone-node-options";
-import {cloneNodes} from "./clone-nodes";
-import {cloneNode} from "./clone-node";
 import {TS} from "./type/ts";
-import {nextOptions} from "./util/next-options";
-import {payload} from "./util/payload";
+import {CloneNodeVisitorOptions} from "./clone-node-options";
 
-export function cloneCaseClause(node: TS.CaseClause, options: CloneNodeInternalOptions<TS.CaseClause>): TS.CaseClause {
+export function cloneCaseClause(node: TS.CaseClause, options: CloneNodeVisitorOptions<TS.CaseClause>): TS.CaseClause {
 	return options.typescript.createCaseClause(
-		options.hook("expression", cloneNode(node.expression, nextOptions(node.expression, options)), node.expression, payload(options)),
-		options.hook("statements", cloneNodes(node.statements, nextOptions(node.statements, options)), node.statements, payload(options))
+		options.hook("expression", options.nextNode(node.expression), node.expression),
+		options.hook("statements", options.nextNodes(node.statements), node.statements)
 	);
 }

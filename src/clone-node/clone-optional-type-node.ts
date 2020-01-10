@@ -1,11 +1,6 @@
-import {CloneNodeInternalOptions} from "./clone-node-options";
-import {cloneNode} from "./clone-node";
 import {TS} from "./type/ts";
-import {nextOptions} from "./util/next-options";
-import {payload} from "./util/payload";
+import {CloneNodeVisitorOptions} from "./clone-node-options";
 
-export function cloneOptionalTypeNode(node: TS.OptionalTypeNode, options: CloneNodeInternalOptions<TS.OptionalTypeNode>): TS.OptionalTypeNode {
-	return options.typescript.createOptionalTypeNode(
-		options.hook("type", cloneNode(node.type, nextOptions(node.type, options)), node.type, payload(options))
-	);
+export function cloneOptionalTypeNode(node: TS.OptionalTypeNode, options: CloneNodeVisitorOptions<TS.OptionalTypeNode>): TS.OptionalTypeNode {
+	return options.typescript.createOptionalTypeNode(options.hook("type", options.nextNode(node.type), node.type));
 }

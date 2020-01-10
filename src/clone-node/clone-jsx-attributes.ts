@@ -1,11 +1,6 @@
-import {CloneNodeInternalOptions} from "./clone-node-options";
-import {cloneNodes} from "./clone-nodes";
 import {TS} from "./type/ts";
-import {nextOptions} from "./util/next-options";
-import {payload} from "./util/payload";
+import {CloneNodeVisitorOptions} from "./clone-node-options";
 
-export function cloneJsxAttributes(node: TS.JsxAttributes, options: CloneNodeInternalOptions<TS.JsxAttributes>): TS.JsxAttributes {
-	return options.typescript.createJsxAttributes(
-		options.hook("properties", cloneNodes(node.properties, nextOptions(node.properties, options)), node.properties, payload(options))
-	);
+export function cloneJsxAttributes(node: TS.JsxAttributes, options: CloneNodeVisitorOptions<TS.JsxAttributes>): TS.JsxAttributes {
+	return options.typescript.createJsxAttributes(options.hook("properties", options.nextNodes(node.properties), node.properties));
 }

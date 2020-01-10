@@ -1,14 +1,9 @@
-import {CloneNodeInternalOptions} from "./clone-node-options";
-import {cloneNodes} from "./clone-nodes";
 import {TS} from "./type/ts";
-import {nextOptions} from "./util/next-options";
-import {payload} from "./util/payload";
+import {CloneNodeVisitorOptions} from "./clone-node-options";
 
 export function cloneIntersectionTypeNode(
 	node: TS.IntersectionTypeNode,
-	options: CloneNodeInternalOptions<TS.IntersectionTypeNode>
+	options: CloneNodeVisitorOptions<TS.IntersectionTypeNode>
 ): TS.IntersectionTypeNode {
-	return options.typescript.createIntersectionTypeNode(
-		options.hook("types", cloneNodes(node.types, nextOptions(node.types, options)), node.types, payload(options))
-	);
+	return options.typescript.createIntersectionTypeNode(options.hook("types", options.nextNodes(node.types), node.types));
 }

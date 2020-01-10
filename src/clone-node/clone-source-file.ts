@@ -1,19 +1,18 @@
-import {CloneNodeInternalOptions} from "./clone-node-options";
-import {cloneNodes} from "./clone-nodes";
 import {TS} from "./type/ts";
-import {nextOptions} from "./util/next-options";
-import {payload} from "./util/payload";
+import {CloneNodeVisitorOptions} from "./clone-node-options";
 
-export function cloneSourceFile(node: TS.SourceFile, options: CloneNodeInternalOptions<TS.SourceFile>): TS.SourceFile {
-	const sourceFile = options.typescript.createSourceFile(node.fileName, node.getText(), node.languageVersion);
-
-	return options.typescript.updateSourceFileNode(
-		sourceFile,
-		options.hook("statements", cloneNodes(node.statements, nextOptions(node.statements, options)), node.statements, payload(options)),
+export function cloneSourceFile(node: TS.SourceFile, options: CloneNodeVisitorOptions<TS.SourceFile>): TS.SourceFile {
+	const updatedSourceFile = options.typescript.updateSourceFileNode(
+		node,
+		options.hook("statements", options.nextNodes(node.statements), node.statements),
 		node.isDeclarationFile,
 		node.referencedFiles,
 		node.typeReferenceDirectives,
 		node.hasNoDefaultLib,
 		node.libReferenceDirectives
 	);
+
+	updatedSourceFile.pos = -1;
+	updatedSourceFile.end = -1;
+	return updatedSourceFile;
 }

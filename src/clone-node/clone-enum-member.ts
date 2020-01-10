@@ -1,12 +1,9 @@
-import {CloneNodeInternalOptions} from "./clone-node-options";
-import {cloneNode} from "./clone-node";
 import {TS} from "./type/ts";
-import {nextOptions} from "./util/next-options";
-import {payload} from "./util/payload";
+import {CloneNodeVisitorOptions} from "./clone-node-options";
 
-export function cloneEnumMember(node: TS.EnumMember, options: CloneNodeInternalOptions<TS.EnumMember>): TS.EnumMember {
+export function cloneEnumMember(node: TS.EnumMember, options: CloneNodeVisitorOptions<TS.EnumMember>): TS.EnumMember {
 	return options.typescript.createEnumMember(
-		options.hook("name", cloneNode(node.name, nextOptions(node.name, options)), node.name, payload(options)),
-		options.hook("initializer", cloneNode(node.initializer, nextOptions(node.initializer, options)), node.initializer, payload(options))
+		options.hook("name", options.nextNode(node.name), node.name),
+		options.hook("initializer", options.nextNode(node.initializer), node.initializer)
 	);
 }

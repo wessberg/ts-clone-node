@@ -1,15 +1,9 @@
-import {cloneNode} from "./clone-node";
-import {CloneNodeInternalOptions} from "./clone-node-options";
 import {TS} from "./type/ts";
-import {nextOptions} from "./util/next-options";
-import {payload} from "./util/payload";
+import {CloneNodeVisitorOptions} from "./clone-node-options";
 
-export function clonePropertyAssignment(
-	node: TS.PropertyAssignment,
-	options: CloneNodeInternalOptions<TS.PropertyAssignment>
-): TS.PropertyAssignment {
+export function clonePropertyAssignment(node: TS.PropertyAssignment, options: CloneNodeVisitorOptions<TS.PropertyAssignment>): TS.PropertyAssignment {
 	return options.typescript.createPropertyAssignment(
-		options.hook("name", cloneNode(node.name, nextOptions(node.name, options)), node.name, payload(options)),
-		options.hook("initializer", cloneNode(node.initializer, nextOptions(node.initializer, options)), node.initializer, payload(options))
+		options.hook("name", options.nextNode(node.name), node.name),
+		options.hook("initializer", options.nextNode(node.initializer), node.initializer)
 	);
 }
