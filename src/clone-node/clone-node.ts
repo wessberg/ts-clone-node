@@ -248,7 +248,7 @@ function finalize<T extends MetaNode>(node: T | undefined, options: CloneNodeInt
 		finalize(child, nextOptions(options));
 	});
 
-	return (options.finalize(node as T, options.typescript.getOriginalNode(node) as T, payload(options)) as T | undefined) ?? node;
+	return (options.finalize(node, options.typescript.getOriginalNode(node) as T, payload(options)) as T | undefined) ?? node;
 }
 
 function nextNode<Next extends MetaNode>(node: Next | undefined, options: CloneNodeInternalOptions): Next | undefined {
