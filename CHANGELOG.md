@@ -1,3 +1,9 @@
+## [0.3.1](https://github.com/wessberg/ts-clone-node/compare/v0.3.0...v0.3.1) (2020-01-10)
+
+### Features
+
+- add more customizability ([a40af21](https://github.com/wessberg/ts-clone-node/commit/a40af21f1e8e7f784067ed859aeb4081474530cd))
+
 # [0.3.0](https://github.com/wessberg/ts-clone-node/compare/v0.2.1...v0.3.0) (2020-01-10)
 
 ## [0.2.1](https://github.com/wessberg/ts-clone-node/compare/v0.2.0...v0.2.1) (2020-01-07)
