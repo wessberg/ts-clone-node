@@ -160,12 +160,23 @@ on different TypeScript versions and you're relying on `cloneNode`.
 
 ### Setting parent pointers
 
-By default, when you clone a node, it will recursively update all parent pointers such that you and TypeScripts compiler APIs can traverse the parent tree.
+By default, when you clone a node, it won't update the parent pointers such that you and TypeScripts compiler APIs can traverse the parent tree.
 You can toggle this behavior with the `setParents` option:
 
 ```typescript
 cloneNode(someNode, {
 	setParents: true
+});
+```
+
+### Setting original node pointers
+
+By default, when you clone a node, it won't keep references to the original nodes recursively.
+You can toggle this behavior with the `setOriginalNodes` option:
+
+```typescript
+cloneNode(someNode, {
+	setOriginalNodes: true
 });
 ```
 
@@ -177,6 +188,17 @@ You can toggle this behavior with the `preserveComments` option:
 ```typescript
 cloneNode(someNode, {
 	preserveComments: false
+});
+```
+
+### Preserving symbols
+
+By default, when you clone a node, it won't preserve symbols from the original nodes.
+You can toggle this behavior with the `preserveSymbols` option:
+
+```typescript
+cloneNode(someNode, {
+	preserveSymbols: true
 });
 ```
 

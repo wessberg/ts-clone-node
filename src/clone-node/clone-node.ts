@@ -212,16 +212,20 @@ import {cloneJSDocPropertyTag} from "./clone-js-doc-property-tag";
 import {isJsDocTypeLiteral} from "./util/is-js-doc-type-literal";
 import {cloneJSDocTypeLiteral} from "./clone-js-doc-type-literal";
 import {setParents} from "./util/set-parents";
-import {preserveAllComments} from "./util/preserve-comments";
+import {preserveAllComments, preserveComments} from "./util/preserve-comments";
 import {nextOptions} from "./util/next-options";
 import {payload} from "./util/payload";
 
-export function preserveNode<T extends MetaNode>(node: T, options?: Partial<CloneNodeOptions<T>>): T;
-export function preserveNode<T extends MetaNode>(node: undefined, options?: Partial<CloneNodeOptions<T>>): undefined;
-export function preserveNode<T extends MetaNode>(node: T | undefined, options?: Partial<CloneNodeOptions<T>>): T | undefined;
-export function preserveNode<T extends MetaNode>(node: T | undefined, options: Partial<CloneNodeOptions<T>> = {}): T | undefined {
+export function preserveNode<T extends MetaNode>(node: T, oldNode: T, options?: Partial<CloneNodeOptions<T>>): T;
+export function preserveNode<T extends MetaNode>(node: undefined, oldNode: undefined, options?: Partial<CloneNodeOptions<T>>): undefined;
+export function preserveNode<T extends MetaNode>(node: T | undefined, oldNode: T | undefined, options?: Partial<CloneNodeOptions<T>>): T | undefined;
+export function preserveNode<T extends MetaNode>(
+	node: T | undefined,
+	oldNode: T | undefined,
+	options: Partial<CloneNodeOptions<T>> = {}
+): T | undefined {
 	const internalOptions = toInternalOptions(options);
-	executePreserveNode(node, internalOptions);
+	executePreserveNode(node, oldNode, internalOptions);
 	return node;
 }
 
@@ -232,23 +236,13 @@ export function cloneNode<T extends MetaNode>(node: T | undefined, options: Part
 	if (node === undefined) return undefined;
 	const internalOptions = toInternalOptions(options);
 	const clone = nextNode(node, internalOptions);
-	executePreserveNode(clone, internalOptions);
+	executePreserveNode(clone, node, internalOptions);
 
 	if (clone != null && internalOptions.setParents) {
 		clone.parent = node.parent;
 	}
 
-	return options.finalize == null ? clone : finalize(clone, internalOptions);
-}
-
-function finalize<T extends MetaNode>(node: T | undefined, options: CloneNodeInternalOptions<T>): T | undefined {
-	if (node == null) return undefined;
-
-	options.typescript.forEachChild(node, child => {
-		finalize(child, nextOptions(options));
-	});
-
-	return (options.finalize(node, options.typescript.getOriginalNode(node) as T, payload(options)) as T | undefined) ?? node;
+	return clone;
 }
 
 function nextNode<Next extends MetaNode>(node: Next | undefined, options: CloneNodeInternalOptions): Next | undefined {
@@ -276,8 +270,6 @@ function nextNode<Next extends MetaNode>(node: Next | undefined, options: CloneN
 	const clone = executeCloneNode(node, visitorOptions) as Next | undefined;
 	if (clone === undefined) return undefined;
 
-	options.typescript.setOriginalNode(clone, node);
-
 	if (node.jsDoc != null) {
 		clone.jsDoc = visitorOptions.hook(
 			"jsDoc",
@@ -286,16 +278,42 @@ function nextNode<Next extends MetaNode>(node: Next | undefined, options: CloneN
 		) as TS.JSDoc[];
 	}
 
-	return preserveSymbols(clone, node);
+	setOriginalNodes(clone, node, options);
+	preserveSymbols(clone, node, options);
+
+	return options.finalize == null ? clone : (options.finalize(clone, node, payload(options)) as Next | undefined) ?? clone;
 }
 
-export function preserveSymbols<T extends MetaNode, U extends MetaNode>(node: T, otherNode: U): T {
-	if (node.symbol == null && otherNode.symbol != null) {
-		node.symbol = otherNode.symbol;
-	}
+function executePreserveNode<T extends MetaNode>(node: T | undefined, oldNode: T | undefined, options: CloneNodeInternalOptions<T>): void {
+	if (node == null || oldNode == null || node === oldNode) return undefined;
+	setParents(node, options);
+	// Prioritize leading over trailing comments
+	preserveAllComments(node, {...options, leading: true});
+	preserveAllComments(node, {...options, leading: false});
+	preserveComments(node, oldNode, {...options, leading: true});
+	preserveComments(node, oldNode, {...options, leading: false});
+	setOriginalNodes(node, oldNode, options);
+	preserveSymbols(node, oldNode, options);
+}
 
-	if (node.localSymbol == null && otherNode.localSymbol != null) {
-		node.localSymbol = otherNode.localSymbol;
+function setOriginalNodes<T extends MetaNode>(newNode: T, oldNode: MetaNode, options: CloneNodeInternalOptions): void {
+	if (newNode === oldNode) return;
+	if (options.setOriginalNodes) {
+		options.typescript.setOriginalNode(newNode, oldNode);
+		newNode._original = newNode.original;
+	} else {
+		newNode._original = oldNode;
+	}
+}
+
+function preserveSymbols<T extends MetaNode>(node: T, otherNode: MetaNode, options: CloneNodeInternalOptions): T {
+	if (node === otherNode) return node;
+	const otherSymbol = otherNode._symbol ?? otherNode._symbol;
+	if (otherSymbol != null) {
+		node._symbol = otherSymbol;
+	}
+	if (options.preserveSymbols) {
+		node.symbol = node._symbol;
 	}
 	return node;
 }
@@ -304,24 +322,6 @@ function nextNodes<Next extends MetaNode>(nodes: readonly Next[] | Next[] | unde
 	if (nodes === undefined) return undefined;
 
 	return (nodes as Next[]).map(node => nextNode(node, options)) as Next[] | undefined;
-}
-
-function executePreserveNode<T extends MetaNode>(node: T | undefined, options: CloneNodeInternalOptions<T>): void {
-	if (node == null) return undefined;
-	if (options.setParents) {
-		setParents(node, options.typescript, true);
-	}
-
-	if (options.preserveComments) {
-		// Prioritize leading over trailing comments
-		preserveAllComments(node, {...options, leading: true});
-		preserveAllComments(node, {...options, leading: false});
-	}
-
-	const originalNode = options.typescript.getOriginalNode(node);
-	if (node !== originalNode) {
-		preserveSymbols(node, options.typescript.getOriginalNode(node));
-	}
 }
 
 function executeCloneNode(node: MetaNode | undefined, options: CloneNodeVisitorOptions): MetaNode | undefined {

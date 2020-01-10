@@ -16,7 +16,7 @@ export type CloneNodeHookCallback<T extends MetaNode, Key extends keyof T> = (
 	oldValue: NodeHookValue<T, Key>
 ) => NodeHookValue<T, Key>;
 
-export type CloneNodeFinalizerCallback<T extends MetaNode> = (newNode: T, oldNode: T, payload: CloneNodeHookFactoryPayload) => void | undefined;
+export type CloneNodeFinalizerCallback<T extends MetaNode> = (newNode: T, oldNode: T, payload: CloneNodeHookFactoryPayload) => T | void | undefined;
 
 export type CloneNodeHook<T extends MetaNode> = {
 	[Key in keyof T]?: CloneNodeHookCallback<T, Key>;
@@ -35,6 +35,8 @@ export interface CloneNodeOptions<T extends MetaNode = MetaNode> {
 	finalize: CloneNodeFinalizerCallback<T>;
 	typescript: typeof TS;
 	setParents: boolean;
+	setOriginalNodes: boolean;
+	preserveSymbols: boolean;
 	preserveComments: boolean;
 }
 

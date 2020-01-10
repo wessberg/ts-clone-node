@@ -1,6 +1,7 @@
 import {MetaNode} from "../type/meta-node";
 import {TS} from "../type/ts";
 import {CloneNodeInternalOptions} from "../clone-node-options";
+import {getOriginalNode} from "./get-original-node";
 
 function formatCommentRange({pos, end}: TS.CommentRange): string {
 	return `${pos}:${end}`;
@@ -21,7 +22,7 @@ export interface PreserveCommentsOptions extends CloneNodeInternalOptions {
 
 function getCommentRanges<T extends MetaNode>(node: T, options: PreserveCommentsOptions): TSComment[] {
 	const comments: TSComment[] = [];
-	const originalNode = options.typescript.getOriginalNode(node);
+	const originalNode = getOriginalNode(node, options);
 
 	const sourceFile = originalNode.getSourceFile();
 
@@ -59,19 +60,22 @@ function getCommentRanges<T extends MetaNode>(node: T, options: PreserveComments
 }
 
 export function preserveAllComments<T extends MetaNode>(node: T, options: PreserveCommentsOptions): void {
+	if (!options.preserveComments) return;
 	preserveCommentsForOriginalNode(node, options);
 	options.typescript.forEachChild(node, child => {
 		preserveAllComments(child, options);
 	});
 }
 
-export function preserveCommentsForOriginalNode<T extends MetaNode>(node: T, options: PreserveCommentsOptions): void {
+function preserveCommentsForOriginalNode<T extends MetaNode>(node: T, options: PreserveCommentsOptions): void {
 	if (options.typescript.isSourceFile(node)) return;
-	const originalNode = options.typescript.getOriginalNode(node);
+	const originalNode = getOriginalNode(node, options);
 	if (node !== originalNode) preserveComments(node, originalNode, options);
 }
 
 export function preserveComments<T extends MetaNode>(node: T, oldNode: T, options: PreserveCommentsOptions): T {
+	if (!options.preserveComments) return node;
+
 	if (node.pos > -1 && node.end >= -1) {
 		return node;
 	}

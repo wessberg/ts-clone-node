@@ -7,6 +7,8 @@ export function toInternalOptions<T extends MetaNode>(options: Partial<CloneNode
 		...options,
 		typescript: options.typescript ?? TSModule,
 		setParents: options.setParents ?? false,
+		setOriginalNodes: options.setOriginalNodes ?? false,
+		preserveSymbols: options.preserveSymbols ?? false,
 		preserveComments: options.preserveComments ?? true,
 		commentRanges: new Set(),
 		depth: 0,
