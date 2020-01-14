@@ -19,5 +19,6 @@ export function cloneAsText<T extends MetaNode = TS.SourceFile>(
 	const parseResult = parse(text, options.typescript);
 	const selectedNode = selectNode(parseResult) as T;
 	const clonedNode = cloneNode(selectedNode, options);
-	return print(clonedNode, options.typescript, parseResult);
+	const printed = print(clonedNode, options.typescript, parseResult);
+	return printed;
 }

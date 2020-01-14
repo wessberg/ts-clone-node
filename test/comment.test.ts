@@ -68,6 +68,9 @@ test("Clones comments correctly. #6", t => {
 	/**
 	 * Enum for tri-state values.
 	 * @readonly
+	 * @private
+	 * @protected
+	 * @public
 	 * @enum {number}
 	 */
 	const enum FooKind {

@@ -215,6 +215,15 @@ import {setParents} from "./util/set-parents";
 import {preserveAllComments, preserveComments} from "./util/preserve-comments";
 import {nextOptions} from "./util/next-options";
 import {payload} from "./util/payload";
+import {cloneNamespaceExport} from "./clone-namespace-export";
+import {isJSDocReadonlyTag} from "./util/is-js-doc-readonly-tag";
+import {cloneJSDocReadonlyTag} from "./clone-js-doc-readonly-tag";
+import {isJSDocPrivateTag} from "./util/is-js-doc-private-tag";
+import {cloneJSDocPrivateTag} from "./clone-js-doc-private-tag";
+import {isJSDocProtectedTag} from "./util/is-js-doc-protected-tag";
+import {cloneJSDocProtectedTag} from "./clone-js-doc-protected-tag";
+import {isJSDocPublicTag} from "./util/is-js-doc-public-tag";
+import {cloneJSDocPublicTag} from "./clone-js-doc-public-tag";
 
 export function preserveNode<T extends MetaNode>(node: T, oldNode: T, options?: Partial<CloneNodeOptions<T>>): T;
 export function preserveNode<T extends MetaNode>(node: undefined, oldNode: undefined, options?: Partial<CloneNodeOptions<T>>): undefined;
@@ -1059,6 +1068,12 @@ function executeCloneNode(node: MetaNode | undefined, options: CloneNodeVisitorO
 	}
 
 	// Handle the Node
+	// Note: isNamespaceExport may not be supported by the provided TypeScript version, so the invocation is optional.
+	else if (options.typescript.isNamespaceExport?.(node)) {
+		return cloneNamespaceExport(node, options as CloneNodeVisitorOptions<TS.NamespaceExport>);
+	}
+
+	// Handle the Node
 	else if (options.typescript.isExportSpecifier(node)) {
 		return cloneExportSpecifier(node, options as CloneNodeVisitorOptions<TS.ExportSpecifier>);
 	}
@@ -1191,6 +1206,26 @@ function executeCloneNode(node: MetaNode | undefined, options: CloneNodeVisitorO
 	// Handle the Node
 	else if (isJsDocTypeLiteral(node, options.typescript)) {
 		return cloneJSDocTypeLiteral(node, options as CloneNodeVisitorOptions<TS.JSDocTypeLiteral>);
+	}
+
+	// Handle the Node
+	else if (isJSDocReadonlyTag(node, options.typescript)) {
+		return cloneJSDocReadonlyTag(node, options as CloneNodeVisitorOptions<TS.JSDocReadonlyTag>);
+	}
+
+	// Handle the Node
+	else if (isJSDocPrivateTag(node, options.typescript)) {
+		return cloneJSDocPrivateTag(node, options as CloneNodeVisitorOptions<TS.JSDocPrivateTag>);
+	}
+
+	// Handle the Node
+	else if (isJSDocProtectedTag(node, options.typescript)) {
+		return cloneJSDocProtectedTag(node, options as CloneNodeVisitorOptions<TS.JSDocProtectedTag>);
+	}
+
+	// Handle the Node
+	else if (isJSDocPublicTag(node, options.typescript)) {
+		return cloneJSDocPublicTag(node, options as CloneNodeVisitorOptions<TS.JSDocPublicTag>);
 	}
 
 	// Handle the Node

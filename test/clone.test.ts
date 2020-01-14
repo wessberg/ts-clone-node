@@ -130,3 +130,10 @@ test("Performs an identical clone. #7", t => {
 
 	t.deepEqual(formatCode(cloneResult), formatCode(`export ${text}`));
 });
+
+test("Performs an identical clone. #8", t => {
+	const text = `export * as utilities from "./utilities.js";\n`;
+
+	//t.deepEqual(formatCode(cloneAsText(text, {typescript})), formatCode(text));
+	t.deepEqual(cloneAsText(text, {typescript}), text);
+});
