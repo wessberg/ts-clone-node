@@ -1,3 +1,9 @@
+## [0.3.3](https://github.com/wessberg/ts-clone-node/compare/v0.3.2...v0.3.3) (2020-01-15)
+
+### Bug Fixes
+
+- **typescript-3.8:** respect 'isTypeOnly' property for ImportClauses ([de62562](https://github.com/wessberg/ts-clone-node/commit/de6256219652246694f82a66a941ab62dce155f5))
+
 ## [0.3.2](https://github.com/wessberg/ts-clone-node/compare/v0.3.1...v0.3.2) (2020-01-14)
 
 ### Features
