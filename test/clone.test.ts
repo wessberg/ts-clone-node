@@ -1,7 +1,7 @@
 import test from "ava";
 import {formatCode} from "./util/format-code";
 import {cloneAsText} from "./util/clone-as-text";
-import {TS as typescript} from "../src/clone-node/type/ts";
+import {TS, TS as typescript} from "../src/clone-node/type/ts";
 
 test("Performs an identical clone. #1", t => {
 	const text = `export type Foo = "a"|"b"|"c"`;
@@ -132,8 +132,13 @@ test("Performs an identical clone. #7", t => {
 });
 
 test("Performs an identical clone. #8", t => {
-	const text = `export * as utilities from "./utilities.js";\n`;
+	const text = `export * as utilities from "./utilities.js";${TS.sys.newLine}`;
 
-	//t.deepEqual(formatCode(cloneAsText(text, {typescript})), formatCode(text));
+	t.deepEqual(cloneAsText(text, {typescript}), text);
+});
+
+test("Performs an identical clone. #9", t => {
+	const text = `import type { Foo } from "./foo";${TS.sys.newLine}`;
+
 	t.deepEqual(cloneAsText(text, {typescript}), text);
 });
