@@ -1,3 +1,9 @@
+## [0.3.4](https://github.com/wessberg/ts-clone-node/compare/v0.3.3...v0.3.4) (2020-03-01)
+
+### Bug Fixes
+
+- add support for PrivateIdentifiers ([17068ef](https://github.com/wessberg/ts-clone-node/commit/17068efe864dfc941bd127ceb983d2257915de8e))
+
 ## [0.3.3](https://github.com/wessberg/ts-clone-node/compare/v0.3.2...v0.3.3) (2020-01-15)
 
 ### Bug Fixes
