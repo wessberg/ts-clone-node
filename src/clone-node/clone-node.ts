@@ -261,12 +261,9 @@ function nextNode<Next extends MetaNode>(node: Next | undefined, options: CloneN
 	const hook = (options.hook(node, payload(options)) ?? {}) as CloneNodeHook<Next>;
 	const visitorOptions: CloneNodeVisitorOptions<Next> = {
 		...options,
-		nextNode: <T extends MetaNode>(actualNode: T) => {
-			return nextNode(actualNode, nextOptions(options));
-		},
-		nextNodes: (<T extends MetaNode>(actualNodes: readonly T[] | T[] | undefined) => {
-			return nextNodes(actualNodes, nextOptions(options));
-		}) as CloneNodeVisitorOptions["nextNodes"],
+		nextNode: <T extends MetaNode>(actualNode: T) => nextNode(actualNode, nextOptions(options)),
+		nextNodes: (<T extends MetaNode>(actualNodes: readonly T[] | T[] | undefined) =>
+			nextNodes(actualNodes, nextOptions(options))) as CloneNodeVisitorOptions["nextNodes"],
 		hook: (key, newValue, oldValue) => {
 			const callback = hook[key];
 			if (callback != null) {

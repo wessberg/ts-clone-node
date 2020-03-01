@@ -41,7 +41,7 @@ function getCommentRanges<T extends MetaNode>(node: T, options: PreserveComments
 	for (const commentRange of commentRanges) {
 		if (options.commentRanges.has(formatCommentRange(commentRange))) continue;
 		options.commentRanges.add(formatCommentRange(commentRange));
-		let text = sourceFile.text.substring(commentRange.pos, commentRange.end);
+		const text = sourceFile.text.substring(commentRange.pos, commentRange.end);
 
 		if (!text.startsWith("//") && !text.startsWith("/*")) continue;
 		const isUsingLineCarriages = text.includes("\r\n");

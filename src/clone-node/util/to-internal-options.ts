@@ -2,6 +2,8 @@ import {CloneNodeInternalOptions, CloneNodeOptions} from "../clone-node-options"
 import * as TSModule from "typescript";
 import {MetaNode} from "../type/meta-node";
 
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
 export function toInternalOptions<T extends MetaNode>(options: Partial<CloneNodeOptions<T>>): CloneNodeInternalOptions<T> {
 	return {
 		...options,
@@ -13,6 +15,10 @@ export function toInternalOptions<T extends MetaNode>(options: Partial<CloneNode
 		commentRanges: new Set(),
 		depth: 0,
 		hook: options.hook ?? (_ => ({})),
-		finalize: options.finalize ?? (_ => {})
+		finalize:
+			options.finalize ??
+			(_ => {
+				// Noop
+			})
 	};
 }

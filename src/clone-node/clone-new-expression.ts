@@ -5,6 +5,6 @@ export function cloneNewExpression(node: TS.NewExpression, options: CloneNodeVis
 	return options.typescript.createNew(
 		options.hook("expression", options.nextNode(node.expression), node.expression),
 		options.hook("typeArguments", options.nextNodes(node.typeArguments), node.typeArguments),
-		options.hook("arguments", options.nextNodes(node.arguments), node.arguments)!
+		options.hook("arguments", options.nextNodes(node.arguments), node.arguments)
 	);
 }

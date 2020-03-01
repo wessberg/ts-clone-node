@@ -9,7 +9,7 @@ function fixupParentReferences(rootNode: MetaNode, typescript: typeof TS, deep: 
 	function visitNode(n: MetaNode) {
 		if (n.parent !== parent) {
 			n.parent = parent;
-			let saveParent = parent;
+			const saveParent = parent;
 			parent = n;
 			if (deep) {
 				typescript.forEachChild(n, visitNode);
@@ -26,7 +26,7 @@ function fixupParentReferences(rootNode: MetaNode, typescript: typeof TS, deep: 
 	}
 }
 
-export function setParents<T extends MetaNode>(node: T, options: CloneNodeInternalOptions, deep: boolean = true): T {
+export function setParents<T extends MetaNode>(node: T, options: CloneNodeInternalOptions, deep = true): T {
 	if (!options.setParents) return node;
 	fixupParentReferences(node, options.typescript, deep);
 	return node;
