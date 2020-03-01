@@ -224,6 +224,7 @@ import {isJSDocProtectedTag} from "./util/is-js-doc-protected-tag";
 import {cloneJSDocProtectedTag} from "./clone-js-doc-protected-tag";
 import {isJSDocPublicTag} from "./util/is-js-doc-public-tag";
 import {cloneJSDocPublicTag} from "./clone-js-doc-public-tag";
+import {clonePrivateIdentifier} from "./clone-private-identifier";
 
 export function preserveNode<T extends MetaNode>(node: T, oldNode: T, options?: Partial<CloneNodeOptions<T>>): T;
 export function preserveNode<T extends MetaNode>(node: undefined, oldNode: undefined, options?: Partial<CloneNodeOptions<T>>): undefined;
@@ -343,6 +344,12 @@ function executeCloneNode(node: MetaNode | undefined, options: CloneNodeVisitorO
 	// Handle the Node
 	else if (options.typescript.isIdentifier(node)) {
 		return cloneIdentifier(node, options as CloneNodeVisitorOptions<TS.Identifier>);
+	}
+
+	// Handle the Node
+	// Note: isPrivateIdentifier may not be supported by the provided TypeScript version, so the invocation is optional.
+	else if (options.typescript.isPrivateIdentifier?.(node)) {
+		return clonePrivateIdentifier(node, options as CloneNodeVisitorOptions<TS.PrivateIdentifier>);
 	}
 
 	// Handle the Node
