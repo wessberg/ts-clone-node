@@ -6,6 +6,7 @@ export type MetaNode = TS.Node & {
 	original?: MetaNode;
 	_symbol?: TS.Symbol;
 	symbol?: TS.Symbol;
+	_parent?: MetaNode;
 	localSymbol?: TS.Symbol;
 	emitNode?: {leadingComments?: TS.SynthesizedComment[]; trailingComments?: TS.SynthesizedComment[]};
 };

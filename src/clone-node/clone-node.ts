@@ -225,6 +225,12 @@ import {cloneJSDocProtectedTag} from "./clone-js-doc-protected-tag";
 import {isJSDocPublicTag} from "./util/is-js-doc-public-tag";
 import {cloneJSDocPublicTag} from "./clone-js-doc-public-tag";
 import {clonePrivateIdentifier} from "./clone-private-identifier";
+import {SetParentNodesOptions} from "./type/set-parent-nodes-options";
+import {toSetParentNodesOptions} from "./util/to-set-parent-nodes-options";
+
+export function setParentNodes<T extends MetaNode>(node: T, options: Partial<SetParentNodesOptions>): T {
+	return setParents(node, toSetParentNodesOptions(options));
+}
 
 export function preserveNode<T extends MetaNode>(node: T, oldNode: T, options?: Partial<CloneNodeOptions<T>>): T;
 export function preserveNode<T extends MetaNode>(node: undefined, oldNode: undefined, options?: Partial<CloneNodeOptions<T>>): undefined;
@@ -248,8 +254,8 @@ export function cloneNode<T extends MetaNode>(node: T | undefined, options: Part
 	const clone = nextNode(node, internalOptions);
 	executePreserveNode(clone, node, internalOptions);
 
-	if (clone != null && internalOptions.setParents) {
-		clone.parent = node.parent;
+	if (clone != null) {
+		internalOptions.setParents ? (clone.parent = node._parent ?? node.parent) : (clone._parent = node._parent ?? node.parent);
 	}
 
 	return clone;
@@ -293,7 +299,7 @@ function nextNode<Next extends MetaNode>(node: Next | undefined, options: CloneN
 
 function executePreserveNode<T extends MetaNode>(node: T | undefined, oldNode: T | undefined, options: CloneNodeInternalOptions<T>): void {
 	if (node == null || oldNode == null || node === oldNode) return undefined;
-	if (options.setParents) setParents(node, options.typescript);
+	setParents(node, toSetParentNodesOptions({...options, propertyName: options.setParents ? "parent" : "_parent"}));
 	// Prioritize leading over trailing comments
 	preserveAllComments(node, {...options, leading: true});
 	preserveAllComments(node, {...options, leading: false});
@@ -315,7 +321,7 @@ function setOriginalNodes<T extends MetaNode>(newNode: T, oldNode: MetaNode, opt
 
 function preserveSymbols<T extends MetaNode>(node: T, otherNode: MetaNode, options: CloneNodeInternalOptions): T {
 	if (node === otherNode) return node;
-	const otherSymbol = otherNode._symbol ?? otherNode._symbol;
+	const otherSymbol = otherNode._symbol ?? otherNode.symbol;
 	if (otherSymbol != null) {
 		node._symbol = otherSymbol;
 	}

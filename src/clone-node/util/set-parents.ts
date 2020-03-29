@@ -1,21 +1,22 @@
 import {MetaNode} from "../type/meta-node";
 import {TS} from "../type/ts";
+import {SetParentNodesOptions} from "../type/set-parent-nodes-options";
 
-function fixupParentReferences(rootNode: MetaNode, typescript: typeof TS, deep: boolean): void {
+function fixupParentReferences(rootNode: MetaNode, {deep, propertyName, typescript}: SetParentNodesOptions): void {
 	let parent = rootNode;
 	typescript.forEachChild(rootNode, visitNode);
 
 	function visitNode(n: MetaNode) {
-		if (n.parent !== parent) {
-			n.parent = parent;
+		if (n[propertyName] !== parent) {
+			n[propertyName] = parent;
 			const saveParent = parent;
 			parent = n;
 			if (deep) {
 				typescript.forEachChild(n, visitNode);
 			}
 			if (n.jsDoc != null) {
-				for (const jsDocComment of n.jsDoc) {
-					jsDocComment.parent = n as TS.HasJSDoc;
+				for (const jsDocComment of n.jsDoc as MetaNode[]) {
+					jsDocComment[propertyName] = n as TS.HasJSDoc;
 					parent = jsDocComment;
 					typescript.forEachChild(jsDocComment, visitNode);
 				}
@@ -25,7 +26,7 @@ function fixupParentReferences(rootNode: MetaNode, typescript: typeof TS, deep: 
 	}
 }
 
-export function setParents<T extends MetaNode>(node: T, typescript: typeof TS, deep = true): T {
-	fixupParentReferences(node, typescript, deep);
+export function setParents<T extends MetaNode>(node: T, options: SetParentNodesOptions): T {
+	fixupParentReferences(node, options);
 	return node;
 }
