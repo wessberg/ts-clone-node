@@ -242,6 +242,16 @@ export function preserveNode<T extends MetaNode>(
 ): T | undefined {
 	const internalOptions = toInternalOptions(options);
 	executePreserveNode(node, oldNode, internalOptions);
+
+	if (node != null) {
+		const parentValue = node._parent ?? node.parent ?? oldNode?._parent ?? oldNode?.parent;
+		if (internalOptions.setParents) {
+			node.parent = parentValue;
+		} else {
+			node._parent = parentValue;
+		}
+	}
+
 	return node;
 }
 
@@ -255,7 +265,12 @@ export function cloneNode<T extends MetaNode>(node: T | undefined, options: Part
 	executePreserveNode(clone, node, internalOptions);
 
 	if (clone != null) {
-		internalOptions.setParents ? (clone.parent = node._parent ?? node.parent) : (clone._parent = node._parent ?? node.parent);
+		const parentValue = node._parent ?? node.parent ?? clone._parent ?? clone.parent;
+		if (internalOptions.setParents) {
+			clone.parent = parentValue;
+		} else {
+			clone._parent = parentValue;
+		}
 	}
 
 	return clone;
