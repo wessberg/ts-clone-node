@@ -60,6 +60,7 @@ Additionally, you get a simple hook with which you can do simple things such as 
   - [npm](#npm)
   - [Yarn](#yarn)
   - [pnpm](#pnpm)
+  - [Peer Dependencies](#peer-dependencies)
 - [Usage](#usage)
 - [Configuration](#configuration)
   - [Hooking into and altering transformations](#hooking-into-and-altering-transformations)
@@ -99,6 +100,10 @@ $ yarn add @wessberg/ts-clone-node
 ```
 $ pnpm add @wessberg/ts-clone-node
 ```
+
+### Peer Dependencies
+
+`@wessberg/ts-clone-node` depends on `typescript`, so you need to manually install these as well.
 
 <!-- SHADOW_SECTION_INSTALL_END -->
 
@@ -225,6 +230,8 @@ Do you want to contribute? Awesome! Please follow [these recommendations](./CONT
 <!-- SHADOW_SECTION_BACKERS_START -->
 
 ## Backers
+
+[Become a sponsor/backer](https://github.com/wessberg/ts-clone-node?sponsor=1) and get your logo listed here.
 
 | <a href="https://usebubbles.com"><img alt="Bubbles" src="https://uploads-ssl.webflow.com/5d682047c28b217055606673/5e5360be16879c1d0dca6514_icon-thin-128x128%402x.png" height="70"   /></a> |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |

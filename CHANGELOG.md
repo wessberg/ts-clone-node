@@ -1,3 +1,9 @@
+## [0.3.5](https://github.com/wessberg/ts-clone-node/compare/v0.3.4...v0.3.5) (2020-03-29)
+
+### Features
+
+- **setParents:** expose 'setParents' function ([4b8bda1](https://github.com/wessberg/ts-clone-node/commit/4b8bda129efabfe294f5727c66065de7b4fcf5b2))
+
 ## [0.3.4](https://github.com/wessberg/ts-clone-node/compare/v0.3.3...v0.3.4) (2020-03-01)
 
 ### Bug Fixes
