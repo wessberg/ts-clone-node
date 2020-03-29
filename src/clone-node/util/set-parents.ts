@@ -1,6 +1,5 @@
 import {MetaNode} from "../type/meta-node";
 import {TS} from "../type/ts";
-import {CloneNodeInternalOptions} from "../clone-node-options";
 
 function fixupParentReferences(rootNode: MetaNode, typescript: typeof TS, deep: boolean): void {
 	let parent = rootNode;
@@ -26,8 +25,7 @@ function fixupParentReferences(rootNode: MetaNode, typescript: typeof TS, deep: 
 	}
 }
 
-export function setParents<T extends MetaNode>(node: T, options: CloneNodeInternalOptions, deep = true): T {
-	if (!options.setParents) return node;
-	fixupParentReferences(node, options.typescript, deep);
+export function setParents<T extends MetaNode>(node: T, typescript: typeof TS, deep = true): T {
+	fixupParentReferences(node, typescript, deep);
 	return node;
 }

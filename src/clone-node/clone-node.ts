@@ -293,7 +293,7 @@ function nextNode<Next extends MetaNode>(node: Next | undefined, options: CloneN
 
 function executePreserveNode<T extends MetaNode>(node: T | undefined, oldNode: T | undefined, options: CloneNodeInternalOptions<T>): void {
 	if (node == null || oldNode == null || node === oldNode) return undefined;
-	setParents(node, options);
+	if (options.setParents) setParents(node, options.typescript);
 	// Prioritize leading over trailing comments
 	preserveAllComments(node, {...options, leading: true});
 	preserveAllComments(node, {...options, leading: false});
