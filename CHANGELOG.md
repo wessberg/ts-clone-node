@@ -1,3 +1,9 @@
+## [0.3.7](https://github.com/wessberg/ts-clone-node/compare/v0.3.6...v0.3.7) (2020-03-29)
+
+### Bug Fixes
+
+- fix an issue where the options for setParentNodes would be ignored ([fcd3eb7](https://github.com/wessberg/ts-clone-node/commit/fcd3eb74d9a36121113db7cea3cc6e0ae58896fb))
+
 ## [0.3.6](https://github.com/wessberg/ts-clone-node/compare/v0.3.5...v0.3.6) (2020-03-29)
 
 ### Bug Fixes
