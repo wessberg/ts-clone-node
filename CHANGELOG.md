@@ -1,3 +1,9 @@
+## [0.3.8](https://github.com/wessberg/ts-clone-node/compare/v0.3.7...v0.3.8) (2020-03-29)
+
+### Bug Fixes
+
+- when preserving a node, make sure to set the parent of the old node if requested ([d78720d](https://github.com/wessberg/ts-clone-node/commit/d78720df4765d427f9de903404a16de006bba4f9))
+
 ## [0.3.7](https://github.com/wessberg/ts-clone-node/compare/v0.3.6...v0.3.7) (2020-03-29)
 
 ### Bug Fixes
