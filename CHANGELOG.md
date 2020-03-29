@@ -1,3 +1,9 @@
+## [0.3.6](https://github.com/wessberg/ts-clone-node/compare/v0.3.5...v0.3.6) (2020-03-29)
+
+### Bug Fixes
+
+- always set parents, traversable with \_parent, unless 'setParents' is true, then the 'parent' property is used directly ([6db6182](https://github.com/wessberg/ts-clone-node/commit/6db61824919b945d5fec4ba97341c468b39985fd))
+
 ## [0.3.5](https://github.com/wessberg/ts-clone-node/compare/v0.3.4...v0.3.5) (2020-03-29)
 
 ### Features
