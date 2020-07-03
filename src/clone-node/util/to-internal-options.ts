@@ -2,8 +2,6 @@ import {CloneNodeFinalizerCallback, CloneNodeHookFactory, CloneNodeInternalOptio
 import * as TSModule from "typescript";
 import {MetaNode} from "../type/meta-node";
 
-/* eslint-disable @typescript-eslint/no-unused-vars */
-
 export function toInternalOptions<T extends MetaNode>(options: Partial<CloneNodeOptions<T>>): CloneNodeInternalOptions<T> {
 	const typescript = options.typescript ?? TSModule;
 	return {
