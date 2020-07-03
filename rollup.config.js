@@ -21,5 +21,5 @@ export default {
 			tsconfig: "tsconfig.build.json"
 		})
 	],
-	external: [...builtinModules, ...Object.keys(packageJson.dependencies), ...Object.keys(packageJson.devDependencies)]
+	external: [...builtinModules, ...Object.keys(packageJson.dependencies == null ? {} : packageJson.dependencies), ...Object.keys(packageJson.devDependencies)]
 };
