@@ -1,14 +1,19 @@
-import test from "ava";
+import test from "./util/test-runner";
 import {formatCode} from "./util/format-code";
 import {cloneAsText} from "./util/clone-as-text";
-import {TS as typescript} from "../src/clone-node/type/ts";
+import {lt} from "semver";
 
-test("Performs an identical clone. #1", t => {
+test("Performs an identical clone. #1", (t, typescript) => {
 	const text = `export type Foo = "a"|"b"|"c"`;
 
 	t.deepEqual(formatCode(cloneAsText(text, {typescript})), formatCode(text));
 });
-test("Performs an identical clone. #2", t => {
+
+test("Performs an identical clone. #2", (t, typescript) => {
+	if (lt(typescript.version, "3.2.0")) {
+		t.pass(`Current TypeScript version (${typescript.version} does not support BigInt, which is part of the test...)`);
+		return;
+	}
 	const text = `\
 	function foo (el: number): typeof el extends number ? Array<infer R> : string {
 		console.log(/bar/, 2n, 123, [123], {a: 1}, "foo", \`foo\${"bar"}\`);
@@ -20,7 +25,7 @@ test("Performs an identical clone. #2", t => {
 	t.deepEqual(formatCode(cloneAsText(text, {typescript})), formatCode(text));
 });
 
-test("Performs an identical clone. #3", t => {
+test("Performs an identical clone. #3", (t, typescript) => {
 	const text = `\
 	interface Baz {
 		foo (): void;
@@ -55,7 +60,7 @@ test("Performs an identical clone. #3", t => {
 	t.deepEqual(formatCode(cloneAsText(text, {typescript})), formatCode(text));
 });
 
-test("Performs an identical clone. #4", t => {
+test("Performs an identical clone. #4", (t, typescript) => {
 	const text = `\
 	for await (const foo of []) {
 		if (2+2 === 4) continue;
@@ -80,7 +85,7 @@ test("Performs an identical clone. #4", t => {
 	t.deepEqual(formatCode(cloneAsText(text, {typescript})), formatCode(text));
 });
 
-test("Performs an identical clone. #5", t => {
+test("Performs an identical clone. #5", (t, typescript) => {
 	const text = `\
 	const template = html\`<p>\${foo}</p>\`;
 `;
@@ -88,7 +93,7 @@ test("Performs an identical clone. #5", t => {
 	t.deepEqual(formatCode(cloneAsText(text, {typescript})), formatCode(text));
 });
 
-test("Performs an identical clone. #6", t => {
+test("Performs an identical clone. #6", (t, typescript) => {
 	const text = `\
 	switch (foo) {
 		case bar:
@@ -106,7 +111,7 @@ test("Performs an identical clone. #6", t => {
 	t.deepEqual(formatCode(cloneAsText(text, {typescript})), formatCode(text));
 });
 
-test("Performs an identical clone. #7", t => {
+test("Performs an identical clone. #7", (t, typescript, factory) => {
 	const text = `\
 	function foo () {
 		return function () {};
@@ -121,9 +126,7 @@ test("Performs an identical clone. #7", t => {
 				? {}
 				: {
 						modifiers: modifiers =>
-							modifiers == null
-								? [typescript.createModifier(typescript.SyntaxKind.ExportKeyword)]
-								: [...modifiers, typescript.createModifier(typescript.SyntaxKind.ExportKeyword)]
+							modifiers == null ? [factory.createModifier(typescript.SyntaxKind.ExportKeyword)] : [...modifiers, factory.createModifier(typescript.SyntaxKind.ExportKeyword)]
 				  };
 		}
 	});
@@ -131,13 +134,23 @@ test("Performs an identical clone. #7", t => {
 	t.deepEqual(formatCode(cloneResult), formatCode(`export ${text}`));
 });
 
-test("Performs an identical clone. #8", t => {
+test("Performs an identical clone. #8", (t, typescript) => {
+	if (lt(typescript.version, "3.8.0")) {
+		t.pass(`Current TypeScript version (${typescript.version} does not exported namespace bindings...)`);
+		return;
+	}
+
 	const text = `export * as utilities from "./utilities.js";`;
 
 	t.deepEqual(formatCode(cloneAsText(text, {typescript})), formatCode(text));
 });
 
-test("Performs an identical clone. #9", t => {
+test("Performs an identical clone. #9", (t, typescript) => {
+	if (lt(typescript.version, "3.8.0")) {
+		t.pass(`Current TypeScript version (${typescript.version} does not support 'import type {...}'...)`);
+		return;
+	}
+
 	const text = `import type { Foo } from "./foo";`;
 
 	t.deepEqual(formatCode(cloneAsText(text, {typescript})), formatCode(text));

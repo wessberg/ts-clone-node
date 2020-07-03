@@ -2,5 +2,5 @@ import {TS} from "./type/ts";
 import {CloneNodeVisitorOptions} from "./clone-node-options";
 
 export function cloneNumericLiteral(node: TS.NumericLiteral, options: CloneNodeVisitorOptions<TS.NumericLiteral>): TS.NumericLiteral {
-	return options.typescript.createNumericLiteral(options.hook("text", node.text, node.text));
+	return options.factory.createNumericLiteral(options.hook("text", node.text, node.text));
 }

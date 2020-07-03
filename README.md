@@ -103,7 +103,7 @@ $ pnpm add @wessberg/ts-clone-node
 
 ### Peer Dependencies
 
-`@wessberg/ts-clone-node` depends on `typescript`, so you need to manually install these as well.
+`@wessberg/ts-clone-node` depends on `typescript`, so you need to manually install this as well.
 
 <!-- SHADOW_SECTION_INSTALL_END -->
 
@@ -164,6 +164,16 @@ cloneNode(someNode, {
 
 This can be useful, for example, in an environment where multiple packages in the same project depends
 on different TypeScript versions and you're relying on `cloneNode`.
+
+### Passing in a specific NodeFactory
+
+From TypeScript v4 and forward, a `NodeFactory` can be retrieved from a `TransformationContext` to signal which transformer was responsible for creating or altering nodes. If you want to pass a specific `NodeFactory`, you can pass it as an option to `cloneNode`:
+
+```typescript
+cloneNode(someNode, {
+	factory: nodeFactoryFromTransformationContext
+});
+```
 
 ### Setting parent pointers
 

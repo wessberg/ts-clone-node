@@ -1,6 +1,7 @@
 import {MetaNode} from "../type/meta-node";
 import {TS} from "../type/ts";
 import {SetParentNodesOptions} from "../type/set-parent-nodes-options";
+import {Mutable} from "./mutable";
 
 function fixupParentReferences(rootNode: MetaNode, {deep, propertyName, typescript}: SetParentNodesOptions): void {
 	let parent = rootNode;
@@ -8,7 +9,7 @@ function fixupParentReferences(rootNode: MetaNode, {deep, propertyName, typescri
 
 	function visitNode(n: MetaNode) {
 		if (n[propertyName] !== parent) {
-			n[propertyName] = parent;
+			(n as Mutable<MetaNode>)[propertyName] = parent;
 			const saveParent = parent;
 			parent = n;
 			if (deep) {
@@ -16,7 +17,7 @@ function fixupParentReferences(rootNode: MetaNode, {deep, propertyName, typescri
 			}
 			if (n.jsDoc != null) {
 				for (const jsDocComment of n.jsDoc as MetaNode[]) {
-					jsDocComment[propertyName] = n as TS.HasJSDoc;
+					(jsDocComment as Mutable<MetaNode>)[propertyName] = n as TS.HasJSDoc;
 					parent = jsDocComment;
 					typescript.forEachChild(jsDocComment, visitNode);
 				}

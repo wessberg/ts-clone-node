@@ -5,8 +5,5 @@ export function cloneNoSubstitutionTemplateLiteral(
 	node: TS.NoSubstitutionTemplateLiteral,
 	options: CloneNodeVisitorOptions<TS.NoSubstitutionTemplateLiteral>
 ): TS.NoSubstitutionTemplateLiteral {
-	return options.typescript.createNoSubstitutionTemplateLiteral(
-		options.hook("text", node.text, node.text),
-		options.hook("rawText", node.rawText, node.text)
-	);
+	return options.factory.createNoSubstitutionTemplateLiteral(options.hook("text", node.text, node.text), options.hook("rawText", node.rawText, node.text));
 }

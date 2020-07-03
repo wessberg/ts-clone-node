@@ -4,6 +4,10 @@ import {MetaNode} from "../type/meta-node";
 /**
  * Returns true if the given Node is a JSDocOptionalType
  */
-export function isJSDocOptionalType(node: MetaNode, typescript: typeof TS): node is TS.JSDocOptionalType {
+export function isJsDocOptionalType(node: MetaNode, typescript: typeof TS): node is TS.JSDocOptionalType {
+	// TypeScript 4.x
+	if (("isJSDocOptionalType" in typescript) as never) {
+		return typescript.isJSDocOptionalType(node);
+	}
 	return node.kind === typescript.SyntaxKind.JSDocOptionalType;
 }
