@@ -1,3 +1,9 @@
+## [0.3.9](https://github.com/wessberg/ts-clone-node/compare/v0.3.8...v0.3.9) (2020-07-03)
+
+### Features
+
+- **typescript:** add TypeScript v4 support ([729b38e](https://github.com/wessberg/ts-clone-node/commit/729b38e172e6466217067bc1c6e15ae4ba55b154))
+
 ## [0.3.8](https://github.com/wessberg/ts-clone-node/compare/v0.3.7...v0.3.8) (2020-03-29)
 
 ### Bug Fixes
