@@ -4,7 +4,7 @@ import {MetaNode} from "../type/meta-node";
 /**
  * Returns true if the given Node is a JSDocProtectedTag
  */
-export function isJSDocProtectedTag(node: MetaNode, typescript: typeof TS): node is TS.JSDocProtectedTag {
+export function isJsDocProtectedTag(node: MetaNode, typescript: typeof TS): node is TS.JSDocProtectedTag {
 	// TypeScript 4.x
 	if (("isJSDocProtectedTag" in typescript) as never) {
 		return typescript.isJSDocProtectedTag(node);

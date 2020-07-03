@@ -155,3 +155,28 @@ test("Performs an identical clone. #9", (t, typescript) => {
 
 	t.deepEqual(formatCode(cloneAsText(text, {typescript})), formatCode(text));
 });
+
+test("Performs an identical clone. #10", (t, typescript) => {
+	if (lt(typescript.version, "4.0.0")) {
+		t.pass(`Current TypeScript version (${typescript.version} does not support labeled tuple elements ([start: number, end: number])`);
+		return;
+	}
+
+	const text = `type Range = [start: number, end: number];`;
+
+	t.deepEqual(formatCode(cloneAsText(text, {typescript})), formatCode(text));
+});
+
+test("Performs an identical clone. #11", (t, typescript) => {
+	if (lt(typescript.version, "4.0.0")) {
+		t.pass(`Current TypeScript version (${typescript.version} does not support logical assignments (a ||= b;)`);
+		return;
+	}
+
+	const text = `\
+	let a;
+	a ||= 2;
+	`;
+
+	t.deepEqual(formatCode(cloneAsText(text, {typescript})), formatCode(text));
+});

@@ -220,7 +220,7 @@ import {isJsDocReadonlyTag} from "./util/is-js-doc-readonly-tag";
 import {cloneJsDocReadonlyTag} from "./clone-js-doc-readonly-tag";
 import {isJsDocPrivateTag} from "./util/is-js-doc-private-tag";
 import {cloneJsDocPrivateTag} from "./clone-js-doc-private-tag";
-import {isJSDocProtectedTag} from "./util/is-js-doc-protected-tag";
+import {isJsDocProtectedTag} from "./util/is-js-doc-protected-tag";
 import {cloneJsDocProtectedTag} from "./clone-js-doc-protected-tag";
 import {isJsDocPublicTag} from "./util/is-js-doc-public-tag";
 import {cloneJsDocPublicTag} from "./clone-js-doc-public-tag";
@@ -1236,7 +1236,7 @@ function executeCloneNode<T extends MetaNode>(node: T | undefined, options: Clon
 	}
 
 	// Handle the Node
-	else if (isJSDocProtectedTag(node, options.typescript)) {
+	else if (isJsDocProtectedTag(node, options.typescript)) {
 		return cloneJsDocProtectedTag(node, (options as unknown) as CloneNodeVisitorOptions<TS.JSDocProtectedTag>);
 	}
 
