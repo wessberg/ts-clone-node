@@ -1,3 +1,9 @@
+## [0.3.10](https://github.com/wessberg/ts-clone-node/compare/v0.3.9...v0.3.10) (2020-07-27)
+
+### Bug Fixes
+
+- also clear synthetic trailing comment ranges ([fe6052e](https://github.com/wessberg/ts-clone-node/commit/fe6052e21e433c1de61da47020834587e0832723))
+
 ## [0.3.9](https://github.com/wessberg/ts-clone-node/compare/v0.3.8...v0.3.9) (2020-07-03)
 
 ### Features
