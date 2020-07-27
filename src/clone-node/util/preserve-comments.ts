@@ -88,6 +88,7 @@ export function preserveComments<T extends MetaNode>(node: T, oldNode: T, option
 
 	if (comments.length > 0) {
 		options.typescript.setSyntheticLeadingComments(node, undefined);
+		options.typescript.setSyntheticTrailingComments(node, undefined);
 	}
 
 	for (const {isLeading, text, hasTrailingNewLine, kind} of comments) {
