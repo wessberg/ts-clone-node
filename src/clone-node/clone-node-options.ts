@@ -27,6 +27,7 @@ export interface CloneNodeOptions<T extends MetaNode = MetaNode> {
 	hook: CloneNodeHookFactory<T>;
 	finalize: CloneNodeFinalizerCallback<T>;
 	typescript: typeof TS;
+	// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 	// @ts-ignore
 	factory: TS.NodeFactory;
 	setParents: boolean;
