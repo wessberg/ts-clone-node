@@ -180,3 +180,11 @@ test("Performs an identical clone. #11", (t, typescript) => {
 
 	t.deepEqual(formatCode(cloneAsText(text, {typescript})), formatCode(text));
 });
+
+test("Performs an identical clone. #12", (t, typescript) => {
+	const text = `\
+	({ foo: undefined as any });
+	`;
+
+	t.deepEqual(cloneAsText(text, {typescript}), formatCode(text));
+});

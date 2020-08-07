@@ -17,8 +17,30 @@ export function cloneAsText<T extends MetaNode = TS.SourceFile>(
 	{selectNode = sourceFile => (sourceFile as unknown) as T, ...options}: CloneAsTextOptions<T>
 ): string {
 	const parseResult = parse(text, options.typescript);
+
 	const selectedNode = selectNode(parseResult) as T;
+
+	if (options.debug) {
+		console.log("BEFORE:");
+		printNodeTree(selectedNode, options.typescript);
+		console.log();
+	}
+
 	const clonedNode = cloneNode(selectedNode, options);
-	const printed = print(clonedNode, options.typescript, parseResult);
-	return printed;
+
+	if (options.debug) {
+		console.log("AFTER:");
+		printNodeTree(clonedNode, options.typescript);
+		console.log();
+	}
+
+	return print(clonedNode, options.typescript, parseResult);
+}
+
+function printNodeTree(node: TS.Node, typescript: typeof TS, nest?: number) {
+	if (!nest) nest = 0;
+	let space = "";
+	for (let i = 0; i < nest; i++) space += " ";
+	console.log(space, typescript.SyntaxKind[node.kind]);
+	node.forEachChild(child => printNodeTree(child, typescript, (nest ?? 0) + 1));
 }

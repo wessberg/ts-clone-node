@@ -346,6 +346,7 @@ function nextNodes<Next extends MetaNode>(nodes: readonly Next[] | Next[] | unde
 
 function executeCloneNode<T extends MetaNode>(node: T | undefined, options: CloneNodeVisitorOptions<T>): MetaNode | undefined {
 	if (node == null) return undefined;
+
 	// Handle the Node
 	if (options.typescript.isSourceFile(node)) {
 		return cloneSourceFile(node, (options as unknown) as CloneNodeVisitorOptions<TS.SourceFile>);

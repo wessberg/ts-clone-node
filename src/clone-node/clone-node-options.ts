@@ -32,6 +32,7 @@ export interface CloneNodeOptions<T extends MetaNode = MetaNode> {
 	setOriginalNodes: boolean;
 	preserveSymbols: boolean;
 	preserveComments: boolean;
+	debug: boolean;
 }
 
 export interface CloneNodeInternalOptions<T extends MetaNode = MetaNode> extends Omit<CloneNodeOptions<T>, "hook" | "finalize"> {

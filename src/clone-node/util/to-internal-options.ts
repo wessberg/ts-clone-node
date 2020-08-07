@@ -13,6 +13,7 @@ export function toInternalOptions<T extends MetaNode>(options: Partial<CloneNode
 		preserveSymbols: options.preserveSymbols ?? false,
 		preserveComments: options.preserveComments ?? true,
 		commentRanges: new Set(),
+		debug: options.debug ?? false,
 		depth: 0,
 		hook: (options.hook as CloneNodeHookFactory<MetaNode>) ?? (() => ({})),
 		finalize:
