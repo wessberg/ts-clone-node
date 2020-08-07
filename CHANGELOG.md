@@ -1,3 +1,9 @@
+## [0.3.12](https://github.com/wessberg/ts-clone-node/compare/v0.3.11...v0.3.12) (2020-08-07)
+
+### Bug Fixes
+
+- **PropertyAssignment:** make sure that cloned PropertyAssignments are always structurally equivalent. Closes [#1](https://github.com/wessberg/ts-clone-node/issues/1) ([fa59c75](https://github.com/wessberg/ts-clone-node/commit/fa59c7590b55af80195e41f1ce5f6956b85f09f6))
+
 ## [0.3.11](https://github.com/wessberg/ts-clone-node/compare/v0.3.10...v0.3.11) (2020-07-27)
 
 ### Bug Fixes
