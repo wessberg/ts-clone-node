@@ -308,10 +308,8 @@ function executePreserveNode<T extends MetaNode>(node: T | undefined, oldNode: T
 	if (node == null || oldNode == null || node === oldNode) return undefined;
 	setParents(node, toSetParentNodesOptions({...options, propertyName: options.setParents ? "parent" : "_parent"}));
 	// Prioritize leading over trailing comments
-	preserveAllComments(node, {...options, leading: true});
-	preserveAllComments(node, {...options, leading: false});
-	preserveComments(node, oldNode, {...options, leading: true});
-	preserveComments(node, oldNode, {...options, leading: false});
+	preserveAllComments(node, options);
+	preserveComments(node, oldNode, options);
 	setOriginalNodes(node, oldNode, options);
 	preserveSymbols(node, oldNode, options);
 }

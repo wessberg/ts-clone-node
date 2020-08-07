@@ -11,6 +11,13 @@ import * as TS392 from "typescript-3-9-2";
 import * as TSCurrent from "typescript";
 import avaTest, {ExecutionContext, ImplementationResult} from "ava";
 import {TS} from "../../src/clone-node/type/ts";
+import {CompatFactory} from "../../src/clone-node/type/compat-factory";
+
+export interface ExtendedImplementationArgumentOptions {
+	typescript: typeof TS;
+	compatFactory: CompatFactory;
+	typescriptModuleSpecifier: string;
+}
 
 function getTsVersionFromEnv(): [typeof TS, string][] | undefined {
 	if (process.env.TS_VERSION == null) return undefined;
@@ -19,11 +26,9 @@ function getTsVersionFromEnv(): [typeof TS, string][] | undefined {
 		case "3.0":
 		case "3":
 			return [[(TS301 as unknown) as typeof TS, "typescript-3-0-1"]];
-
 		case "3.1.1":
 		case "3.1":
 			return [[(TS311 as unknown) as typeof TS, "typescript-3-1-1"]];
-
 		case "3.2.1":
 		case "3.2":
 			return [[(TS321 as unknown) as typeof TS, "typescript-3-2-1"]];
@@ -58,10 +63,12 @@ function getTsVersionFromEnv(): [typeof TS, string][] | undefined {
 	return undefined;
 }
 
-export type ExtendedImplementation<Context = unknown> = (t: ExecutionContext<Context>, ts: typeof TS, factory: TS.NodeFactory) => ImplementationResult;
+export type ExtendedImplementation<Context = unknown> = (t: ExecutionContext<Context>, options: ExtendedImplementationArgumentOptions) => ImplementationResult;
 
 function sharedTest<Context = unknown>(title: string, implementation: ExtendedImplementation<Context>, subMethod?: "skip" | "only"): void {
-	for (const [ts] of getTsVersionFromEnv() ??
+	if (process.env.TS_VERSION != null) {
+	}
+	for (const [typescript, typescriptModuleSpecifier] of getTsVersionFromEnv() ??
 		([
 			[TS301, "typescript-3-0-1"],
 			[TS311, "typescript-3-1-1"],
@@ -75,8 +82,10 @@ function sharedTest<Context = unknown>(title: string, implementation: ExtendedIm
 			[TS392, "typescript-3-9-2"],
 			[TSCurrent, "typescript"]
 		] as [typeof TS, string][])) {
-		const func = subMethod != null ? avaTest[subMethod] : avaTest;
-		func(`${title} (TypeScript v${ts.version})`, ctx => implementation(ctx as ExecutionContext<Context>, ts, "factory" in ts ? ts.factory : ts));
+		const func = subMethod != null ? avaTest[subMethod] : avaTest.serial;
+		func(`${title} (TypeScript v${typescript.version})`, ctx =>
+			implementation(ctx as ExecutionContext<Context>, {typescript, compatFactory: typescript.factory ?? typescript, typescriptModuleSpecifier})
+		);
 	}
 }
 
