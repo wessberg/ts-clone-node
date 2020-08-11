@@ -164,9 +164,14 @@ test("Performs an identical clone. #10", (t, {typescript}) => {
 		return;
 	}
 
-	const text = `type Range = [start: number, end: number];`;
+	const text = `\
+type Range = [
+    start: number,
+    end: number
+];
+`;
 
-	t.deepEqual(formatCode(cloneAsText(text, {typescript})), formatCode(text));
+	t.deepEqual(cloneAsText(text, {typescript}), text);
 });
 
 test("Performs an identical clone. #11", (t, {typescript}) => {
@@ -176,11 +181,11 @@ test("Performs an identical clone. #11", (t, {typescript}) => {
 	}
 
 	const text = `\
-	let a;
-	a ||= 2;
-	`;
+let a;
+a ||= 2;
+`;
 
-	t.deepEqual(formatCode(cloneAsText(text, {typescript})), formatCode(text));
+	t.deepEqual(cloneAsText(text, {typescript}), text);
 });
 
 test("Performs an identical clone. #12", (t, {typescript}) => {

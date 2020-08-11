@@ -228,6 +228,8 @@ import {clonePrivateIdentifier} from "./clone-private-identifier";
 import {SetParentNodesOptions} from "./type/set-parent-nodes-options";
 import {toSetParentNodesOptions} from "./util/to-set-parent-nodes-options";
 import {Mutable} from "./util/mutable";
+import {isNamedTupleMember} from "./util/is-named-tuple-member";
+import {cloneNamedTupleMember} from "./clone-named-tuple-member";
 
 export function setParentNodes<T extends MetaNode>(node: T, options: Partial<SetParentNodesOptions>): T {
 	return setParents(node, toSetParentNodesOptions(options));
@@ -1087,6 +1089,12 @@ function executeCloneNode<T extends MetaNode>(node: T | undefined, options: Clon
 	// Note: isNamespaceExport may not be supported by the provided TypeScript version, so the invocation is optional.
 	else if (options.typescript.isNamespaceExport?.(node)) {
 		return cloneNamespaceExport(node, (options as unknown) as CloneNodeVisitorOptions<TS.NamespaceExport>);
+	}
+
+	// Handle the Node
+	// Note: isNamedTupleMember may not be supported by the provided TypeScript version, so the invocation is optional.
+	else if (isNamedTupleMember?.(node, options.typescript)) {
+		return cloneNamedTupleMember(node, (options as unknown) as CloneNodeVisitorOptions<TS.NamedTupleMember>);
 	}
 
 	// Handle the Node
