@@ -1,3 +1,13 @@
+## [0.3.13](https://github.com/wessberg/ts-clone-node/compare/v0.3.12...v0.3.13) (2020-08-11)
+
+### Bug Fixes
+
+- **parentheses:** make sure that cloned CallExpressions and VariableDeclarations are always structurally equivalent ([03206f6](https://github.com/wessberg/ts-clone-node/commit/03206f6a60ff2919836040cd813c3b11415b14c2))
+
+### Features
+
+- **NamedTupleMember:** add support for NamedTupleMembers ([339fc9b](https://github.com/wessberg/ts-clone-node/commit/339fc9b27395da951f7f0c8641c4aeacb1d9aaa4))
+
 ## [0.3.12](https://github.com/wessberg/ts-clone-node/compare/v0.3.11...v0.3.12) (2020-08-07)
 
 ### Bug Fixes
