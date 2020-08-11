@@ -1,12 +1,28 @@
 import {TS} from "./type/ts";
 import {CloneNodeVisitorOptions} from "./clone-node-options";
+import {Mutable} from "./util/mutable";
 
 export function cloneVariableDeclaration(node: TS.VariableDeclaration, options: CloneNodeVisitorOptions<TS.VariableDeclaration>): TS.VariableDeclaration {
+	let clonedVariableDeclaration: TS.VariableDeclaration;
+
 	if ("factory" in options.typescript) {
-		return v4Strategy(node, options);
+		clonedVariableDeclaration = v4Strategy(node, options);
+	} else {
+		clonedVariableDeclaration = v3Strategy(node, options);
 	}
 
-	return v3Strategy(node, options);
+	// createVariableDeclaration may wrap the initializer expression in parentheses. We want to make sure that we're producing identical clones here,
+	// so if the new VariableDeclaration has a ParenthesizedExpression that weren't there before, remove it.
+	if (
+		node.initializer != null &&
+		clonedVariableDeclaration.initializer != null &&
+		!options.typescript.isParenthesizedExpression(node.initializer) &&
+		options.typescript.isParenthesizedExpression(clonedVariableDeclaration.initializer)
+	) {
+		(clonedVariableDeclaration as Mutable<TS.VariableDeclaration>).initializer = clonedVariableDeclaration.initializer.expression;
+	}
+
+	return clonedVariableDeclaration;
 }
 
 /**

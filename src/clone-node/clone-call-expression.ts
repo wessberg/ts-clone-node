@@ -1,12 +1,27 @@
 import {TS} from "./type/ts";
 import {CloneNodeVisitorOptions} from "./clone-node-options";
+import {Mutable} from "./util/mutable";
 
 export function cloneCallExpression(node: TS.CallExpression, options: CloneNodeVisitorOptions<TS.CallExpression>): TS.CallExpression {
+	let clonedCallExpression: TS.CallExpression;
+
 	if ("factory" in options.typescript) {
-		return v4Strategy(node, options);
+		clonedCallExpression = v4Strategy(node, options);
+	} else {
+		clonedCallExpression = v3Strategy(node, options);
 	}
 
-	return v3Strategy(node, options);
+	// createCallExpression may wrap the arguments in parentheses. We want to make sure that we're producing identical clones here,
+	// so if the arguments of the new CallExpression has a ParenthesizedExpression that weren't there before, remove it.
+	for (let i = 0; i < clonedCallExpression.arguments.length; i++) {
+		const argument = clonedCallExpression.arguments[i];
+
+		if (!options.typescript.isParenthesizedExpression(node.arguments[i]) && options.typescript.isParenthesizedExpression(argument)) {
+			(clonedCallExpression.arguments[i] as Mutable<TS.Expression>) = argument.expression;
+		}
+	}
+
+	return clonedCallExpression;
 }
 
 /**
