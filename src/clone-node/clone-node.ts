@@ -230,6 +230,8 @@ import {toSetParentNodesOptions} from "./util/to-set-parent-nodes-options";
 import {Mutable} from "./util/mutable";
 import {isNamedTupleMember} from "./util/is-named-tuple-member";
 import {cloneNamedTupleMember} from "./clone-named-tuple-member";
+import {isJsDocDeprecatedTag} from "./util/is-js-doc-deprecated-tag";
+import {cloneJsDocDeprecatedTag} from "./clone-js-doc-deprecated-tag";
 
 export function setParentNodes<T extends MetaNode>(node: T, options: Partial<SetParentNodesOptions>): T {
 	return setParents(node, toSetParentNodesOptions(options));
@@ -1210,6 +1212,11 @@ function executeCloneNode<T extends MetaNode>(node: T | undefined, options: Clon
 	// Handle the Node
 	else if (isJsDocTypedefTag(node, options.typescript)) {
 		return cloneJsDocTypedefTag(node, (options as unknown) as CloneNodeVisitorOptions<TS.JSDocTypedefTag>);
+	}
+
+	// Handle the Node
+	else if (isJsDocDeprecatedTag(node, options.typescript)) {
+		return cloneJsDocDeprecatedTag(node, (options as unknown) as CloneNodeVisitorOptions<TS.JSDocDeprecatedTag>);
 	}
 
 	// Handle the Node
