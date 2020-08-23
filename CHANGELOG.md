@@ -1,3 +1,9 @@
+## [0.3.14](https://github.com/wessberg/ts-clone-node/compare/v0.3.13...v0.3.14) (2020-08-23)
+
+### Features
+
+- **JSDocDeprecatedTag:** add support for JSDocDeprecatedTags ([bd6df51](https://github.com/wessberg/ts-clone-node/commit/bd6df51fa07b0f885d93460618c2fb410a9f1fc8))
+
 ## [0.3.13](https://github.com/wessberg/ts-clone-node/compare/v0.3.12...v0.3.13) (2020-08-11)
 
 ### Bug Fixes
