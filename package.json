@@ -79,7 +79,7 @@
 		"typescript-3-9-2": "npm:typescript@3.9.2"
 	},
 	"peerDependencies": {
-		"typescript": "^3.x"
+		"typescript": "^3.x || ^4.x"
 	},
 	"main": "./dist/cjs/index.js",
 	"module": "./dist/esm/index.js",
