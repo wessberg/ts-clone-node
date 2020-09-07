@@ -52,6 +52,6 @@ export interface CloneNodeVisitorOptions<T extends MetaNode = MetaNode> extends 
 
 	nextNodes<Next extends MetaNode>(nodes: readonly Next[]): Next[];
 	nextNodes<Next extends MetaNode>(nodes: Next[]): Next[];
-	nextNodes<Next extends MetaNode>(nodes: undefined): undefined;
+	nextNodes(nodes: undefined): undefined;
 	nextNodes<Next extends MetaNode>(nodes: readonly Next[] | Next[] | undefined): undefined;
 }
