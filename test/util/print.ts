@@ -6,5 +6,5 @@ import {MetaNode} from "../../src/clone-node/type/meta-node";
  */
 export function print(node: MetaNode, typescript: typeof TS, sourceFile: TS.SourceFile): string {
 	if (typescript.isSourceFile(node)) return typescript.createPrinter().printFile(node);
-	return typescript.createPrinter().printNode(typescript.EmitHint.Unspecified, node, node.getSourceFile() ?? sourceFile);
+	return typescript.createPrinter({newLine: typescript.NewLineKind.LineFeed}).printNode(typescript.EmitHint.Unspecified, node, node.getSourceFile() ?? sourceFile);
 }
