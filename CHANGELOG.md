@@ -1,3 +1,5 @@
+## [0.3.15](https://github.com/wessberg/ts-clone-node/compare/v0.3.14...v0.3.15) (2020-09-07)
+
 ## [0.3.14](https://github.com/wessberg/ts-clone-node/compare/v0.3.13...v0.3.14) (2020-08-23)
 
 ### Features
