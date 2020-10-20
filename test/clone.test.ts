@@ -213,6 +213,10 @@ test("Performs an identical clone. #14", (t, {typescript}) => {
 });
 
 test("Performs an identical clone. #15", (t, {typescript}) => {
+	if (lt(typescript.version, "4.1.0")) {
+		t.pass(`Current TypeScript version (${typescript.version} does not support TemplateLiteralTypeNodes`);
+		return;
+	}
 	const text = "type Greeting = `hello ${World}`;\n";
 
 	t.deepEqual(cloneAsText(text, {typescript, debug: true}), text);
