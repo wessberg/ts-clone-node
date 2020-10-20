@@ -209,15 +209,29 @@ test("Performs an identical clone. #14", (t, {typescript}) => {
 	const foo = undefined as any
 	`;
 
-	t.deepEqual(cloneAsText(text, {typescript, debug: true}), formatCode(text));
+	t.deepEqual(cloneAsText(text, {typescript, debug: false}), formatCode(text));
 });
 
 test("Performs an identical clone. #15", (t, {typescript}) => {
-	if (lt(typescript.version, "4.1.0")) {
+	if (typescript.version !== "4.1.0-beta" && lt(typescript.version, "4.1.0")) {
 		t.pass(`Current TypeScript version (${typescript.version} does not support TemplateLiteralTypeNodes`);
 		return;
 	}
 	const text = "type Greeting = `hello ${World}`;\n";
 
-	t.deepEqual(cloneAsText(text, {typescript, debug: true}), text);
+	t.deepEqual(cloneAsText(text, {typescript, debug: false}), text);
+});
+
+test("Performs an identical clone. #16", (t, {typescript}) => {
+	if (typescript.version !== "4.1.0-beta" && lt(typescript.version, "4.1.0")) {
+		t.pass(`Current TypeScript version (${typescript.version} does not support 'as' clauses in MappedTypeNodes`);
+		return;
+	}
+	const text = `\
+type MappedTypeWithNewKeys<T> = {
+    [K in keyof T as NewKeyType]: T[K];
+};
+`;
+
+	t.deepEqual(cloneAsText(text, {typescript, debug: false}), text);
 });
