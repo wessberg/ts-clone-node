@@ -1,3 +1,10 @@
+## [0.3.16](https://github.com/wessberg/ts-clone-node/compare/v0.3.15...v0.3.16) (2020-10-20)
+
+### Features
+
+- **MappedTypeNode:** add support for 'as' clauses in MappedTypeNodes ([9ddc790](https://github.com/wessberg/ts-clone-node/commit/9ddc790c58f7a3cde912e27ff2f7dedb678ecec8))
+- **TemplateLiteralTypeNode:** add support for TemplateLiteralTypeNode and TemplateLiteralTypeSpan ([8478aea](https://github.com/wessberg/ts-clone-node/commit/8478aea06b89fab7a6b150315dd08bd69cde3e31))
+
 ## [0.3.15](https://github.com/wessberg/ts-clone-node/compare/v0.3.14...v0.3.15) (2020-09-07)
 
 ## [0.3.14](https://github.com/wessberg/ts-clone-node/compare/v0.3.13...v0.3.14) (2020-08-23)
