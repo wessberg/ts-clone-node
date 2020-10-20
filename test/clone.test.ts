@@ -171,7 +171,7 @@ type Range = [
 ];
 `;
 
-	t.deepEqual(cloneAsText(text, {typescript}), text);
+	t.deepEqual(formatCode(cloneAsText(text, {typescript})), formatCode(text));
 });
 
 test("Performs an identical clone. #11", (t, {typescript}) => {
@@ -185,7 +185,7 @@ let a;
 a ||= 2;
 `;
 
-	t.deepEqual(cloneAsText(text, {typescript}), text);
+	t.deepEqual(formatCode(cloneAsText(text, {typescript})), formatCode(text));
 });
 
 test("Performs an identical clone. #12", (t, {typescript}) => {
@@ -210,4 +210,10 @@ test("Performs an identical clone. #14", (t, {typescript}) => {
 	`;
 
 	t.deepEqual(cloneAsText(text, {typescript, debug: true}), formatCode(text));
+});
+
+test("Performs an identical clone. #15", (t, {typescript}) => {
+	const text = "type Greeting = `hello ${World}`;\n";
+
+	t.deepEqual(cloneAsText(text, {typescript, debug: true}), text);
 });

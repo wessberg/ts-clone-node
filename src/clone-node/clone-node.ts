@@ -232,6 +232,10 @@ import {isNamedTupleMember} from "./util/is-named-tuple-member";
 import {cloneNamedTupleMember} from "./clone-named-tuple-member";
 import {isJsDocDeprecatedTag} from "./util/is-js-doc-deprecated-tag";
 import {cloneJsDocDeprecatedTag} from "./clone-js-doc-deprecated-tag";
+import {isTemplateLiteralTypeNode} from "./util/is-template-literal-type-node";
+import {cloneTemplateLiteralTypeNode} from "./clone-template-literal-type-node";
+import {isTemplateLiteralTypeSpan} from "./util/is-template-literal-type-span";
+import {cloneTemplateLiteralTypeSpan} from "./clone-template-literal-type-span";
 
 export function setParentNodes<T extends MetaNode>(node: T, options: Partial<SetParentNodesOptions>): T {
 	return setParents(node, toSetParentNodesOptions(options));
@@ -1262,6 +1266,16 @@ function executeCloneNode<T extends MetaNode>(node: T | undefined, options: Clon
 	// Handle the Node
 	else if (options.typescript.isToken(node)) {
 		return cloneToken(node, (options as unknown) as CloneNodeVisitorOptions<TS.Token<TS.SyntaxKind>>);
+	}
+
+	// Handle the Node.
+	else if (isTemplateLiteralTypeNode(node, options.typescript)) {
+		return cloneTemplateLiteralTypeNode(node, (options as unknown) as CloneNodeVisitorOptions<TS.TemplateLiteralTypeNode>);
+	}
+
+	// Handle the Node.
+	else if (isTemplateLiteralTypeSpan(node, options.typescript)) {
+		return cloneTemplateLiteralTypeSpan(node, (options as unknown) as CloneNodeVisitorOptions<TS.TemplateLiteralTypeSpan>);
 	}
 
 	throw new TypeError(`Could not handle Node of kind: '${TS.SyntaxKind[node.kind]}'`);
