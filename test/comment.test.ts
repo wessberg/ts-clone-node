@@ -171,3 +171,16 @@ test("Clones comments correctly. #12", (t, {typescript}) => {
 
 	t.deepEqual(formatCode(cloneAsText(text, {typescript})), formatCode(text));
 });
+
+test("Clones comments correctly. #13", (t, {typescript}) => {
+	const text = `\
+	interface Foo {
+	}
+	/**
+	 * @see https://example.com/
+	 */
+	 function foo (): void {}
+`;
+
+	t.deepEqual(formatCode(cloneAsText(text, {typescript})), formatCode(text));
+});
