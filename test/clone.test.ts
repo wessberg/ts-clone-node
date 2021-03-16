@@ -193,15 +193,15 @@ test("Performs an identical clone. #12", (t, {typescript}) => {
 	({ foo: undefined as any });
 	`;
 
-	t.deepEqual(cloneAsText(text, {typescript}), formatCode(text));
+	t.deepEqual(formatCode(cloneAsText(text, {typescript})), formatCode(text));
 });
 
 test("Performs an identical clone. #13", (t, {typescript}) => {
 	const text = `\
-	foo(undefined as any)
+foo(undefined as any)
 	`;
 
-	t.deepEqual(cloneAsText(text, {typescript}), formatCode(text));
+	t.deepEqual(formatCode(cloneAsText(text, {typescript})), formatCode(text));
 });
 
 test("Performs an identical clone. #14", (t, {typescript}) => {
@@ -209,21 +209,21 @@ test("Performs an identical clone. #14", (t, {typescript}) => {
 	const foo = undefined as any
 	`;
 
-	t.deepEqual(cloneAsText(text, {typescript, debug: false}), formatCode(text));
+	t.deepEqual(formatCode(cloneAsText(text, {typescript})), formatCode(text));
 });
 
 test("Performs an identical clone. #15", (t, {typescript}) => {
-	if (typescript.version !== "4.1.0-beta" && lt(typescript.version, "4.1.0")) {
+	if (lt(typescript.version, "4.1.0")) {
 		t.pass(`Current TypeScript version (${typescript.version} does not support TemplateLiteralTypeNodes`);
 		return;
 	}
-	const text = "type Greeting = `hello ${World}`;\n";
+	const text = "type Greeting = `hello ${World}`;";
 
-	t.deepEqual(cloneAsText(text, {typescript, debug: false}), text);
+	t.deepEqual(formatCode(cloneAsText(text, {typescript})), formatCode(text));
 });
 
 test("Performs an identical clone. #16", (t, {typescript}) => {
-	if (typescript.version !== "4.1.0-beta" && lt(typescript.version, "4.1.0")) {
+	if (lt(typescript.version, "4.1.0")) {
 		t.pass(`Current TypeScript version (${typescript.version} does not support 'as' clauses in MappedTypeNodes`);
 		return;
 	}
@@ -233,5 +233,5 @@ type MappedTypeWithNewKeys<T> = {
 };
 `;
 
-	t.deepEqual(cloneAsText(text, {typescript, debug: false}), text);
+	t.deepEqual(formatCode(cloneAsText(text, {typescript, debug: false})), formatCode(text));
 });

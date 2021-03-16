@@ -9,6 +9,8 @@ import * as TS372 from "typescript-3-7-2";
 import * as TS383 from "typescript-3-8-3";
 import * as TS392 from "typescript-3-9-2";
 import * as TS403 from "typescript-4-0-3";
+import * as TS410Beta from "typescript-4-1-0-beta";
+import * as TS412 from "typescript-4-1-2";
 import * as TSCurrent from "typescript";
 import avaTest, {ExecutionContext, ImplementationResult} from "ava";
 import {TS} from "../../src/clone-node/type/ts";
@@ -60,7 +62,13 @@ function getTsVersionFromEnv(): [typeof TS, string][] | undefined {
 		case "4":
 			return [[(TS403 as unknown) as typeof TS, "typescript-4-0-3"]];
 		case "4.1.0":
+		case "4.1.0-beta":
+			return [[(TS410Beta as unknown) as typeof TS, "typescript-4-1-0-beta"]];
 		case "4.1":
+		case "4.1.2":
+			return [[(TS412 as unknown) as typeof TS, "typescript-4-1-2"]];
+		case "4.2":
+		case "4.2.3":
 		case "CURRENT":
 			return [[(TSCurrent as unknown) as typeof TS, "typescript"]];
 	}
