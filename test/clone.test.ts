@@ -247,3 +247,11 @@ let Ctor: abstract new () => unknown;
 
 	t.deepEqual(formatCode(cloneAsText(text, {typescript}), {onlyWhitespace: true}), formatCode(text, {onlyWhitespace: true}));
 });
+
+test("Performs an identical clone. #18", (t, {typescript}) => {
+	const text = `\
+	import Foo = bar;
+	`;
+
+	t.deepEqual(formatCode(cloneAsText(text, {typescript})), formatCode(text));
+});
