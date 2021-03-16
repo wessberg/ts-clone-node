@@ -213,7 +213,7 @@ test("Performs an identical clone. #14", (t, {typescript}) => {
 });
 
 test("Performs an identical clone. #15", (t, {typescript}) => {
-	if (lt(typescript.version, "4.1.0")) {
+	if (typescript.version !== "4.1.0-beta" && lt(typescript.version, "4.1.0")) {
 		t.pass(`Current TypeScript version (${typescript.version} does not support TemplateLiteralTypeNodes`);
 		return;
 	}
@@ -223,7 +223,7 @@ test("Performs an identical clone. #15", (t, {typescript}) => {
 });
 
 test("Performs an identical clone. #16", (t, {typescript}) => {
-	if (lt(typescript.version, "4.1.0")) {
+	if (typescript.version !== "4.1.0-beta" && lt(typescript.version, "4.1.0")) {
 		t.pass(`Current TypeScript version (${typescript.version} does not support 'as' clauses in MappedTypeNodes`);
 		return;
 	}
@@ -233,5 +233,17 @@ type MappedTypeWithNewKeys<T> = {
 };
 `;
 
-	t.deepEqual(formatCode(cloneAsText(text, {typescript, debug: false})), formatCode(text));
+	t.deepEqual(formatCode(cloneAsText(text, {typescript})), formatCode(text));
+});
+
+test("Performs an identical clone. #17", (t, {typescript}) => {
+	if (lt(typescript.version, "4.2.0")) {
+		t.pass(`Current TypeScript version (${typescript.version} does not support the 'abstract' modifier before ConstructorTypeNodes`);
+		return;
+	}
+	const text = `\
+let Ctor: abstract new () => unknown;
+`;
+
+	t.deepEqual(formatCode(cloneAsText(text, {typescript}), {onlyWhitespace: true}), formatCode(text, {onlyWhitespace: true}));
 });

@@ -94,6 +94,8 @@ function sharedTest<Context = unknown>(title: string, implementation: ExtendedIm
 			[TS383, "typescript-3-8-3"],
 			[TS392, "typescript-3-9-2"],
 			[TS403, "typescript-4-0-3"],
+			[TS410Beta, "typescript-4-1-0-beta"],
+			[TS412, "typescript-4-1-2"],
 			[TSCurrent, "typescript"]
 		] as [typeof TS, string][])) {
 		const func = subMethod != null ? avaTest[subMethod] : avaTest.serial;

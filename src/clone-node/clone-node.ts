@@ -355,933 +355,391 @@ function nextNodes<Next extends MetaNode>(nodes: readonly Next[] | Next[] | unde
 function executeCloneNode<T extends MetaNode>(node: T | undefined, options: CloneNodeVisitorOptions<T>): MetaNode | undefined {
 	if (node == null) return undefined;
 
-	// Handle the Node
 	if (options.typescript.isSourceFile(node)) {
 		return cloneSourceFile(node, (options as unknown) as CloneNodeVisitorOptions<TS.SourceFile>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isIdentifier(node)) {
+	} else if (options.typescript.isIdentifier(node)) {
 		return cloneIdentifier(node, (options as unknown) as CloneNodeVisitorOptions<TS.Identifier>);
 	}
 
-	// Handle the Node
 	// Note: isPrivateIdentifier may not be supported by the provided TypeScript version, so the invocation is optional.
 	else if (options.typescript.isPrivateIdentifier?.(node)) {
 		return clonePrivateIdentifier(node, (options as unknown) as CloneNodeVisitorOptions<TS.PrivateIdentifier>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isTypeAliasDeclaration(node)) {
+	} else if (options.typescript.isTypeAliasDeclaration(node)) {
 		return cloneTypeAliasDeclaration(node, (options as unknown) as CloneNodeVisitorOptions<TS.TypeAliasDeclaration>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isTypeParameterDeclaration(node)) {
+	} else if (options.typescript.isTypeParameterDeclaration(node)) {
 		return cloneTypeParameterDeclaration(node, (options as unknown) as CloneNodeVisitorOptions<TS.TypeParameterDeclaration>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isDecorator(node)) {
+	} else if (options.typescript.isDecorator(node)) {
 		return cloneDecorator(node, (options as unknown) as CloneNodeVisitorOptions<TS.Decorator>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isQualifiedName(node)) {
+	} else if (options.typescript.isQualifiedName(node)) {
 		return cloneQualifiedName(node, (options as unknown) as CloneNodeVisitorOptions<TS.QualifiedName>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isComputedPropertyName(node)) {
+	} else if (options.typescript.isComputedPropertyName(node)) {
 		return cloneComputedPropertyName(node, (options as unknown) as CloneNodeVisitorOptions<TS.ComputedPropertyName>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isCallSignatureDeclaration(node)) {
+	} else if (options.typescript.isCallSignatureDeclaration(node)) {
 		return cloneCallSignatureDeclaration(node, (options as unknown) as CloneNodeVisitorOptions<TS.CallSignatureDeclaration>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isConstructSignatureDeclaration(node)) {
+	} else if (options.typescript.isConstructSignatureDeclaration(node)) {
 		return cloneConstructSignatureDeclaration(node, (options as unknown) as CloneNodeVisitorOptions<TS.ConstructSignatureDeclaration>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isVariableDeclaration(node)) {
+	} else if (options.typescript.isVariableDeclaration(node)) {
 		return cloneVariableDeclaration(node, (options as unknown) as CloneNodeVisitorOptions<TS.VariableDeclaration>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isVariableDeclarationList(node)) {
+	} else if (options.typescript.isVariableDeclarationList(node)) {
 		return cloneVariableDeclarationList(node, (options as unknown) as CloneNodeVisitorOptions<TS.VariableDeclarationList>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isVariableStatement(node)) {
+	} else if (options.typescript.isVariableStatement(node)) {
 		return cloneVariableStatement(node, (options as unknown) as CloneNodeVisitorOptions<TS.VariableStatement>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isParameter(node)) {
+	} else if (options.typescript.isParameter(node)) {
 		return cloneParameterDeclaration(node, (options as unknown) as CloneNodeVisitorOptions<TS.ParameterDeclaration>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isBindingElement(node)) {
+	} else if (options.typescript.isBindingElement(node)) {
 		return cloneBindingElement(node, (options as unknown) as CloneNodeVisitorOptions<TS.BindingElement>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isPropertySignature(node)) {
+	} else if (options.typescript.isPropertySignature(node)) {
 		return clonePropertySignature(node, (options as unknown) as CloneNodeVisitorOptions<TS.PropertySignature>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isPropertyDeclaration(node)) {
+	} else if (options.typescript.isPropertyDeclaration(node)) {
 		return clonePropertyDeclaration(node, (options as unknown) as CloneNodeVisitorOptions<TS.PropertyDeclaration>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isPropertyAssignment(node)) {
+	} else if (options.typescript.isPropertyAssignment(node)) {
 		return clonePropertyAssignment(node, (options as unknown) as CloneNodeVisitorOptions<TS.PropertyAssignment>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isShorthandPropertyAssignment(node)) {
+	} else if (options.typescript.isShorthandPropertyAssignment(node)) {
 		return cloneShorthandPropertyAssignment(node, (options as unknown) as CloneNodeVisitorOptions<TS.ShorthandPropertyAssignment>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isSpreadAssignment(node)) {
+	} else if (options.typescript.isSpreadAssignment(node)) {
 		return cloneSpreadAssignment(node, (options as unknown) as CloneNodeVisitorOptions<TS.SpreadAssignment>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isObjectBindingPattern(node)) {
+	} else if (options.typescript.isObjectBindingPattern(node)) {
 		return cloneObjectBindingPattern(node, (options as unknown) as CloneNodeVisitorOptions<TS.ObjectBindingPattern>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isArrayBindingPattern(node)) {
+	} else if (options.typescript.isArrayBindingPattern(node)) {
 		return cloneArrayBindingPattern(node, (options as unknown) as CloneNodeVisitorOptions<TS.ArrayBindingPattern>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isFunctionDeclaration(node)) {
+	} else if (options.typescript.isFunctionDeclaration(node)) {
 		return cloneFunctionDeclaration(node, (options as unknown) as CloneNodeVisitorOptions<TS.FunctionDeclaration>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isMethodSignature(node)) {
+	} else if (options.typescript.isMethodSignature(node)) {
 		return cloneMethodSignature(node, (options as unknown) as CloneNodeVisitorOptions<TS.MethodSignature>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isMethodDeclaration(node)) {
+	} else if (options.typescript.isMethodDeclaration(node)) {
 		return cloneMethodDeclaration(node, (options as unknown) as CloneNodeVisitorOptions<TS.MethodDeclaration>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isConstructorDeclaration(node)) {
+	} else if (options.typescript.isConstructorDeclaration(node)) {
 		return cloneConstructorDeclaration(node, (options as unknown) as CloneNodeVisitorOptions<TS.ConstructorDeclaration>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isSemicolonClassElement(node)) {
+	} else if (options.typescript.isSemicolonClassElement(node)) {
 		return cloneSemicolonClassElement(node, (options as unknown) as CloneNodeVisitorOptions<TS.SemicolonClassElement>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isGetAccessorDeclaration(node)) {
+	} else if (options.typescript.isGetAccessorDeclaration(node)) {
 		return cloneGetAccessorDeclaration(node, (options as unknown) as CloneNodeVisitorOptions<TS.GetAccessorDeclaration>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isSetAccessorDeclaration(node)) {
+	} else if (options.typescript.isSetAccessorDeclaration(node)) {
 		return cloneSetAccessorDeclaration(node, (options as unknown) as CloneNodeVisitorOptions<TS.SetAccessorDeclaration>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isIndexSignatureDeclaration(node)) {
+	} else if (options.typescript.isIndexSignatureDeclaration(node)) {
 		return cloneIndexSignatureDeclaration(node, (options as unknown) as CloneNodeVisitorOptions<TS.IndexSignatureDeclaration>);
-	}
-
-	// Handle the Node
-	else if (isKeywordTypeNode(node, options.typescript)) {
+	} else if (isKeywordTypeNode(node, options.typescript)) {
 		return cloneKeywordTypeNode(node, (options as unknown) as CloneNodeVisitorOptions<TS.KeywordTypeNode>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isImportTypeNode(node)) {
+	} else if (options.typescript.isImportTypeNode(node)) {
 		return cloneImportTypeNode(node, (options as unknown) as CloneNodeVisitorOptions<TS.ImportTypeNode>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isThisTypeNode(node)) {
+	} else if (options.typescript.isThisTypeNode(node)) {
 		return cloneThisTypeNode(node, (options as unknown) as CloneNodeVisitorOptions<TS.ThisTypeNode>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isFunctionTypeNode(node)) {
+	} else if (options.typescript.isFunctionTypeNode(node)) {
 		return cloneFunctionTypeNode(node, (options as unknown) as CloneNodeVisitorOptions<TS.FunctionTypeNode>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isConstructorTypeNode(node)) {
+	} else if (options.typescript.isConstructorTypeNode(node)) {
 		return cloneConstructorTypeNode(node, (options as unknown) as CloneNodeVisitorOptions<TS.ConstructorTypeNode>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isTypeReferenceNode(node)) {
+	} else if (options.typescript.isTypeReferenceNode(node)) {
 		return cloneTypeReferenceNode(node, (options as unknown) as CloneNodeVisitorOptions<TS.TypeReferenceNode>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isTypePredicateNode(node)) {
+	} else if (options.typescript.isTypePredicateNode(node)) {
 		return cloneTypePredicateNode(node, (options as unknown) as CloneNodeVisitorOptions<TS.TypePredicateNode>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isTypeQueryNode(node)) {
+	} else if (options.typescript.isTypeQueryNode(node)) {
 		return cloneTypeQueryNode(node, (options as unknown) as CloneNodeVisitorOptions<TS.TypeQueryNode>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isTypeLiteralNode(node)) {
+	} else if (options.typescript.isTypeLiteralNode(node)) {
 		return cloneTypeLiteralNode(node, (options as unknown) as CloneNodeVisitorOptions<TS.TypeLiteralNode>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isArrayTypeNode(node)) {
+	} else if (options.typescript.isArrayTypeNode(node)) {
 		return cloneArrayTypeNode(node, (options as unknown) as CloneNodeVisitorOptions<TS.ArrayTypeNode>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isTupleTypeNode(node)) {
+	} else if (options.typescript.isTupleTypeNode(node)) {
 		return cloneTupleTypeNode(node, (options as unknown) as CloneNodeVisitorOptions<TS.TupleTypeNode>);
-	}
-
-	// Handle the Node
-	else if (isOptionalTypeNode(node, options.typescript)) {
+	} else if (isOptionalTypeNode(node, options.typescript)) {
 		return cloneOptionalTypeNode(node, (options as unknown) as CloneNodeVisitorOptions<TS.OptionalTypeNode>);
-	}
-
-	// Handle the Node
-	else if (isRestTypeNode(node, options.typescript)) {
+	} else if (isRestTypeNode(node, options.typescript)) {
 		return cloneRestTypeNode(node, (options as unknown) as CloneNodeVisitorOptions<TS.RestTypeNode>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isUnionTypeNode(node)) {
+	} else if (options.typescript.isUnionTypeNode(node)) {
 		return cloneUnionTypeNode(node, (options as unknown) as CloneNodeVisitorOptions<TS.UnionTypeNode>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isIntersectionTypeNode(node)) {
+	} else if (options.typescript.isIntersectionTypeNode(node)) {
 		return cloneIntersectionTypeNode(node, (options as unknown) as CloneNodeVisitorOptions<TS.IntersectionTypeNode>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isConditionalTypeNode(node)) {
+	} else if (options.typescript.isConditionalTypeNode(node)) {
 		return cloneConditionalTypeNode(node, (options as unknown) as CloneNodeVisitorOptions<TS.ConditionalTypeNode>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isInferTypeNode(node)) {
+	} else if (options.typescript.isInferTypeNode(node)) {
 		return cloneInferTypeNode(node, (options as unknown) as CloneNodeVisitorOptions<TS.InferTypeNode>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isLiteralTypeNode(node)) {
+	} else if (options.typescript.isLiteralTypeNode(node)) {
 		return cloneLiteralTypeNode(node, (options as unknown) as CloneNodeVisitorOptions<TS.LiteralTypeNode>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isStringLiteral(node)) {
+	} else if (options.typescript.isStringLiteral(node)) {
 		return cloneStringLiteral(node, (options as unknown) as CloneNodeVisitorOptions<TS.StringLiteral>);
-	}
-
-	// Handle the Node
-	else if (isBooleanLiteral(node, options.typescript)) {
+	} else if (isBooleanLiteral(node, options.typescript)) {
 		return cloneBooleanLiteral(node, (options as unknown) as CloneNodeVisitorOptions<TS.BooleanLiteral>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isRegularExpressionLiteral(node)) {
+	} else if (options.typescript.isRegularExpressionLiteral(node)) {
 		return cloneRegularExpressionLiteral(node, (options as unknown) as CloneNodeVisitorOptions<TS.RegularExpressionLiteral>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isNoSubstitutionTemplateLiteral(node)) {
+	} else if (options.typescript.isNoSubstitutionTemplateLiteral(node)) {
 		return cloneNoSubstitutionTemplateLiteral(node, (options as unknown) as CloneNodeVisitorOptions<TS.NoSubstitutionTemplateLiteral>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isNumericLiteral(node)) {
+	} else if (options.typescript.isNumericLiteral(node)) {
 		return cloneNumericLiteral(node, (options as unknown) as CloneNodeVisitorOptions<TS.NumericLiteral>);
 	}
 
-	// Handle the Node.
 	// Note: isBigIntLiteral may not be supported by the provided TypeScript version, so the invocation is optional.
 	else if (options.typescript.isBigIntLiteral?.(node)) {
 		return cloneBigIntLiteral(node, (options as unknown) as CloneNodeVisitorOptions<TS.BigIntLiteral>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isArrayLiteralExpression(node)) {
+	} else if (options.typescript.isArrayLiteralExpression(node)) {
 		return cloneArrayLiteralExpression(node, (options as unknown) as CloneNodeVisitorOptions<TS.ArrayLiteralExpression>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isObjectLiteralExpression(node)) {
+	} else if (options.typescript.isObjectLiteralExpression(node)) {
 		return cloneObjectLiteralExpression(node, (options as unknown) as CloneNodeVisitorOptions<TS.ObjectLiteralExpression>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isPrefixUnaryExpression(node)) {
+	} else if (options.typescript.isPrefixUnaryExpression(node)) {
 		return clonePrefixUnaryExpression(node, (options as unknown) as CloneNodeVisitorOptions<TS.PrefixUnaryExpression>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isBlock(node)) {
+	} else if (options.typescript.isBlock(node)) {
 		return cloneBlock(node, (options as unknown) as CloneNodeVisitorOptions<TS.Block>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isThrowStatement(node)) {
+	} else if (options.typescript.isThrowStatement(node)) {
 		return cloneThrowStatement(node, (options as unknown) as CloneNodeVisitorOptions<TS.ThrowStatement>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isReturnStatement(node)) {
+	} else if (options.typescript.isReturnStatement(node)) {
 		return cloneReturnStatement(node, (options as unknown) as CloneNodeVisitorOptions<TS.ReturnStatement>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isNewExpression(node)) {
+	} else if (options.typescript.isNewExpression(node)) {
 		return cloneNewExpression(node, (options as unknown) as CloneNodeVisitorOptions<TS.NewExpression>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isCallExpression(node)) {
+	} else if (options.typescript.isCallExpression(node)) {
 		return cloneCallExpression(node, (options as unknown) as CloneNodeVisitorOptions<TS.CallExpression>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isExpressionStatement(node)) {
+	} else if (options.typescript.isExpressionStatement(node)) {
 		return cloneExpressionStatement(node, (options as unknown) as CloneNodeVisitorOptions<TS.ExpressionStatement>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isExpressionWithTypeArguments(node)) {
+	} else if (options.typescript.isExpressionWithTypeArguments(node)) {
 		return cloneExpressionWithTypeArguments(node, (options as unknown) as CloneNodeVisitorOptions<TS.ExpressionWithTypeArguments>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isPropertyAccessExpression(node)) {
+	} else if (options.typescript.isPropertyAccessExpression(node)) {
 		return clonePropertyAccessExpression(node, (options as unknown) as CloneNodeVisitorOptions<TS.PropertyAccessExpression>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isElementAccessExpression(node)) {
+	} else if (options.typescript.isElementAccessExpression(node)) {
 		return cloneElementAccessExpression(node, (options as unknown) as CloneNodeVisitorOptions<TS.ElementAccessExpression>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isTemplateExpression(node)) {
+	} else if (options.typescript.isTemplateExpression(node)) {
 		return cloneTemplateExpression(node, (options as unknown) as CloneNodeVisitorOptions<TS.TemplateExpression>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isTemplateSpan(node)) {
+	} else if (options.typescript.isTemplateSpan(node)) {
 		return cloneTemplateSpan(node, (options as unknown) as CloneNodeVisitorOptions<TS.TemplateSpan>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isTemplateHead(node)) {
+	} else if (options.typescript.isTemplateHead(node)) {
 		return cloneTemplateHead(node, (options as unknown) as CloneNodeVisitorOptions<TS.TemplateHead>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isTemplateMiddle(node)) {
+	} else if (options.typescript.isTemplateMiddle(node)) {
 		return cloneTemplateMiddle(node, (options as unknown) as CloneNodeVisitorOptions<TS.TemplateMiddle>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isTemplateTail(node)) {
+	} else if (options.typescript.isTemplateTail(node)) {
 		return cloneTemplateTail(node, (options as unknown) as CloneNodeVisitorOptions<TS.TemplateTail>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isConditionalExpression(node)) {
+	} else if (options.typescript.isConditionalExpression(node)) {
 		return cloneConditionalExpression(node, (options as unknown) as CloneNodeVisitorOptions<TS.ConditionalExpression>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isBinaryExpression(node)) {
+	} else if (options.typescript.isBinaryExpression(node)) {
 		return cloneBinaryExpression(node, (options as unknown) as CloneNodeVisitorOptions<TS.BinaryExpression>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isParenthesizedExpression(node)) {
+	} else if (options.typescript.isParenthesizedExpression(node)) {
 		return cloneParenthesizedExpression(node, (options as unknown) as CloneNodeVisitorOptions<TS.ParenthesizedExpression>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isParenthesizedTypeNode(node)) {
+	} else if (options.typescript.isParenthesizedTypeNode(node)) {
 		return cloneParenthesizedTypeNode(node, (options as unknown) as CloneNodeVisitorOptions<TS.ParenthesizedTypeNode>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isArrowFunction(node)) {
+	} else if (options.typescript.isArrowFunction(node)) {
 		return cloneArrowFunction(node, (options as unknown) as CloneNodeVisitorOptions<TS.ArrowFunction>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isClassDeclaration(node)) {
+	} else if (options.typescript.isClassDeclaration(node)) {
 		return cloneClassDeclaration(node, (options as unknown) as CloneNodeVisitorOptions<TS.ClassDeclaration>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isClassExpression(node)) {
+	} else if (options.typescript.isClassExpression(node)) {
 		return cloneClassExpression(node, (options as unknown) as CloneNodeVisitorOptions<TS.ClassExpression>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isEnumDeclaration(node)) {
+	} else if (options.typescript.isEnumDeclaration(node)) {
 		return cloneEnumDeclaration(node, (options as unknown) as CloneNodeVisitorOptions<TS.EnumDeclaration>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isEnumMember(node)) {
+	} else if (options.typescript.isEnumMember(node)) {
 		return cloneEnumMember(node, (options as unknown) as CloneNodeVisitorOptions<TS.EnumMember>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isInterfaceDeclaration(node)) {
+	} else if (options.typescript.isInterfaceDeclaration(node)) {
 		return cloneInterfaceDeclaration(node, (options as unknown) as CloneNodeVisitorOptions<TS.InterfaceDeclaration>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isHeritageClause(node)) {
+	} else if (options.typescript.isHeritageClause(node)) {
 		return cloneHeritageClause(node, (options as unknown) as CloneNodeVisitorOptions<TS.HeritageClause>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isEmptyStatement(node)) {
+	} else if (options.typescript.isEmptyStatement(node)) {
 		return cloneEmptyStatement(node, (options as unknown) as CloneNodeVisitorOptions<TS.EmptyStatement>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isAsExpression(node)) {
+	} else if (options.typescript.isAsExpression(node)) {
 		return cloneAsExpression(node, (options as unknown) as CloneNodeVisitorOptions<TS.AsExpression>);
 	}
-
-	// Handle the Node
-	else if (options.typescript.isTypeAssertion(node)) {
+	else if (("isTypeAssertionExpression" in options.typescript && options.typescript.isTypeAssertionExpression(node)) || ("isTypeAssertion" in options.typescript && options.typescript.isTypeAssertion(node))) {
 		return cloneTypeAssertion(node, (options as unknown) as CloneNodeVisitorOptions<TS.TypeAssertion>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isAwaitExpression(node)) {
+	} else if (options.typescript.isAwaitExpression(node)) {
 		return cloneAwaitExpression(node, (options as unknown) as CloneNodeVisitorOptions<TS.AwaitExpression>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isYieldExpression(node)) {
+	} else if (options.typescript.isYieldExpression(node)) {
 		return cloneYieldExpression(node, (options as unknown) as CloneNodeVisitorOptions<TS.YieldExpression>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isForOfStatement(node)) {
+	} else if (options.typescript.isForOfStatement(node)) {
 		return cloneForOfStatement(node, (options as unknown) as CloneNodeVisitorOptions<TS.ForOfStatement>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isForInStatement(node)) {
+	} else if (options.typescript.isForInStatement(node)) {
 		return cloneForInStatement(node, (options as unknown) as CloneNodeVisitorOptions<TS.ForInStatement>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isForStatement(node)) {
+	} else if (options.typescript.isForStatement(node)) {
 		return cloneForStatement(node, (options as unknown) as CloneNodeVisitorOptions<TS.ForStatement>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isWhileStatement(node)) {
+	} else if (options.typescript.isWhileStatement(node)) {
 		return cloneWhileStatement(node, (options as unknown) as CloneNodeVisitorOptions<TS.WhileStatement>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isLabeledStatement(node)) {
+	} else if (options.typescript.isLabeledStatement(node)) {
 		return cloneLabeledStatement(node, (options as unknown) as CloneNodeVisitorOptions<TS.LabeledStatement>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isBreakStatement(node)) {
+	} else if (options.typescript.isBreakStatement(node)) {
 		return cloneBreakStatement(node, (options as unknown) as CloneNodeVisitorOptions<TS.BreakStatement>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isContinueStatement(node)) {
+	} else if (options.typescript.isContinueStatement(node)) {
 		return cloneContinueStatement(node, (options as unknown) as CloneNodeVisitorOptions<TS.ContinueStatement>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isIfStatement(node)) {
+	} else if (options.typescript.isIfStatement(node)) {
 		return cloneIfStatement(node, (options as unknown) as CloneNodeVisitorOptions<TS.IfStatement>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isDoStatement(node)) {
+	} else if (options.typescript.isDoStatement(node)) {
 		return cloneDoStatement(node, (options as unknown) as CloneNodeVisitorOptions<TS.DoStatement>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isNonNullExpression(node)) {
+	} else if (options.typescript.isNonNullExpression(node)) {
 		return cloneNonNullExpression(node, (options as unknown) as CloneNodeVisitorOptions<TS.NonNullExpression>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isTypeOperatorNode(node)) {
+	} else if (options.typescript.isTypeOperatorNode(node)) {
 		return cloneTypeOperatorNode(node, (options as unknown) as CloneNodeVisitorOptions<TS.TypeOperatorNode>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isIndexedAccessTypeNode(node)) {
+	} else if (options.typescript.isIndexedAccessTypeNode(node)) {
 		return cloneIndexedAccessTypeNode(node, (options as unknown) as CloneNodeVisitorOptions<TS.IndexedAccessTypeNode>);
 	}
 
-	// Handle the Node
 	// Note: isMappedTypeNode may not be supported by the provided TypeScript version, so the invocation is optional.
 	else if (options.typescript.isMappedTypeNode?.(node)) {
 		return cloneMappedTypeNode(node, (options as unknown) as CloneNodeVisitorOptions<TS.MappedTypeNode>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isOmittedExpression(node)) {
+	} else if (options.typescript.isOmittedExpression(node)) {
 		return cloneOmittedExpression(node, (options as unknown) as CloneNodeVisitorOptions<TS.OmittedExpression>);
-	}
-
-	// Handle the Node
-	else if (isPartiallyEmittedExpression(node, options.typescript)) {
+	} else if (isPartiallyEmittedExpression(node, options.typescript)) {
 		return clonePartiallyEmittedExpression(node, (options as unknown) as CloneNodeVisitorOptions<TS.PartiallyEmittedExpression>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isPostfixUnaryExpression(node)) {
+	} else if (options.typescript.isPostfixUnaryExpression(node)) {
 		return clonePostfixUnaryExpression(node, (options as unknown) as CloneNodeVisitorOptions<TS.PostfixUnaryExpression>);
-	}
-
-	// Handle the Node
-	else if (isNullLiteral(node, options.typescript)) {
+	} else if (isNullLiteral(node, options.typescript)) {
 		return cloneNullLiteral(node, (options as unknown) as CloneNodeVisitorOptions<TS.NullLiteral>);
-	}
-
-	// Handle the Node
-	else if (isThisExpression(node, options.typescript)) {
+	} else if (isThisExpression(node, options.typescript)) {
 		return cloneThisExpression(node, (options as unknown) as CloneNodeVisitorOptions<TS.ThisExpression>);
-	}
-
-	// Handle the Node
-	else if (isSuperExpression(node, options.typescript)) {
+	} else if (isSuperExpression(node, options.typescript)) {
 		return cloneSuperExpression(node, (options as unknown) as CloneNodeVisitorOptions<TS.SuperExpression>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isDeleteExpression(node)) {
+	} else if (options.typescript.isDeleteExpression(node)) {
 		return cloneDeleteExpression(node, (options as unknown) as CloneNodeVisitorOptions<TS.DeleteExpression>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isTypeOfExpression(node)) {
+	} else if (options.typescript.isTypeOfExpression(node)) {
 		return cloneTypeOfExpression(node, (options as unknown) as CloneNodeVisitorOptions<TS.TypeOfExpression>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isVoidExpression(node)) {
+	} else if (options.typescript.isVoidExpression(node)) {
 		return cloneVoidExpression(node, (options as unknown) as CloneNodeVisitorOptions<TS.VoidExpression>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isFunctionExpression(node)) {
+	} else if (options.typescript.isFunctionExpression(node)) {
 		return cloneFunctionExpression(node, (options as unknown) as CloneNodeVisitorOptions<TS.FunctionExpression>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isSpreadElement(node)) {
+	} else if (options.typescript.isSpreadElement(node)) {
 		return cloneSpreadElement(node, (options as unknown) as CloneNodeVisitorOptions<TS.SpreadElement>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isTaggedTemplateExpression(node)) {
+	} else if (options.typescript.isTaggedTemplateExpression(node)) {
 		return cloneTaggedTemplateExpression(node, (options as unknown) as CloneNodeVisitorOptions<TS.TaggedTemplateExpression>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isMetaProperty(node)) {
+	} else if (options.typescript.isMetaProperty(node)) {
 		return cloneMetaProperty(node, (options as unknown) as CloneNodeVisitorOptions<TS.MetaProperty>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isJsxElement(node)) {
+	} else if (options.typescript.isJsxElement(node)) {
 		return cloneJsxElement(node, (options as unknown) as CloneNodeVisitorOptions<TS.JsxElement>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isJsxAttributes(node)) {
+	} else if (options.typescript.isJsxAttributes(node)) {
 		return cloneJsxAttributes(node, (options as unknown) as CloneNodeVisitorOptions<TS.JsxAttributes>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isJsxOpeningElement(node)) {
+	} else if (options.typescript.isJsxOpeningElement(node)) {
 		return cloneJsxOpeningElement(node, (options as unknown) as CloneNodeVisitorOptions<TS.JsxOpeningElement>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isJsxSelfClosingElement(node)) {
+	} else if (options.typescript.isJsxSelfClosingElement(node)) {
 		return cloneJsxSelfClosingElement(node, (options as unknown) as CloneNodeVisitorOptions<TS.JsxSelfClosingElement>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isJsxFragment(node)) {
+	} else if (options.typescript.isJsxFragment(node)) {
 		return cloneJsxFragment(node, (options as unknown) as CloneNodeVisitorOptions<TS.JsxFragment>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isJsxOpeningFragment(node)) {
+	} else if (options.typescript.isJsxOpeningFragment(node)) {
 		return cloneJsxOpeningFragment(node, (options as unknown) as CloneNodeVisitorOptions<TS.JsxOpeningFragment>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isJsxClosingFragment(node)) {
+	} else if (options.typescript.isJsxClosingFragment(node)) {
 		return cloneJsxClosingFragment(node, (options as unknown) as CloneNodeVisitorOptions<TS.JsxClosingFragment>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isJsxAttribute(node)) {
+	} else if (options.typescript.isJsxAttribute(node)) {
 		return cloneJsxAttribute(node, (options as unknown) as CloneNodeVisitorOptions<TS.JsxAttribute>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isJsxSpreadAttribute(node)) {
+	} else if (options.typescript.isJsxSpreadAttribute(node)) {
 		return cloneJsxSpreadAttribute(node, (options as unknown) as CloneNodeVisitorOptions<TS.JsxSpreadAttribute>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isJsxClosingElement(node)) {
+	} else if (options.typescript.isJsxClosingElement(node)) {
 		return cloneJsxClosingElement(node, (options as unknown) as CloneNodeVisitorOptions<TS.JsxClosingElement>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isJsxExpression(node)) {
+	} else if (options.typescript.isJsxExpression(node)) {
 		return cloneJsxExpression(node, (options as unknown) as CloneNodeVisitorOptions<TS.JsxExpression>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isJsxText(node)) {
+	} else if (options.typescript.isJsxText(node)) {
 		return cloneJsxText(node, (options as unknown) as CloneNodeVisitorOptions<TS.JsxText>);
-	}
-
-	// Handle the Node
-	else if (isNotEmittedStatement(node, options.typescript)) {
+	} else if (isNotEmittedStatement(node, options.typescript)) {
 		return cloneNotEmittedStatement(node, (options as unknown) as CloneNodeVisitorOptions<TS.NotEmittedStatement>);
-	}
-
-	// Handle the Node
-	else if (isCommaListExpression(node, options.typescript)) {
+	} else if (isCommaListExpression(node, options.typescript)) {
 		return cloneCommaListExpression(node, (options as unknown) as CloneNodeVisitorOptions<TS.CommaListExpression>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isDebuggerStatement(node)) {
+	} else if (options.typescript.isDebuggerStatement(node)) {
 		return cloneDebuggerStatement(node, (options as unknown) as CloneNodeVisitorOptions<TS.DebuggerStatement>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isWithStatement(node)) {
+	} else if (options.typescript.isWithStatement(node)) {
 		return cloneWithStatement(node, (options as unknown) as CloneNodeVisitorOptions<TS.WithStatement>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isSwitchStatement(node)) {
+	} else if (options.typescript.isSwitchStatement(node)) {
 		return cloneSwitchStatement(node, (options as unknown) as CloneNodeVisitorOptions<TS.SwitchStatement>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isCaseBlock(node)) {
+	} else if (options.typescript.isCaseBlock(node)) {
 		return cloneCaseBlock(node, (options as unknown) as CloneNodeVisitorOptions<TS.CaseBlock>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isCaseClause(node)) {
+	} else if (options.typescript.isCaseClause(node)) {
 		return cloneCaseClause(node, (options as unknown) as CloneNodeVisitorOptions<TS.CaseClause>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isDefaultClause(node)) {
+	} else if (options.typescript.isDefaultClause(node)) {
 		return cloneDefaultClause(node, (options as unknown) as CloneNodeVisitorOptions<TS.DefaultClause>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isTryStatement(node)) {
+	} else if (options.typescript.isTryStatement(node)) {
 		return cloneTryStatement(node, (options as unknown) as CloneNodeVisitorOptions<TS.TryStatement>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isCatchClause(node)) {
+	} else if (options.typescript.isCatchClause(node)) {
 		return cloneCatchClause(node, (options as unknown) as CloneNodeVisitorOptions<TS.CatchClause>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isModuleDeclaration(node)) {
+	} else if (options.typescript.isModuleDeclaration(node)) {
 		return cloneModuleDeclaration(node, (options as unknown) as CloneNodeVisitorOptions<TS.ModuleDeclaration>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isModuleBlock(node)) {
+	} else if (options.typescript.isModuleBlock(node)) {
 		return cloneModuleBlock(node, (options as unknown) as CloneNodeVisitorOptions<TS.ModuleBlock>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isImportEqualsDeclaration(node)) {
+	} else if (options.typescript.isImportEqualsDeclaration(node)) {
 		return cloneImportEqualsDeclaration(node, (options as unknown) as CloneNodeVisitorOptions<TS.ImportEqualsDeclaration>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isExternalModuleReference(node)) {
+	} else if (options.typescript.isExternalModuleReference(node)) {
 		return cloneExternalModuleReference(node, (options as unknown) as CloneNodeVisitorOptions<TS.ExternalModuleReference>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isImportDeclaration(node)) {
+	} else if (options.typescript.isImportDeclaration(node)) {
 		return cloneImportDeclaration(node, (options as unknown) as CloneNodeVisitorOptions<TS.ImportDeclaration>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isImportClause(node)) {
+	} else if (options.typescript.isImportClause(node)) {
 		return cloneImportClause(node, (options as unknown) as CloneNodeVisitorOptions<TS.ImportClause>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isNamedImports(node)) {
+	} else if (options.typescript.isNamedImports(node)) {
 		return cloneNamedImports(node, (options as unknown) as CloneNodeVisitorOptions<TS.NamedImports>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isNamespaceImport(node)) {
+	} else if (options.typescript.isNamespaceImport(node)) {
 		return cloneNamespaceImport(node, (options as unknown) as CloneNodeVisitorOptions<TS.NamespaceImport>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isImportSpecifier(node)) {
+	} else if (options.typescript.isImportSpecifier(node)) {
 		return cloneImportSpecifier(node, (options as unknown) as CloneNodeVisitorOptions<TS.ImportSpecifier>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isNamespaceExportDeclaration(node)) {
+	} else if (options.typescript.isNamespaceExportDeclaration(node)) {
 		return cloneNamespaceExportDeclaration(node, (options as unknown) as CloneNodeVisitorOptions<TS.NamespaceExportDeclaration>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isExportDeclaration(node)) {
+	} else if (options.typescript.isExportDeclaration(node)) {
 		return cloneExportDeclaration(node, (options as unknown) as CloneNodeVisitorOptions<TS.ExportDeclaration>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isNamedExports(node)) {
+	} else if (options.typescript.isNamedExports(node)) {
 		return cloneNamedExports(node, (options as unknown) as CloneNodeVisitorOptions<TS.NamedExports>);
 	}
 
-	// Handle the Node
 	// Note: isNamespaceExport may not be supported by the provided TypeScript version, so the invocation is optional.
 	else if (options.typescript.isNamespaceExport?.(node)) {
 		return cloneNamespaceExport(node, (options as unknown) as CloneNodeVisitorOptions<TS.NamespaceExport>);
 	}
 
-	// Handle the Node
 	// Note: isNamedTupleMember may not be supported by the provided TypeScript version, so the invocation is optional.
 	else if (isNamedTupleMember?.(node, options.typescript)) {
 		return cloneNamedTupleMember(node, (options as unknown) as CloneNodeVisitorOptions<TS.NamedTupleMember>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isExportSpecifier(node)) {
+	} else if (options.typescript.isExportSpecifier(node)) {
 		return cloneExportSpecifier(node, (options as unknown) as CloneNodeVisitorOptions<TS.ExportSpecifier>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isExportAssignment(node)) {
+	} else if (options.typescript.isExportAssignment(node)) {
 		return cloneExportAssignment(node, (options as unknown) as CloneNodeVisitorOptions<TS.ExportAssignment>);
-	}
-
-	// Handle the Node
-	else if (isJsDocComment(node, options.typescript)) {
+	} else if (isJsDocComment(node, options.typescript)) {
 		return cloneJsDoc(node, (options as unknown) as CloneNodeVisitorOptions<TS.JSDoc>);
-	}
-
-	// Handle the Node
-	else if (isJsDocParameterTag(node, options.typescript)) {
+	} else if (isJsDocParameterTag(node, options.typescript)) {
 		return cloneJsDocParameterTag(node, (options as unknown) as CloneNodeVisitorOptions<TS.JSDocParameterTag>);
-	}
-
-	// Handle the Node
-	else if (isJsDocReturnTag(node, options.typescript)) {
+	} else if (isJsDocReturnTag(node, options.typescript)) {
 		return cloneJsDocReturnTag(node, (options as unknown) as CloneNodeVisitorOptions<TS.JSDocReturnTag>);
-	}
-
-	// Handle the Node
-	else if (isJsDocTypeExpression(node, options.typescript)) {
+	} else if (isJsDocTypeExpression(node, options.typescript)) {
 		return cloneJsDocTypeExpression(node, (options as unknown) as CloneNodeVisitorOptions<TS.JSDocTypeExpression>);
-	}
-
-	// Handle the Node
-	else if (isJsDocEnumTag(node, options.typescript)) {
+	} else if (isJsDocEnumTag(node, options.typescript)) {
 		return cloneJsDocEnumTag(node, (options as unknown) as CloneNodeVisitorOptions<TS.JSDocEnumTag>);
-	}
-
-	// Handle the Node
-	else if (isJsDocTypeTag(node, options.typescript)) {
+	} else if (isJsDocTypeTag(node, options.typescript)) {
 		return cloneJsDocTypeTag(node, (options as unknown) as CloneNodeVisitorOptions<TS.JSDocTypeTag>);
-	}
-
-	// Handle the Node
-	else if (isJsDocAllType(node, options.typescript)) {
+	} else if (isJsDocAllType(node, options.typescript)) {
 		return cloneJsDocAllType(node, (options as unknown) as CloneNodeVisitorOptions<TS.JSDocAllType>);
-	}
-
-	// Handle the Node
-	else if (isJsDocUnknownType(node, options.typescript)) {
+	} else if (isJsDocUnknownType(node, options.typescript)) {
 		return cloneJsDocUnknownType(node, (options as unknown) as CloneNodeVisitorOptions<TS.JSDocUnknownType>);
-	}
-
-	// Handle the Node
-	else if (isJsDocNonNullableType(node, options.typescript)) {
+	} else if (isJsDocNonNullableType(node, options.typescript)) {
 		return cloneJsDocNonNullableType(node, (options as unknown) as CloneNodeVisitorOptions<TS.JSDocNonNullableType>);
-	}
-
-	// Handle the Node
-	else if (isJsDocNullableType(node, options.typescript)) {
+	} else if (isJsDocNullableType(node, options.typescript)) {
 		return cloneJsDocNullableType(node, (options as unknown) as CloneNodeVisitorOptions<TS.JSDocNullableType>);
-	}
-
-	// Handle the Node
-	else if (isJsDocOptionalType(node, options.typescript)) {
+	} else if (isJsDocOptionalType(node, options.typescript)) {
 		return cloneJsDocOptionalType(node, (options as unknown) as CloneNodeVisitorOptions<TS.JSDocOptionalType>);
-	}
-
-	// Handle the Node
-	else if (isJsDocFunctionType(node, options.typescript)) {
+	} else if (isJsDocFunctionType(node, options.typescript)) {
 		return cloneJsDocFunctionType(node, (options as unknown) as CloneNodeVisitorOptions<TS.JSDocFunctionType>);
-	}
-
-	// Handle the Node
-	else if (isJsDocVariadicType(node, options.typescript)) {
+	} else if (isJsDocVariadicType(node, options.typescript)) {
 		return cloneJsDocVariadicType(node, (options as unknown) as CloneNodeVisitorOptions<TS.JSDocVariadicType>);
-	}
-
-	// Handle the Node
-	else if (isJsDocNamepathType(node, options.typescript)) {
+	} else if (isJsDocNamepathType(node, options.typescript)) {
 		return cloneJsDocNamepathType(node, (options as unknown) as CloneNodeVisitorOptions<TS.JSDocNamepathType>);
-	}
-
-	// Handle the Node
-	else if (isJsDocUnknownTag(node, options.typescript)) {
+	} else if (isJsDocUnknownTag(node, options.typescript)) {
 		return cloneJsDocUnknownTag(node, (options as unknown) as CloneNodeVisitorOptions<TS.JSDocUnknownTag>);
-	}
-
-	// Handle the Node
-	else if (isJsDocAugmentsTag(node, options.typescript)) {
+	} else if (isJsDocAugmentsTag(node, options.typescript)) {
 		return cloneJsDocAugmentsTag(node, (options as unknown) as CloneNodeVisitorOptions<TS.JSDocAugmentsTag>);
-	}
-
-	// Handle the Node
-	else if (isJsDocAuthorTag(node, options.typescript)) {
+	} else if (isJsDocAuthorTag(node, options.typescript)) {
 		return cloneJsDocAuthorTag(node, (options as unknown) as CloneNodeVisitorOptions<TS.JSDocAuthorTag>);
-	}
-
-	// Handle the Node
-	else if (isJsDocClassTag(node, options.typescript)) {
+	} else if (isJsDocClassTag(node, options.typescript)) {
 		return cloneJsDocClassTag(node, (options as unknown) as CloneNodeVisitorOptions<TS.JSDocClassTag>);
-	}
-
-	// Handle the Node
-	else if (isJsDocThisTag(node, options.typescript)) {
+	} else if (isJsDocThisTag(node, options.typescript)) {
 		return cloneJsDocThisTag(node, (options as unknown) as CloneNodeVisitorOptions<TS.JSDocThisTag>);
-	}
-
-	// Handle the Node
-	else if (isJsDocTemplateTag(node, options.typescript)) {
+	} else if (isJsDocTemplateTag(node, options.typescript)) {
 		return cloneJsDocTemplateTag(node, (options as unknown) as CloneNodeVisitorOptions<TS.JSDocTemplateTag>);
-	}
-
-	// Handle the Node
-	else if (isJsDocTypedefTag(node, options.typescript)) {
+	} else if (isJsDocTypedefTag(node, options.typescript)) {
 		return cloneJsDocTypedefTag(node, (options as unknown) as CloneNodeVisitorOptions<TS.JSDocTypedefTag>);
-	}
-
-	// Handle the Node
-	else if (isJsDocDeprecatedTag(node, options.typescript)) {
+	} else if (isJsDocDeprecatedTag(node, options.typescript)) {
 		return cloneJsDocDeprecatedTag(node, (options as unknown) as CloneNodeVisitorOptions<TS.JSDocDeprecatedTag>);
-	}
-
-	// Handle the Node
-	else if (isJsDocCallbackTag(node, options.typescript)) {
+	} else if (isJsDocCallbackTag(node, options.typescript)) {
 		return cloneJsDocCallbackTag(node, (options as unknown) as CloneNodeVisitorOptions<TS.JSDocCallbackTag>);
-	}
-
-	// Handle the Node
-	else if (isJsDocSignature(node, options.typescript)) {
+	} else if (isJsDocSignature(node, options.typescript)) {
 		return cloneJsDocSignature(node, (options as unknown) as CloneNodeVisitorOptions<TS.JSDocSignature>);
-	}
-
-	// Handle the Node
-	else if (isJsDocPropertyTag(node, options.typescript)) {
+	} else if (isJsDocPropertyTag(node, options.typescript)) {
 		return cloneJsDocPropertyTag(node, (options as unknown) as CloneNodeVisitorOptions<TS.JSDocPropertyTag>);
-	}
-
-	// Handle the Node
-	else if (isJsDocTypeLiteral(node, options.typescript)) {
+	} else if (isJsDocTypeLiteral(node, options.typescript)) {
 		return cloneJsDocTypeLiteral(node, (options as unknown) as CloneNodeVisitorOptions<TS.JSDocTypeLiteral>);
-	}
-
-	// Handle the Node
-	else if (isJsDocReadonlyTag(node, options.typescript)) {
+	} else if (isJsDocReadonlyTag(node, options.typescript)) {
 		return cloneJsDocReadonlyTag(node, (options as unknown) as CloneNodeVisitorOptions<TS.JSDocReadonlyTag>);
-	}
-
-	// Handle the Node
-	else if (isJsDocSeeTag(node, options.typescript)) {
+	} else if (isJsDocSeeTag(node, options.typescript)) {
 		return cloneJsDocSeeTag(node, (options as unknown) as CloneNodeVisitorOptions<TS.JSDocSeeTag>);
-	}
-
-	// Handle the Node
-	else if (isJsDocPrivateTag(node, options.typescript)) {
+	} else if (isJsDocPrivateTag(node, options.typescript)) {
 		return cloneJsDocPrivateTag(node, (options as unknown) as CloneNodeVisitorOptions<TS.JSDocPrivateTag>);
-	}
-
-	// Handle the Node
-	else if (isJsDocProtectedTag(node, options.typescript)) {
+	} else if (isJsDocProtectedTag(node, options.typescript)) {
 		return cloneJsDocProtectedTag(node, (options as unknown) as CloneNodeVisitorOptions<TS.JSDocProtectedTag>);
-	}
-
-	// Handle the Node
-	else if (isJsDocPublicTag(node, options.typescript)) {
+	} else if (isJsDocPublicTag(node, options.typescript)) {
 		return cloneJsDocPublicTag(node, (options as unknown) as CloneNodeVisitorOptions<TS.JSDocPublicTag>);
-	}
-
-	// Handle the Node
-	else if (options.typescript.isToken(node)) {
+	} else if (options.typescript.isToken(node)) {
 		return cloneToken(node, (options as unknown) as CloneNodeVisitorOptions<TS.Token<TS.SyntaxKind>>);
-	}
-
-	// Handle the Node.
-	else if (isTemplateLiteralTypeNode(node, options.typescript)) {
+	} else if (isTemplateLiteralTypeNode(node, options.typescript)) {
 		return cloneTemplateLiteralTypeNode(node, (options as unknown) as CloneNodeVisitorOptions<TS.TemplateLiteralTypeNode>);
-	}
-
-	// Handle the Node.
-	else if (isTemplateLiteralTypeSpan(node, options.typescript)) {
+	} else if (isTemplateLiteralTypeSpan(node, options.typescript)) {
 		return cloneTemplateLiteralTypeSpan(node, (options as unknown) as CloneNodeVisitorOptions<TS.TemplateLiteralTypeSpan>);
 	}
 

@@ -4,7 +4,7 @@ import {CloneNodeVisitorOptions} from "./clone-node-options";
 export function cloneTemplateLiteralTypeSpan(node: TS.TemplateLiteralTypeSpan, options: CloneNodeVisitorOptions<TS.TemplateLiteralTypeSpan>): TS.TemplateLiteralTypeSpan {
 	if ("casing" in node && options.factory.createTemplateLiteralTypeSpan.length === 3) {
 		const legacyNode = (node as unknown) as import("typescript-4-1-0-beta").TemplateLiteralTypeSpan;
-		const legacyCreateTemplateLiteralTypeSpan = (options.factory as unknown) as import("typescript-4-1-0-beta").NodeFactory["createTemplateLiteralTypeSpan"];
+		const legacyCreateTemplateLiteralTypeSpan = options.factory.createTemplateLiteralTypeSpan as unknown as import("typescript-4-1-0-beta").NodeFactory["createTemplateLiteralTypeSpan"];
 
 		return (legacyCreateTemplateLiteralTypeSpan(
 			options.hook("casing" as never, legacyNode.casing as never, legacyNode.casing as never) as never,
