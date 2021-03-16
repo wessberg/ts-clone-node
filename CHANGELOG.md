@@ -1,8 +1,9 @@
-## [0.3.18](https://github.com/wessberg/ts-clone-node/compare/v0.3.16...v0.3.18) (2021-03-16)
+## [0.3.19](https://github.com/wessberg/ts-clone-node/compare/v0.3.16...v0.3.19) (2021-03-16)
 
 
 ### Bug Fixes
 
+* **ImportEqualsDeclaration:** add support for constructing type-only ImportEqualsDeclarations, as supported by TypeScript 4.2 ([c4b6082](https://github.com/wessberg/ts-clone-node/commit/c4b60823b1a6b89d3d87497663fa099c794eaf6b))
 * add support for 4.1.0-beta and 4.1.0 nightly ([a164d27](https://github.com/wessberg/ts-clone-node/commit/a164d27c65c758f940655087f3195aa79b621533))
 * support [@see](https://github.com/see) jsdoc comments with TypeScript 4.1 ([bc8d58c](https://github.com/wessberg/ts-clone-node/commit/bc8d58ca8de91d505c805f02bb26d68226e18d27))
 
