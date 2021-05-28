@@ -3,7 +3,7 @@ import {CloneNodeVisitorOptions} from "./clone-node-options";
 import {Mutable} from "helpertypes";
 
 export function cloneVariableDeclaration(node: TS.VariableDeclaration, options: CloneNodeVisitorOptions<TS.VariableDeclaration>): TS.VariableDeclaration {
-	let clonedVariableDeclaration = options.factory.createVariableDeclaration(
+	const clonedVariableDeclaration = options.factory.createVariableDeclaration(
 		options.hook("name", options.nextNode(node.name), node.name),
 		options.hook("exclamationToken", options.nextNode(node.exclamationToken), node.exclamationToken),
 		options.hook("type", options.nextNode(node.type), node.type),
