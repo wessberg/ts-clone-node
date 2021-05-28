@@ -1,8 +1,9 @@
-import test from "./util/test-runner";
+import test from "ava";
 import {formatCode} from "./util/format-code";
 import {cloneAsText} from "./util/clone-as-text";
+import {withTypeScript} from "./util/ts-macro";
 
-test("Clones comments correctly. #1", (t, {typescript}) => {
+test("Clones comments correctly. #1", withTypeScript, (t, {typescript}) => {
 	const text = `\
 	export default {
 		/**
@@ -19,7 +20,7 @@ test("Clones comments correctly. #1", (t, {typescript}) => {
 	t.deepEqual(formatCode(cloneAsText(text, {typescript})), formatCode(text));
 });
 
-test("Clones comments correctly. #2", (t, {typescript}) => {
+test("Clones comments correctly. #2", withTypeScript, (t, {typescript}) => {
 	const text = `\
 	export default {
 		// This is a comment
@@ -32,7 +33,7 @@ test("Clones comments correctly. #2", (t, {typescript}) => {
 	t.deepEqual(formatCode(cloneAsText(text, {typescript})), formatCode(text));
 });
 
-test("Clones comments correctly. #3", (t, {typescript}) => {
+test("Clones comments correctly. #3", withTypeScript, (t, {typescript}) => {
 	const text = `\
 	export default {
 		/* This is a comment */
@@ -45,7 +46,7 @@ test("Clones comments correctly. #3", (t, {typescript}) => {
 	t.deepEqual(formatCode(cloneAsText(text, {typescript})), formatCode(text));
 });
 
-test("Clones comments correctly. #4", (t, {typescript}) => {
+test("Clones comments correctly. #4", withTypeScript, (t, {typescript}) => {
 	const text = `\
 	const foo = /** @type {string} */ "foo";
 `;
@@ -53,7 +54,7 @@ test("Clones comments correctly. #4", (t, {typescript}) => {
 	t.deepEqual(formatCode(cloneAsText(text, {typescript})), formatCode(text));
 });
 
-test("Clones comments correctly. #5", (t, {typescript}) => {
+test("Clones comments correctly. #5", withTypeScript, (t, {typescript}) => {
 	const text = `\
 	const foo = "foo"; // This comment comes after
 `;
@@ -61,7 +62,7 @@ test("Clones comments correctly. #5", (t, {typescript}) => {
 	t.deepEqual(formatCode(cloneAsText(text, {typescript})), formatCode(text));
 });
 
-test("Clones comments correctly. #6", (t, {typescript}) => {
+test("Clones comments correctly. #6", withTypeScript, (t, {typescript}) => {
 	const text = `\
 	
 	/**
@@ -79,7 +80,7 @@ test("Clones comments correctly. #6", (t, {typescript}) => {
 	t.deepEqual(formatCode(cloneAsText(text, {typescript})), formatCode(text));
 });
 
-test("Clones comments correctly. #7", (t, {typescript}) => {
+test("Clones comments correctly. #7", withTypeScript, (t, {typescript}) => {
 	const text = `\
 	 /**
     * Snowball event.
@@ -93,7 +94,7 @@ test("Clones comments correctly. #7", (t, {typescript}) => {
 	t.deepEqual(formatCode(cloneAsText(text, {typescript})), formatCode(text));
 });
 
-test("Clones comments correctly. #8", (t, {typescript}) => {
+test("Clones comments correctly. #8", withTypeScript, (t, {typescript}) => {
 	const text = `\
 	 class Foo {
 	 
@@ -108,7 +109,7 @@ test("Clones comments correctly. #8", (t, {typescript}) => {
 	t.deepEqual(formatCode(cloneAsText(text, {typescript})), formatCode(text));
 });
 
-test("Clones comments correctly. #9", (t, {typescript}) => {
+test("Clones comments correctly. #9", withTypeScript, (t, {typescript}) => {
 	const text = `\
 	/**
 	 * Comment
@@ -137,7 +138,7 @@ test("Clones comments correctly. #9", (t, {typescript}) => {
 	t.deepEqual(formatCode(cloneAsText(text, {typescript})), formatCode(text));
 });
 
-test("Clones comments correctly. #10", (t, {typescript}) => {
+test("Clones comments correctly. #10", withTypeScript, (t, {typescript}) => {
 	const text = `\
 	function foo () {
 	} // This comes after
@@ -146,7 +147,7 @@ test("Clones comments correctly. #10", (t, {typescript}) => {
 	t.deepEqual(formatCode(cloneAsText(text, {typescript})), formatCode(text));
 });
 
-test("Clones comments correctly. #11", (t, {typescript}) => {
+test("Clones comments correctly. #11", withTypeScript, (t, {typescript}) => {
 	const text = `\
 	interface Foo {
 	}
@@ -159,7 +160,7 @@ test("Clones comments correctly. #11", (t, {typescript}) => {
 	t.deepEqual(formatCode(cloneAsText(text, {typescript})), formatCode(text));
 });
 
-test("Clones comments correctly. #12", (t, {typescript}) => {
+test("Clones comments correctly. #12", withTypeScript, (t, {typescript}) => {
 	const text = `\
 	interface Foo {
 	}
@@ -172,7 +173,7 @@ test("Clones comments correctly. #12", (t, {typescript}) => {
 	t.deepEqual(formatCode(cloneAsText(text, {typescript})), formatCode(text));
 });
 
-test("Clones comments correctly. #13", (t, {typescript}) => {
+test("Clones comments correctly. #13", withTypeScript, (t, {typescript}) => {
 	const text = `\
 	interface Foo {
 	}
@@ -185,7 +186,7 @@ test("Clones comments correctly. #13", (t, {typescript}) => {
 	t.deepEqual(formatCode(cloneAsText(text, {typescript})), formatCode(text));
 });
 
-test("Clones comments correctly. #14", (t, {typescript}) => {
+test("Clones comments correctly. #14", withTypeScript, (t, {typescript}) => {
 	const text = `\
 	interface Foo {
 	}

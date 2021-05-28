@@ -1,7 +1,7 @@
 import {TS} from "./type/ts";
 import {CloneNodeVisitorOptions} from "./clone-node-options";
 import {ensureNodeArray} from "./util/ensure-node-array";
-import {Mutable} from "./util/mutable";
+import {Mutable} from "helpertypes";
 
 export function cloneConstructorTypeNode(node: TS.ConstructorTypeNode, options: CloneNodeVisitorOptions<TS.ConstructorTypeNode>): TS.ConstructorTypeNode {
 	const updatedNode = options.factory.createConstructorTypeNode(
@@ -9,7 +9,6 @@ export function cloneConstructorTypeNode(node: TS.ConstructorTypeNode, options: 
 		options.hook("parameters", options.nextNodes(node.parameters), node.parameters),
 		options.hook("type", options.nextNode(node.type), node.type)
 	) as Mutable<TS.ConstructorTypeNode>;
-
 
 	// Make sure to also update the modifiers. The constructor function doesn't support this.
 	updatedNode.modifiers = ensureNodeArray(options.hook("modifiers", options.nextNodes(node.modifiers), node.modifiers), options.factory);

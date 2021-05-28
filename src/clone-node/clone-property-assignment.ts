@@ -1,6 +1,6 @@
 import {TS} from "./type/ts";
 import {CloneNodeVisitorOptions} from "./clone-node-options";
-import {Mutable} from "./util/mutable";
+import {Mutable} from "helpertypes";
 
 export function clonePropertyAssignment(node: TS.PropertyAssignment, options: CloneNodeVisitorOptions<TS.PropertyAssignment>): TS.PropertyAssignment {
 	const clonedPropertyAssignment = options.factory.createPropertyAssignment(
