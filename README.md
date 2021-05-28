@@ -1,6 +1,6 @@
 <!-- SHADOW_SECTION_LOGO_START -->
 
-<div><img alt="Logo" src="https://raw.githubusercontent.com/wessberg/clone-node/master/documentation/asset/logo.png" height="150"   /></div>
+<div><img alt="Logo" src="https://raw.githubusercontent.com/wessberg/ts-clone-node/master/documentation/asset/logo.png" height="150"   /></div>
 
 <!-- SHADOW_SECTION_LOGO_END -->
 
@@ -12,10 +12,10 @@
 
 <!-- SHADOW_SECTION_BADGES_START -->
 
-<a href="https://npmcharts.com/compare/clone-node?minimal=true"><img alt="Downloads per month" src="https://img.shields.io/npm/dm/clone-node.svg"    /></a>
-<a href="https://www.npmjs.com/package/clone-node"><img alt="NPM version" src="https://badge.fury.io/js/clone-node.svg"    /></a>
-<a href="https://david-dm.org/wessberg/clone-node"><img alt="Dependencies" src="https://img.shields.io/david/wessberg%2Fclone-node.svg"    /></a>
-<a href="https://github.com/wessberg/clone-node/graphs/contributors"><img alt="Contributors" src="https://img.shields.io/github/contributors/wessberg%2Fclone-node.svg"    /></a>
+<a href="https://npmcharts.com/compare/ts-clone-node?minimal=true"><img alt="Downloads per month" src="https://img.shields.io/npm/dm/ts-clone-node.svg"    /></a>
+<a href="https://www.npmjs.com/package/ts-clone-node"><img alt="NPM version" src="https://badge.fury.io/js/ts-clone-node.svg"    /></a>
+<a href="https://david-dm.org/wessberg/ts-clone-node"><img alt="Dependencies" src="https://img.shields.io/david/wessberg%2Fts-clone-node.svg"    /></a>
+<a href="https://github.com/wessberg/ts-clone-node/graphs/contributors"><img alt="Contributors" src="https://img.shields.io/github/contributors/wessberg%2Fts-clone-node.svg"    /></a>
 <a href="https://github.com/prettier/prettier"><img alt="code style: prettier" src="https://img.shields.io/badge/code_style-prettier-ff69b4.svg"    /></a>
 <a href="https://opensource.org/licenses/MIT"><img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-yellow.svg"    /></a>
 <a href="https://www.patreon.com/bePatron?u=11315442"><img alt="Support on Patreon" src="https://img.shields.io/badge/patreon-donate-green.svg"    /></a>
@@ -53,7 +53,7 @@ Additionally, you get a simple hook with which you can do simple things such as 
 
 ## Backers
 
-[Become a sponsor/backer](https://github.com/wessberg/clone-node?sponsor=1) and get your logo listed here.
+[Become a sponsor/backer](https://github.com/wessberg/ts-clone-node?sponsor=1) and get your logo listed here.
 
 | <a href="https://usebubbles.com"><img alt="Bubbles" src="https://uploads-ssl.webflow.com/5d682047c28b217055606673/5e5360be16879c1d0dca6514_icon-thin-128x128%402x.png" height="70"   /></a> | <a href="https://github.com/cblanc"><img alt="Christopher Blanchard" src="https://avatars0.githubusercontent.com/u/2160685?s=400&v=4" height="70"   /></a> | <a href="https://github.com/ideal-postcodes"><img alt="Ideal Postcodes" src="https://avatars.githubusercontent.com/u/4996310?s=200&v=4" height="70"   /></a> | <a href="https://www.xerox.com"><img alt="Xerox" src="https://avatars.githubusercontent.com/u/9158512?s=200&v=4" height="70"   /></a> |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------- |
@@ -103,24 +103,24 @@ Additionally, you get a simple hook with which you can do simple things such as 
 ### npm
 
 ```
-$ npm install clone-node
+$ npm install ts-clone-node
 ```
 
 ### Yarn
 
 ```
-$ yarn add clone-node
+$ yarn add ts-clone-node
 ```
 
 ### pnpm
 
 ```
-$ pnpm add clone-node
+$ pnpm add ts-clone-node
 ```
 
 ### Peer Dependencies
 
-`clone-node` depends on `typescript`, so you need to manually install this as well.
+`ts-clone-node` depends on `typescript`, so you need to manually install this as well.
 
 <!-- SHADOW_SECTION_INSTALL_END -->
 
@@ -133,7 +133,7 @@ $ pnpm add clone-node
 To clone a Node from a Typescript AST, all you have to do is:
 
 ```typescript
-import {cloneNode} from "clone-node";
+import {cloneNode} from "ts-clone-node";
 
 // Clone the Node
 const clonedNode = cloneNode(someNode);
@@ -147,7 +147,7 @@ You can pass in a hook that enables you to modify the clone, agnostic to the kin
 For example:
 
 ```typescript
-import {cloneNode} from "clone-node";
+import {cloneNode} from "ts-clone-node";
 
 // Clone the Node, and alter the modifiers such that they don't include a modifier pointing
 // to the 'declare' keyword
