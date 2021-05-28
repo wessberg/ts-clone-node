@@ -1,5 +1,5 @@
 {
-	"name": "@wessberg/ts-clone-node",
+	"name": "clone-node",
 	"version": "0.3.19",
 	"description": "A library that helps you clone Nodes from a Typescript AST",
 	"scripts": {
@@ -98,14 +98,14 @@
 	"es2015": "./dist/esm/index.js",
 	"funding": {
 		"type": "github",
-		"url": "https://github.com/wessberg/ts-clone-node?sponsor=1"
+		"url": "https://github.com/wessberg/clone-node?sponsor=1"
 	},
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/wessberg/ts-clone-node.git"
+		"url": "https://github.com/wessberg/clone-node.git"
 	},
 	"bugs": {
-		"url": "https://github.com/wessberg/ts-clone-node/issues"
+		"url": "https://github.com/wessberg/clone-node/issues"
 	},
 	"engines": {
 		"node": ">=10.0.0"
