@@ -12,11 +12,11 @@
 
 <!-- SHADOW_SECTION_BADGES_START -->
 
-<a href="https://npmcharts.com/compare/%40wessberg%2Fclone-node?minimal=true"><img alt="Downloads per month" src="https://img.shields.io/npm/dm/%40wessberg%2Fclone-node.svg"    /></a>
-<a href="https://www.npmjs.com/package/%40wessberg%2Fclone-node"><img alt="NPM version" src="https://badge.fury.io/js/%40wessberg%2Fclone-node.svg"    /></a>
+<a href="https://npmcharts.com/compare/clone-node?minimal=true"><img alt="Downloads per month" src="https://img.shields.io/npm/dm/clone-node.svg"    /></a>
+<a href="https://www.npmjs.com/package/clone-node"><img alt="NPM version" src="https://badge.fury.io/js/clone-node.svg"    /></a>
 <a href="https://david-dm.org/wessberg/clone-node"><img alt="Dependencies" src="https://img.shields.io/david/wessberg%2Fclone-node.svg"    /></a>
 <a href="https://github.com/wessberg/clone-node/graphs/contributors"><img alt="Contributors" src="https://img.shields.io/github/contributors/wessberg%2Fclone-node.svg"    /></a>
-<a href="https://github.com/prettier/prettier"><img alt="code style: prettier" src="https://img.shields.io/badge/code_style-prettier-ff69b4.svg"    /></a><a href="https://github.com/feross/standard"><img alt="code style: Standard" src="https://img.shields.io/badge/code%20style-standard-green.svg"    /></a>
+<a href="https://github.com/prettier/prettier"><img alt="code style: prettier" src="https://img.shields.io/badge/code_style-prettier-ff69b4.svg"    /></a>
 <a href="https://opensource.org/licenses/MIT"><img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-yellow.svg"    /></a>
 <a href="https://www.patreon.com/bePatron?u=11315442"><img alt="Support on Patreon" src="https://img.shields.io/badge/patreon-donate-green.svg"    /></a>
 
@@ -71,6 +71,8 @@ Additionally, you get a simple hook with which you can do simple things such as 
 
 - [Description](#description)
   - [Features](#features)
+- [Backers](#backers)
+  - [Patreon](#patreon)
 - [Table of Contents](#table-of-contents)
 - [Install](#install)
   - [npm](#npm)
@@ -88,8 +90,6 @@ Additionally, you get a simple hook with which you can do simple things such as 
   - [Preserving symbols](#preserving-symbols)
 - [Contributing](#contributing)
 - [Maintainers](#maintainers)
-- [Backers](#backers)
-  - [Patreon](#patreon)
 - [FAQ](#faq)
   - [What is the point of this library](#what-is-the-point-of-this-library)
 - [License](#license)
@@ -103,24 +103,24 @@ Additionally, you get a simple hook with which you can do simple things such as 
 ### npm
 
 ```
-$ npm install @wessberg/clone-node
+$ npm install clone-node
 ```
 
 ### Yarn
 
 ```
-$ yarn add @wessberg/clone-node
+$ yarn add clone-node
 ```
 
 ### pnpm
 
 ```
-$ pnpm add @wessberg/clone-node
+$ pnpm add clone-node
 ```
 
 ### Peer Dependencies
 
-`@wessberg/clone-node` depends on `typescript`, so you need to manually install this as well.
+`clone-node` depends on `typescript`, so you need to manually install this as well.
 
 <!-- SHADOW_SECTION_INSTALL_END -->
 
@@ -133,7 +133,7 @@ $ pnpm add @wessberg/clone-node
 To clone a Node from a Typescript AST, all you have to do is:
 
 ```typescript
-import {cloneNode} from "@wessberg/clone-node";
+import {cloneNode} from "clone-node";
 
 // Clone the Node
 const clonedNode = cloneNode(someNode);
@@ -147,7 +147,7 @@ You can pass in a hook that enables you to modify the clone, agnostic to the kin
 For example:
 
 ```typescript
-import {cloneNode} from "@wessberg/clone-node";
+import {cloneNode} from "clone-node";
 
 // Clone the Node, and alter the modifiers such that they don't include a modifier pointing
 // to the 'declare' keyword

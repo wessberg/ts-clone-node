@@ -1502,7 +1502,7 @@ packages:
       "@types/babel__core": 7.1.14
       "@wessberg/browserslist-generator": 1.0.47
       "@wessberg/stringutil": 1.0.19
-      "@wessberg/clone-node": 0.3.19_typescript@4.3.2
+      "@wessberg/ts-clone-node": 0.3.19_typescript@4.3.2
       browserslist: 4.16.6
       chalk: 4.1.1
       magic-string: 0.25.7
@@ -1519,7 +1519,7 @@ packages:
     engines: {node: ">=8.0.0"}
     dev: true
 
-  /@wessberg/clone-node/0.3.19_typescript@4.3.2:
+  /@wessberg/ts-clone-node/0.3.19_typescript@4.3.2:
     resolution: {integrity: sha512-BnJcU0ZwHxa5runiEkHzMZ6/ydxz+YYqBHOGQtf3eoxSZu2iWMPPaUfCum0O1/Ey5dqrrptUh+HmyMTzHPfdPA==}
     engines: {node: ">=10.0.0"}
     peerDependencies:
