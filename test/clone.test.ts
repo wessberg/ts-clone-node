@@ -231,7 +231,7 @@ class Child {
 	t.deepEqual(formatCode(cloneAsText(text, {typescript}), {onlyWhitespace: true}), formatCode(text, {onlyWhitespace: true}));
 });
 
-test.only("Performs an identical clone. #20", withTypeScript, (t, {typescript}) => {
+test("Performs an identical clone. #20", withTypeScript, (t, {typescript}) => {
 	const text = `\
 	declare const Foo = "Hello, World!";`;
 
