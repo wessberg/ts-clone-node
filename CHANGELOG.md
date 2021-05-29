@@ -1,3 +1,9 @@
+## [0.3.23](https://github.com/wessberg/ts-clone-node/compare/v0.3.22...v0.3.23) (2021-05-29)
+
+### Bug Fixes
+
+- use provided modifiers when creating/updating MethodSignatures ([b405dca](https://github.com/wessberg/ts-clone-node/commit/b405dca0bdb707ce8580cb501b6e3233e2ac1960))
+
 ## [0.3.22](https://github.com/wessberg/ts-clone-node/compare/v0.3.21...v0.3.22) (2021-05-29)
 
 ## [0.3.21](https://github.com/wessberg/ts-clone-node/compare/v0.3.20...v0.3.21) (2021-05-29)
