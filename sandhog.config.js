@@ -8,7 +8,7 @@ const config = {
 	...require("@wessberg/ts-config/sandhog.config.json"),
 	logo: {
 		url: "https://raw.githubusercontent.com/wessberg/ts-clone-node/master/documentation/asset/logo.png",
-		height: 150
+		height: 100
 	}
 };
 
