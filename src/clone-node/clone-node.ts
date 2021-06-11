@@ -240,6 +240,7 @@ import {isTemplateLiteralTypeSpan} from "./util/is-template-literal-type-span";
 import {cloneTemplateLiteralTypeSpan} from "./clone-template-literal-type-span";
 import {isJsDocLink} from "./util/is-js-doc-link";
 import {cloneJsDocLink} from "./clone-js-doc-link";
+import {clonePropertyAccessChain} from "./clone-property-access-chain";
 
 export function setParentNodes<T extends MetaNode>(node: T, options: Partial<SetParentNodesOptions>): T {
 	return setParents(node, toSetParentNodesOptions(options));
@@ -491,6 +492,8 @@ function executeCloneNode<T extends MetaNode>(node: T | undefined, options: Clon
 		return cloneExpressionStatement(node, options as unknown as CloneNodeVisitorOptions<TS.ExpressionStatement>);
 	} else if (options.typescript.isExpressionWithTypeArguments(node)) {
 		return cloneExpressionWithTypeArguments(node, options as unknown as CloneNodeVisitorOptions<TS.ExpressionWithTypeArguments>);
+	} else if (options.typescript.isPropertyAccessChain?.(node)) {
+		return clonePropertyAccessChain(node, options as unknown as CloneNodeVisitorOptions<TS.PropertyAccessChain>);
 	} else if (options.typescript.isPropertyAccessExpression(node)) {
 		return clonePropertyAccessExpression(node, options as unknown as CloneNodeVisitorOptions<TS.PropertyAccessExpression>);
 	} else if (options.typescript.isElementAccessExpression(node)) {
