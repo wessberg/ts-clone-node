@@ -1,3 +1,9 @@
+## [0.3.24](https://github.com/wessberg/ts-clone-node/compare/v0.3.23...v0.3.24) (2021-06-11)
+
+### Bug Fixes
+
+- **property-access-chains:** fix cloning of PropertyAccessChains. Fixes [#5](https://github.com/wessberg/ts-clone-node/issues/5) ([5497b6c](https://github.com/wessberg/ts-clone-node/commit/5497b6c81b57784d4cbc796d8cd188afa160db39))
+
 ## [0.3.23](https://github.com/wessberg/ts-clone-node/compare/v0.3.22...v0.3.23) (2021-05-29)
 
 ### Bug Fixes
