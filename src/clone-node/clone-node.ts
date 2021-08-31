@@ -241,6 +241,13 @@ import {cloneTemplateLiteralTypeSpan} from "./clone-template-literal-type-span";
 import {isJsDocLink} from "./util/is-js-doc-link";
 import {cloneJsDocLink} from "./clone-js-doc-link";
 import {clonePropertyAccessChain} from "./clone-property-access-chain";
+import {cloneClassStaticBlockDeclaration} from "./clone-class-static-block-declaration";
+import {isJsDocLinkCode} from "./util/is-js-doc-link-code";
+import {cloneJsDocLinkCode} from "./clone-js-doc-link-code";
+import {isJsDocLinkPlain} from "./util/is-js-doc-link-plain";
+import {cloneJsDocLinkPlain} from "./clone-js-doc-link-plain";
+import {isJsDocMemberName} from "./util/is-js-doc-member-name";
+import {cloneJsDocMemberName} from "./clone-js-doc-member-name";
 
 export function setParentNodes<T extends MetaNode>(node: T, options: Partial<SetParentNodesOptions>): T {
 	return setParents(node, toSetParentNodesOptions(options));
@@ -676,6 +683,11 @@ function executeCloneNode<T extends MetaNode>(node: T | undefined, options: Clon
 	// Note: isNamedTupleMember may not be supported by the provided TypeScript version, so the invocation is optional.
 	else if (isNamedTupleMember?.(node, options.typescript)) {
 		return cloneNamedTupleMember(node, options as unknown as CloneNodeVisitorOptions<TS.NamedTupleMember>);
+	}
+
+	// Note: isClassStaticBlockDeclaration may not be supported by the provided TypeScript version, so the invocation is optional.
+	else if (options.typescript.isClassStaticBlockDeclaration?.(node)) {
+		return cloneClassStaticBlockDeclaration(node, options as unknown as CloneNodeVisitorOptions<TS.ClassStaticBlockDeclaration>);
 	} else if (options.typescript.isExportSpecifier(node)) {
 		return cloneExportSpecifier(node, options as unknown as CloneNodeVisitorOptions<TS.ExportSpecifier>);
 	} else if (options.typescript.isExportAssignment(node)) {
@@ -744,6 +756,12 @@ function executeCloneNode<T extends MetaNode>(node: T | undefined, options: Clon
 		return cloneJsDocProtectedTag(node, options as unknown as CloneNodeVisitorOptions<TS.JSDocProtectedTag>);
 	} else if (isJsDocPublicTag(node, options.typescript)) {
 		return cloneJsDocPublicTag(node, options as unknown as CloneNodeVisitorOptions<TS.JSDocPublicTag>);
+	} else if (isJsDocLinkCode(node, options.typescript)) {
+		return cloneJsDocLinkCode(node, options as unknown as CloneNodeVisitorOptions<TS.JSDocLinkCode>);
+	} else if (isJsDocLinkPlain(node, options.typescript)) {
+		return cloneJsDocLinkPlain(node, options as unknown as CloneNodeVisitorOptions<TS.JSDocLinkPlain>);
+	} else if (isJsDocMemberName(node, options.typescript)) {
+		return cloneJsDocMemberName(node, options as unknown as CloneNodeVisitorOptions<TS.JSDocMemberName>);
 	} else if (options.typescript.isToken(node)) {
 		return cloneToken(node, options as unknown as CloneNodeVisitorOptions<TS.Token<TS.SyntaxKind>>);
 	} else if (isTemplateLiteralTypeNode(node, options.typescript)) {

@@ -1,4 +1,5 @@
 import {format} from "prettier";
+import {formatWhitespace} from "./format-whitespace";
 
 interface FormatOptions {
 	parser: "typescript"|"json";
@@ -7,7 +8,11 @@ interface FormatOptions {
 
 export function formatCode(code: string, {parser = "typescript", onlyWhitespace = false}: Partial<FormatOptions> = {}): string {
 	if (onlyWhitespace) {
-		return code.replace(/\r?\n/g, "\n");
+		return formatWhitespace(code);
 	}
-	return format(code, {parser, endOfLine: "lf"});
+	try {
+		return format(code, {parser, endOfLine: "lf"});
+	} catch {
+		return formatWhitespace(code);
+	}
 }

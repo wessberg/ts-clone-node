@@ -242,5 +242,14 @@ test("Performs an identical clone. #21", withTypeScriptVersions(">=3.7"), (t, {t
 	const text = `\
 	this.person?.hasEmailAddress?.emailAddress;`;
 
-	t.deepEqual(formatCode(cloneAsText(text, {debug: true, typescript})), formatCode(text));
+	t.deepEqual(formatCode(cloneAsText(text, {typescript})), formatCode(text));
+});
+
+test("Performs an identical clone. #22", withTypeScriptVersions(">=4.4"), (t, {typescript}) => {
+	const text = `\
+		class {
+			static { }
+		}
+`;
+	t.deepEqual(formatCode(cloneAsText(text, {typescript})), formatCode(text));
 });
