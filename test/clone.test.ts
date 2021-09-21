@@ -253,3 +253,10 @@ test("Performs an identical clone. #22", withTypeScriptVersions(">=4.4"), (t, {t
 `;
 	t.deepEqual(formatCode(cloneAsText(text, {typescript})), formatCode(text));
 });
+
+test("Performs an identical clone. #23", withTypeScript, (t, {typescript}) => {
+	const text = `\
+		export type Foo = "bar"[];
+`;
+	t.deepEqual(formatCode(cloneAsText(text, {typescript, debug: true})), formatCode(text));
+});
