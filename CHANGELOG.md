@@ -1,3 +1,12 @@
+## [0.3.28](https://github.com/wessberg/ts-clone-node/compare/v0.3.27...v0.3.28) (2021-09-21)
+
+
+### Bug Fixes
+
+* fix cloning TupleTypeNodes on TypeScript 3.x ([2243b29](https://github.com/wessberg/ts-clone-node/commit/2243b29f6ca928c7c37d8c3a38ae6e47b7dcc38c))
+
+
+
 ## [0.3.27](https://github.com/wessberg/ts-clone-node/compare/v0.3.26...v0.3.27) (2021-09-21)
 
 
