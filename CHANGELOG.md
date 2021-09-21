@@ -1,3 +1,12 @@
+## [0.3.26](https://github.com/wessberg/ts-clone-node/compare/v0.3.25...v0.3.26) (2021-09-21)
+
+
+### Bug Fixes
+
+* fix an issue where ArrayTypeNodes didn't have their TextSpan reset ([b579487](https://github.com/wessberg/ts-clone-node/commit/b5794873b200af1a15517e76968d88a01f1ac3ab))
+
+
+
 ## [0.3.25](https://github.com/wessberg/ts-clone-node/compare/v0.3.24...v0.3.25) (2021-08-31)
 
 
