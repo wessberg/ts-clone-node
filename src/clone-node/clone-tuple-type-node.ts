@@ -8,5 +8,4 @@ export function cloneTupleTypeNode(node: TS.TupleTypeNode, options: CloneNodeVis
 	} else {
 		return options.factory.createTupleTypeNode(options.hook("elements", options.nextNodes(node.elements), node.elements));
 	}
-	
 }

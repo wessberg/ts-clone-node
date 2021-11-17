@@ -248,6 +248,8 @@ import {isJsDocLinkPlain} from "./util/is-js-doc-link-plain";
 import {cloneJsDocLinkPlain} from "./clone-js-doc-link-plain";
 import {isJsDocMemberName} from "./util/is-js-doc-member-name";
 import {cloneJsDocMemberName} from "./clone-js-doc-member-name";
+import {cloneAssertClause} from "./clone-assert-clause";
+import {cloneAssertEntry} from "./clone-assert-entry";
 
 export function setParentNodes<T extends MetaNode>(node: T, options: Partial<SetParentNodesOptions>): T {
 	return setParents(node, toSetParentNodesOptions(options));
@@ -688,6 +690,16 @@ function executeCloneNode<T extends MetaNode>(node: T | undefined, options: Clon
 	// Note: isClassStaticBlockDeclaration may not be supported by the provided TypeScript version, so the invocation is optional.
 	else if (options.typescript.isClassStaticBlockDeclaration?.(node)) {
 		return cloneClassStaticBlockDeclaration(node, options as unknown as CloneNodeVisitorOptions<TS.ClassStaticBlockDeclaration>);
+	}
+
+	// Note: isAssertClause may not be supported by the provided TypeScript version, so the invocation is optional.
+	else if (options.typescript.isAssertClause?.(node)) {
+		return cloneAssertClause(node, options as unknown as CloneNodeVisitorOptions<TS.AssertClause>);
+	}
+
+	// Note: isAssertEntry may not be supported by the provided TypeScript version, so the invocation is optional.
+	else if (options.typescript.isAssertEntry?.(node)) {
+		return cloneAssertEntry(node, options as unknown as CloneNodeVisitorOptions<TS.AssertEntry>);
 	} else if (options.typescript.isExportSpecifier(node)) {
 		return cloneExportSpecifier(node, options as unknown as CloneNodeVisitorOptions<TS.ExportSpecifier>);
 	} else if (options.typescript.isExportAssignment(node)) {

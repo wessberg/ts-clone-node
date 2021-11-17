@@ -2,7 +2,7 @@ import {format} from "prettier";
 import {formatWhitespace} from "./format-whitespace";
 
 interface FormatOptions {
-	parser: "typescript"|"json";
+	parser: "typescript" | "json";
 	onlyWhitespace: boolean;
 }
 

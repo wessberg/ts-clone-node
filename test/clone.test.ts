@@ -268,4 +268,9 @@ test("Performs an identical clone. #24", withTypeScript, (t, {typescript}) => {
 	t.deepEqual(formatCode(cloneAsText(text, {typescript})), formatCode(text));
 });
 
-
+test("Performs an identical clone. #25", withTypeScriptVersions(">=4.5"), (t, {typescript}) => {
+	const text = `\
+	import obj from "./something.json" assert { type: "json" };
+`;
+	t.deepEqual(formatCode(cloneAsText(text, {typescript})), formatCode(text));
+});
