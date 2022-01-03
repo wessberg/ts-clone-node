@@ -1,3 +1,12 @@
+## [0.3.30](https://github.com/wessberg/ts-clone-node/compare/v0.3.29...v0.3.30) (2022-01-03)
+
+
+### Bug Fixes
+
+* support Identifier nodes with only escapedText. [#6](https://github.com/wessberg/ts-clone-node/issues/6) ([9e5378c](https://github.com/wessberg/ts-clone-node/commit/9e5378cf1edbb0582ee94ae829c325a3321a95b0))
+
+
+
 ## [0.3.29](https://github.com/wessberg/ts-clone-node/compare/v0.3.28...v0.3.29) (2021-11-17)
 
 
