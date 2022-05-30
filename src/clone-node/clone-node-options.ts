@@ -1,5 +1,5 @@
-import {TS} from "./type/ts";
-import {MetaNode} from "./type/meta-node";
+import {TS} from "./type/ts.js";
+import {MetaNode} from "./type/meta-node.js";
 
 export type NodeHookValue<T extends MetaNode, Key extends keyof T> = T[Key] extends TS.NodeArray<infer ElementTypeA>
 	? ElementTypeA[] | TS.NodeArray<ElementTypeA>

@@ -1,5 +1,5 @@
-import {TS} from "./type/ts";
-import {CloneNodeVisitorOptions} from "./clone-node-options";
+import {TS} from "./type/ts.js";
+import {CloneNodeVisitorOptions} from "./clone-node-options.js";
 
 export function cloneWhileStatement(node: TS.WhileStatement, options: CloneNodeVisitorOptions<TS.WhileStatement>): TS.WhileStatement {
 	return options.factory.createWhileStatement(

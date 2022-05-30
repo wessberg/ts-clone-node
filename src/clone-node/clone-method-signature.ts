@@ -1,5 +1,5 @@
-import {TS} from "./type/ts";
-import {CloneNodeVisitorOptions} from "./clone-node-options";
+import {TS} from "./type/ts.js";
+import {CloneNodeVisitorOptions} from "./clone-node-options.js";
 
 export function cloneMethodSignature(node: TS.MethodSignature, options: CloneNodeVisitorOptions<TS.MethodSignature>): TS.MethodSignature {
 	return options.factory.createMethodSignature(

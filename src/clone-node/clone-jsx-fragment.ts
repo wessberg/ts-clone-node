@@ -1,5 +1,5 @@
-import {TS} from "./type/ts";
-import {CloneNodeVisitorOptions} from "./clone-node-options";
+import {TS} from "./type/ts.js";
+import {CloneNodeVisitorOptions} from "./clone-node-options.js";
 
 export function cloneJsxFragment(node: TS.JsxFragment, options: CloneNodeVisitorOptions<TS.JsxFragment>): TS.JsxFragment {
 	return options.factory.createJsxFragment(

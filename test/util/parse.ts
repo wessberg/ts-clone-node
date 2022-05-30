@@ -1,4 +1,4 @@
-import {TS} from "../../src/clone-node/type/ts";
+import {TS} from "../../src/clone-node/type/ts.js";
 
 /**
  * Parses the given text into a SourceFile

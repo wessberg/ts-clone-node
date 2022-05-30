@@ -1,4 +1,4 @@
-import {TS} from "./ts";
+import {TS} from "./ts.js";
 
 export type ParentPropertyName = "parent" | "_parent";
 

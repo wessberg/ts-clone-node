@@ -1,5 +1,5 @@
 import {format} from "prettier";
-import {formatWhitespace} from "./format-whitespace";
+import {formatWhitespace} from "./format-whitespace.js";
 
 interface FormatOptions {
 	parser: "typescript" | "json";

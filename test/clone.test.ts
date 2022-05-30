@@ -1,7 +1,7 @@
 import test from "ava";
-import {formatCode} from "./util/format-code";
-import {cloneAsText} from "./util/clone-as-text";
-import {withTypeScript, withTypeScriptVersions} from "./util/ts-macro";
+import {formatCode} from "./util/format-code.js";
+import {cloneAsText} from "./util/clone-as-text.js";
+import {withTypeScript, withTypeScriptVersions} from "./util/ts-macro.js";
 
 test("Performs an identical clone. #1", withTypeScript, (t, {typescript}) => {
 	const text = `export type Foo = "a"|"b"|"c"`;
@@ -117,14 +117,13 @@ test("Performs an identical clone. #7", withTypeScript, (t, {typescript, factory
 	const cloneResult = cloneAsText(text, {
 		typescript,
 		selectNode: sourceFile => sourceFile.statements.filter(typescript.isFunctionDeclaration)[0],
-		hook: (_, {depth}) => {
-			return depth > 0
+		hook: (_, {depth}) =>
+			depth > 0
 				? {}
 				: {
 						modifiers: modifiers =>
 							modifiers == null ? [factory.createModifier(typescript.SyntaxKind.ExportKeyword)] : [...modifiers, factory.createModifier(typescript.SyntaxKind.ExportKeyword)]
-				  };
-		}
+				  }
 	});
 
 	t.deepEqual(formatCode(cloneResult), formatCode(`export ${text}`));
@@ -137,7 +136,7 @@ test("Performs an identical clone. #8", withTypeScriptVersions(">=3.8"), (t, {ty
 });
 
 test("Performs an identical clone. #9", withTypeScriptVersions(">=3.8"), (t, {typescript}) => {
-	const text = `import type { Foo } from "./foo";`;
+	const text = `import type { Foo } from "./foo.js";`;
 
 	t.deepEqual(formatCode(cloneAsText(text, {typescript})), formatCode(text));
 });
@@ -272,5 +271,26 @@ test("Performs an identical clone. #25", withTypeScriptVersions(">=4.5"), (t, {t
 	const text = `\
 	import obj from "./something.json" assert { type: "json" };
 `;
+	t.deepEqual(formatCode(cloneAsText(text, {typescript})), formatCode(text));
+});
+
+test("Performs an identical clone. #26", withTypeScriptVersions(">=4.6"), (t, {typescript}) => {
+	const text = `\
+	export type TypeFromRequire = import("pkg", { assert: { "resolution-mode": "require" } }).TypeFromRequire;
+`;
+	t.deepEqual(formatCode(cloneAsText(text, {typescript})), formatCode(text));
+});
+
+test("Performs an identical clone. #27", withTypeScriptVersions(">=4.5"), (t, {typescript}) => {
+	const text = `\
+	import type { TypeFromRequire } from "pkg" assert {
+		"resolution-mode": "require"
+	};`;
+	t.deepEqual(formatCode(cloneAsText(text, {typescript})), formatCode(text));
+});
+
+test("Performs an identical clone. #28", withTypeScriptVersions(">=4.6"), (t, {typescript}) => {
+	const text = `\
+	const foo = import("pkg", { assert: { "type": "json" } })`;
 	t.deepEqual(formatCode(cloneAsText(text, {typescript})), formatCode(text));
 });

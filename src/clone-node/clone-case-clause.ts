@@ -1,5 +1,5 @@
-import {TS} from "./type/ts";
-import {CloneNodeVisitorOptions} from "./clone-node-options";
+import {TS} from "./type/ts.js";
+import {CloneNodeVisitorOptions} from "./clone-node-options.js";
 
 export function cloneCaseClause(node: TS.CaseClause, options: CloneNodeVisitorOptions<TS.CaseClause>): TS.CaseClause {
 	return options.factory.createCaseClause(

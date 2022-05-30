@@ -1,4 +1,4 @@
-import {TS} from "./ts";
+import {TS} from "./ts.js";
 
 export type MetaNode = TS.Node & {
 	jsDoc?: TS.JSDoc[];

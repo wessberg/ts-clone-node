@@ -1,5 +1,5 @@
-import {TS} from "./type/ts";
-import {CloneNodeVisitorOptions} from "./clone-node-options";
+import {TS} from "./type/ts.js";
+import {CloneNodeVisitorOptions} from "./clone-node-options.js";
 
 export function cloneJsxAttribute(node: TS.JsxAttribute, options: CloneNodeVisitorOptions<TS.JsxAttribute>): TS.JsxAttribute {
 	return options.factory.createJsxAttribute(

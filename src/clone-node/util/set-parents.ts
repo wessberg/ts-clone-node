@@ -1,6 +1,6 @@
-import {MetaNode} from "../type/meta-node";
-import {TS} from "../type/ts";
-import {SetParentNodesOptions} from "../type/set-parent-nodes-options";
+import {MetaNode} from "../type/meta-node.js";
+import {TS} from "../type/ts.js";
+import {SetParentNodesOptions} from "../type/set-parent-nodes-options.js";
 import {Mutable} from "helpertypes";
 
 function fixupParentReferences(rootNode: MetaNode, {deep, propertyName, typescript}: SetParentNodesOptions): void {

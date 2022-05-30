@@ -1,5 +1,5 @@
-import {TS} from "../../src/clone-node/type/ts";
-import {MetaNode} from "../../src/clone-node/type/meta-node";
+import {TS} from "../../src/clone-node/type/ts.js";
+import {MetaNode} from "../../src/clone-node/type/meta-node.js";
 
 /**
  * Prints the given SourceFile

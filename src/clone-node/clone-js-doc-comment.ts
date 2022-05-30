@@ -1,6 +1,6 @@
-import {TS} from "./type/ts";
-import {CloneNodeVisitorOptions} from "./clone-node-options";
-import {ensureNodeArray} from "./util/ensure-node-array";
+import {TS} from "./type/ts.js";
+import {CloneNodeVisitorOptions} from "./clone-node-options.js";
+import {ensureNodeArray} from "./util/ensure-node-array.js";
 import {Mutable} from "helpertypes";
 
 export function cloneJsDoc(node: Mutable<TS.JSDoc>, options: CloneNodeVisitorOptions<TS.JSDoc>): TS.JSDoc {

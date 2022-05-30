@@ -1,5 +1,5 @@
-import {MetaNode} from "../type/meta-node";
-import {CloneNodeInternalOptions} from "../clone-node-options";
+import {MetaNode} from "../type/meta-node.js";
+import {CloneNodeInternalOptions} from "../clone-node-options.js";
 
 export function getOriginalNode<T extends MetaNode>(node: T, options: CloneNodeInternalOptions): T {
 	if (node._original != null) {

@@ -1,5 +1,5 @@
-import {TS} from "./type/ts";
-import {CloneNodeVisitorOptions} from "./clone-node-options";
+import {TS} from "./type/ts.js";
+import {CloneNodeVisitorOptions} from "./clone-node-options.js";
 
 export function cloneSetAccessorDeclaration(node: TS.SetAccessorDeclaration, options: CloneNodeVisitorOptions<TS.SetAccessorDeclaration>): TS.SetAccessorDeclaration {
 	return options.factory.createSetAccessorDeclaration(

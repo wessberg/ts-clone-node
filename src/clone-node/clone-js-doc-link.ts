@@ -1,5 +1,5 @@
-import {TS} from "./type/ts";
-import {CloneNodeVisitorOptions} from "./clone-node-options";
+import {TS} from "./type/ts.js";
+import {CloneNodeVisitorOptions} from "./clone-node-options.js";
 import {Mutable} from "helpertypes";
 
 export function cloneJsDocLink(node: Mutable<TS.JSDocLink>, options: CloneNodeVisitorOptions<TS.JSDocLink>): TS.JSDocLink {

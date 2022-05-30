@@ -1,5 +1,5 @@
-import {TS} from "./type/ts";
-import {CloneNodeVisitorOptions} from "./clone-node-options";
+import {TS} from "./type/ts.js";
+import {CloneNodeVisitorOptions} from "./clone-node-options.js";
 
 export function cloneConditionalExpression(node: TS.ConditionalExpression, options: CloneNodeVisitorOptions<TS.ConditionalExpression>): TS.ConditionalExpression {
 	return options.factory.createConditionalExpression(

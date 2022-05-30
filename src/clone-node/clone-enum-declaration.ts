@@ -1,5 +1,5 @@
-import {TS} from "./type/ts";
-import {CloneNodeVisitorOptions} from "./clone-node-options";
+import {TS} from "./type/ts.js";
+import {CloneNodeVisitorOptions} from "./clone-node-options.js";
 
 export function cloneEnumDeclaration(node: TS.EnumDeclaration, options: CloneNodeVisitorOptions<TS.EnumDeclaration>): TS.EnumDeclaration {
 	return options.factory.createEnumDeclaration(

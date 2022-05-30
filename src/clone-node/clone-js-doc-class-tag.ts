@@ -1,5 +1,5 @@
-import {CloneNodeVisitorOptions} from "./clone-node-options";
-import {TS} from "./type/ts";
+import {CloneNodeVisitorOptions} from "./clone-node-options.js";
+import {TS} from "./type/ts.js";
 import {Mutable} from "helpertypes";
 
 export function cloneJsDocClassTag(node: Mutable<TS.JSDocClassTag>, options: CloneNodeVisitorOptions<TS.JSDocClassTag>): TS.JSDocClassTag {

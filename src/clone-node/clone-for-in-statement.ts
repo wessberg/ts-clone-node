@@ -1,5 +1,5 @@
-import {TS} from "./type/ts";
-import {CloneNodeVisitorOptions} from "./clone-node-options";
+import {TS} from "./type/ts.js";
+import {CloneNodeVisitorOptions} from "./clone-node-options.js";
 
 export function cloneForInStatement(node: TS.ForInStatement, options: CloneNodeVisitorOptions<TS.ForInStatement>): TS.ForInStatement {
 	return options.factory.createForInStatement(

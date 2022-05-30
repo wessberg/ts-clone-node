@@ -1,5 +1,5 @@
-import {CloneNodeVisitorOptions} from "./clone-node-options";
-import {TS} from "./type/ts";
+import {CloneNodeVisitorOptions} from "./clone-node-options.js";
+import {TS} from "./type/ts.js";
 
 export function cloneCallSignatureDeclaration(node: TS.CallSignatureDeclaration, options: CloneNodeVisitorOptions<TS.CallSignatureDeclaration>): TS.CallSignatureDeclaration {
 	return options.factory.createCallSignature(

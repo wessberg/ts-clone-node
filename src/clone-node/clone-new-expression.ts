@@ -1,5 +1,5 @@
-import {TS} from "./type/ts";
-import {CloneNodeVisitorOptions} from "./clone-node-options";
+import {TS} from "./type/ts.js";
+import {CloneNodeVisitorOptions} from "./clone-node-options.js";
 
 export function cloneNewExpression(node: TS.NewExpression, options: CloneNodeVisitorOptions<TS.NewExpression>): TS.NewExpression {
 	return options.factory.createNewExpression(

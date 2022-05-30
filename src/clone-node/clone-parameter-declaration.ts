@@ -1,5 +1,5 @@
-import {TS} from "./type/ts";
-import {CloneNodeVisitorOptions} from "./clone-node-options";
+import {TS} from "./type/ts.js";
+import {CloneNodeVisitorOptions} from "./clone-node-options.js";
 
 export function cloneParameterDeclaration(node: TS.ParameterDeclaration, options: CloneNodeVisitorOptions<TS.ParameterDeclaration>): TS.ParameterDeclaration {
 	return options.factory.createParameterDeclaration(

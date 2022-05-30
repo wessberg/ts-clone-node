@@ -1,7 +1,7 @@
 import test from "ava";
-import {formatCode} from "./util/format-code";
-import {cloneAsText} from "./util/clone-as-text";
-import {withTypeScript} from "./util/ts-macro";
+import {formatCode} from "./util/format-code.js";
+import {cloneAsText} from "./util/clone-as-text.js";
+import {withTypeScript} from "./util/ts-macro.js";
 
 test("Clones comments correctly. #1", withTypeScript, (t, {typescript}) => {
 	const text = `\

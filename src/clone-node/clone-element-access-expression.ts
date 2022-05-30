@@ -1,5 +1,5 @@
-import {TS} from "./type/ts";
-import {CloneNodeVisitorOptions} from "./clone-node-options";
+import {TS} from "./type/ts.js";
+import {CloneNodeVisitorOptions} from "./clone-node-options.js";
 
 export function cloneElementAccessExpression(node: TS.ElementAccessExpression, options: CloneNodeVisitorOptions<TS.ElementAccessExpression>): TS.ElementAccessExpression {
 	return options.factory.createElementAccessExpression(

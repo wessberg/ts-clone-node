@@ -1,8 +1,26 @@
-import {satisfies} from "semver";
-import pkg from "../../package.json";
+import semver from "semver";
+import path from "crosspath";
+import fs from "fs";
 import type {ExecutionContext, OneOrMoreMacros, Macro} from "ava";
-import {TS} from "../../src/clone-node/type/ts";
+import {TS} from "../../src/clone-node/type/ts.js";
 import {ensureNodeFactory} from "compatfactory";
+
+function getNearestPackageJson(from = import.meta.url): Record<string, unknown> | undefined {
+	// There may be a file protocol in from of the path
+	const normalizedFrom = from.replace(/file:\/{2,3}/, "");
+	const currentDir = path.dirname(normalizedFrom);
+
+	const pkgPath = path.join(currentDir, "package.json");
+	if (fs.existsSync(pkgPath)) {
+		return JSON.parse(fs.readFileSync(pkgPath, "utf-8"));
+	} else if (currentDir !== normalizedFrom) {
+		return getNearestPackageJson(currentDir);
+	} else {
+		return undefined;
+	}
+}
+
+const pkg = getNearestPackageJson(import.meta.url);
 
 // ava macros
 export interface ExtendedImplementationArgumentOptions {
@@ -12,7 +30,10 @@ export interface ExtendedImplementationArgumentOptions {
 export type ExtendedImplementation = (t: ExecutionContext, options: ExtendedImplementationArgumentOptions) => void | Promise<void>;
 function makeTypeScriptMacro(version: string, specifier: string) {
 	const macro: Macro<[ExtendedImplementation]> = async (t, impl) => {
-		const typescript = await import(specifier);
+		let typescript = await import(specifier);
+		if ("default" in typescript) {
+			typescript = typescript.default;
+		}
 		const factory = ensureNodeFactory(typescript);
 		return impl(t, {
 			typescript,
@@ -44,7 +65,7 @@ for (const [specifier, range] of Object.entries(devDependencies)) {
 		const [, context, version] = match;
 		if (context === "npm:typescript@" || specifier === "typescript") {
 			availableTsVersions.add(version);
-			if (filter === undefined || (filter.toUpperCase() === "CURRENT" && specifier === "typescript") || satisfies(version, filter, {includePrerelease: true})) {
+			if (filter === undefined || (filter.toUpperCase() === "CURRENT" && specifier === "typescript") || semver.satisfies(version, filter, {includePrerelease: true})) {
 				macros.set(version, makeTypeScriptMacro(version, specifier));
 			}
 		}
@@ -58,7 +79,7 @@ Available TypeScript versions: ${[...availableTsVersions].join(", ")}`);
 }
 
 export function withTypeScriptVersions(extraFilter: string): OneOrMoreMacros<[ExtendedImplementation], unknown> {
-	const filteredMacros = [...macros.entries()].filter(([version]) => satisfies(version, extraFilter, {includePrerelease: true})).map(([, macro]) => macro);
+	const filteredMacros = [...macros.entries()].filter(([version]) => semver.satisfies(version, extraFilter, {includePrerelease: true})).map(([, macro]) => macro);
 
 	if (filteredMacros.length === 0) {
 		filteredMacros.push(noMatchingVersionMacro);

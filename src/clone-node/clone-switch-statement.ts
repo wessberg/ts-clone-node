@@ -1,5 +1,5 @@
-import {TS} from "./type/ts";
-import {CloneNodeVisitorOptions} from "./clone-node-options";
+import {TS} from "./type/ts.js";
+import {CloneNodeVisitorOptions} from "./clone-node-options.js";
 
 export function cloneSwitchStatement(node: TS.SwitchStatement, options: CloneNodeVisitorOptions<TS.SwitchStatement>): TS.SwitchStatement {
 	return options.factory.createSwitchStatement(

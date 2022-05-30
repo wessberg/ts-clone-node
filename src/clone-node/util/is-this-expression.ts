@@ -1,5 +1,5 @@
-import {TS} from "../type/ts";
-import {MetaNode} from "../type/meta-node";
+import {TS} from "../type/ts.js";
+import {MetaNode} from "../type/meta-node.js";
 
 /**
  * Returns true if the given Node is a ThisExpression

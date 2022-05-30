@@ -1,11 +1,9 @@
 {
-	"include": ["src/**/*.*"],
 	"extends": "@wessberg/ts-config",
+	"include": ["src/**/*.*", "test/**/*.*"],
 	"compilerOptions": {
-		"module": "commonjs",
-		"target": "es2016",
-		"lib": ["es5", "es2015", "es6", "es7", "es2016", "es2017", "es2018", "es2019", "es2020", "esnext"],
-		"resolveJsonModule": true,
+		"module": "esnext",
+		"target": "es2019",
 		"allowJs": true
 	}
 }

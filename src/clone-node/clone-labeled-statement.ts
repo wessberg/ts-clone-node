@@ -1,5 +1,5 @@
-import {TS} from "./type/ts";
-import {CloneNodeVisitorOptions} from "./clone-node-options";
+import {TS} from "./type/ts.js";
+import {CloneNodeVisitorOptions} from "./clone-node-options.js";
 
 export function cloneLabeledStatement(node: TS.LabeledStatement, options: CloneNodeVisitorOptions<TS.LabeledStatement>): TS.LabeledStatement {
 	return options.factory.createLabeledStatement(

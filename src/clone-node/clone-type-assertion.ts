@@ -1,5 +1,5 @@
-import {TS} from "./type/ts";
-import {CloneNodeVisitorOptions} from "./clone-node-options";
+import {TS} from "./type/ts.js";
+import {CloneNodeVisitorOptions} from "./clone-node-options.js";
 
 export function cloneTypeAssertion(node: TS.TypeAssertion, options: CloneNodeVisitorOptions<TS.TypeAssertion>): TS.TypeAssertion {
 	return options.factory.createTypeAssertion(

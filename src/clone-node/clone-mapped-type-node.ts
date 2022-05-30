@@ -1,6 +1,6 @@
-import {CloneNodeVisitorOptions} from "./clone-node-options";
-import {TS} from "./type/ts";
-import {ensureNodeArray} from "./util/ensure-node-array";
+import {CloneNodeVisitorOptions} from "./clone-node-options.js";
+import {TS} from "./type/ts.js";
+import {ensureNodeArray} from "./util/ensure-node-array.js";
 
 export function cloneMappedTypeNode(node: TS.MappedTypeNode, options: CloneNodeVisitorOptions<TS.MappedTypeNode>): TS.MappedTypeNode {
 	return options.factory.createMappedTypeNode(

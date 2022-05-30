@@ -1,5 +1,5 @@
-import {TS} from "./type/ts";
-import {CloneNodeVisitorOptions} from "./clone-node-options";
+import {TS} from "./type/ts.js";
+import {CloneNodeVisitorOptions} from "./clone-node-options.js";
 import {Mutable} from "helpertypes";
 
 export function cloneJsDocNamepathType(node: Mutable<TS.JSDocNamepathType>, options: CloneNodeVisitorOptions<TS.JSDocNamepathType>): TS.JSDocNamepathType {

@@ -1,5 +1,5 @@
-import {TS} from "./type/ts";
-import {CloneNodeVisitorOptions} from "./clone-node-options";
+import {TS} from "./type/ts.js";
+import {CloneNodeVisitorOptions} from "./clone-node-options.js";
 
 export function cloneMethodDeclaration(node: TS.MethodDeclaration, options: CloneNodeVisitorOptions<TS.MethodDeclaration>): TS.MethodDeclaration {
 	return options.factory.createMethodDeclaration(

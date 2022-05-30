@@ -1,9 +1,9 @@
-import {print} from "./print";
-import {parse} from "./parse";
-import {cloneNode} from "../../src/clone-node/clone-node";
-import {CloneNodeOptions} from "../../src/clone-node/clone-node-options";
-import {TS} from "../../src/clone-node/type/ts";
-import {MetaNode} from "../../src/clone-node/type/meta-node";
+import {print} from "./print.js";
+import {parse} from "./parse.js";
+import {cloneNode} from "../../src/clone-node/clone-node.js";
+import {CloneNodeOptions} from "../../src/clone-node/clone-node-options.js";
+import {TS} from "../../src/clone-node/type/ts.js";
+import {MetaNode} from "../../src/clone-node/type/meta-node.js";
 
 type SelectNodeCallback<T extends MetaNode> = (sourceFile: TS.SourceFile) => T;
 
@@ -17,7 +17,7 @@ export function cloneAsText<T extends MetaNode = TS.SourceFile>(text: string, {s
 
 	const selectedNode = selectNode(parseResult) as T;
 
-	if (options.debug) {
+	if (Boolean(options.debug)) {
 		console.log("BEFORE:");
 		printNodeTree(selectedNode, options.typescript);
 		console.log();
@@ -25,7 +25,7 @@ export function cloneAsText<T extends MetaNode = TS.SourceFile>(text: string, {s
 
 	const clonedNode = cloneNode(selectedNode, options);
 
-	if (options.debug) {
+	if (Boolean(options.debug)) {
 		console.log("AFTER:");
 		printNodeTree(clonedNode, options.typescript);
 		console.log();
@@ -35,7 +35,7 @@ export function cloneAsText<T extends MetaNode = TS.SourceFile>(text: string, {s
 }
 
 function printNodeTree(node: TS.Node, typescript: typeof TS, nest?: number) {
-	if (!nest) nest = 0;
+	if (nest == null) nest = 0;
 	let space = "";
 	for (let i = 0; i < nest; i++) space += " ";
 	console.log(

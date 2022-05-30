@@ -1,6 +1,6 @@
-import {TS} from "./type/ts";
-import {CloneNodeVisitorOptions} from "./clone-node-options";
-import {ensureNodeArray} from "./util/ensure-node-array";
+import {TS} from "./type/ts.js";
+import {CloneNodeVisitorOptions} from "./clone-node-options.js";
+import {ensureNodeArray} from "./util/ensure-node-array.js";
 
 export function cloneAssertClause(node: TS.AssertClause, options: CloneNodeVisitorOptions<TS.AssertClause>): TS.AssertClause {
 	return options.factory.createAssertClause(
