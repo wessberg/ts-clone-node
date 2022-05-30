@@ -1,3 +1,12 @@
+# [1.0.0](https://github.com/wessberg/ts-clone-node/compare/v0.3.32...v1.0.0) (2022-05-30)
+
+
+### Features
+
+* Add TypeScript 4.7 support ([bba8536](https://github.com/wessberg/ts-clone-node/commit/bba853637eee2e3b538d806e6e1aa1493a33fdb1))
+
+
+
 ## [0.3.32](https://github.com/wessberg/ts-clone-node/compare/v0.3.31...v0.3.32) (2022-04-12)
 
 
