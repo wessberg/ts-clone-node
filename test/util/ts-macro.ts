@@ -7,7 +7,7 @@ import {ensureNodeFactory} from "compatfactory";
 
 function getNearestPackageJson(from = import.meta.url): Record<string, unknown> | undefined {
 	// There may be a file protocol in from of the path
-	const normalizedFrom = from.replace(/file:\/{2,3}/, "");
+	const normalizedFrom = path.urlToFilename(from);
 	const currentDir = path.dirname(normalizedFrom);
 
 	const pkgPath = path.join(currentDir, "package.json");
@@ -20,7 +20,7 @@ function getNearestPackageJson(from = import.meta.url): Record<string, unknown> 
 	}
 }
 
-const pkg = getNearestPackageJson(import.meta.url);
+const pkg = getNearestPackageJson();
 
 // ava macros
 export interface ExtendedImplementationArgumentOptions {
