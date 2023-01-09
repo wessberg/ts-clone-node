@@ -309,3 +309,12 @@ test("Performs an identical clone. #30", withTypeScriptVersions(">=4.9"), (t, {t
 	}`
 	t.deepEqual(formatCode(cloneAsText(text, {typescript})), formatCode(text));
 });
+
+
+test("Performs an identical clone. #31", withTypeScript, (t, {typescript}) => {
+	const text = `\
+	@decorated()
+	class Person {
+	}`
+	t.deepEqual(formatCode(cloneAsText(text, {typescript})), formatCode(text));
+});

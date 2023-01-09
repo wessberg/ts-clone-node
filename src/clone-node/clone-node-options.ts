@@ -2,9 +2,9 @@ import {TS} from "./type/ts.js";
 import {MetaNode} from "./type/meta-node.js";
 
 export type NodeHookValue<T extends MetaNode, Key extends keyof T> = T[Key] extends TS.NodeArray<infer ElementTypeA>
-	? ElementTypeA[] | TS.NodeArray<ElementTypeA>
+	? ElementTypeA[] | readonly ElementTypeA[] | TS.NodeArray<ElementTypeA>
 	: T[Key] extends TS.NodeArray<infer ElementTypeB> | undefined
-	? ElementTypeB[] | TS.NodeArray<ElementTypeB> | undefined
+	? ElementTypeB[] | readonly ElementTypeB[] | TS.NodeArray<ElementTypeB> | undefined
 	: T[Key];
 
 export interface CloneNodeHookFactoryPayload {
