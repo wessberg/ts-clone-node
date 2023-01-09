@@ -252,7 +252,7 @@ import {cloneAssertClause} from "./clone-assert-clause.js";
 import {cloneAssertEntry} from "./clone-assert-entry.js";
 import {isImportTypeAssertionContainer} from "./util/is-import-type-assertion-container.js";
 import {cloneImportTypeAssertionContainer} from "./clone-import-type-assertion-container.js";
-import { cloneSatisfiesExpression } from "./clone-satisfies-expression.js";
+import {cloneSatisfiesExpression} from "./clone-satisfies-expression.js";
 
 export function setParentNodes<T extends MetaNode>(node: T, options: Partial<SetParentNodesOptions>): T {
 	return setParents(node, toSetParentNodesOptions(options));
@@ -496,7 +496,7 @@ function executeCloneNode<T extends MetaNode>(node: T | undefined, options: Clon
 		return cloneThrowStatement(node, options as unknown as CloneNodeVisitorOptions<TS.ThrowStatement>);
 	} else if (options.typescript.isReturnStatement(node)) {
 		return cloneReturnStatement(node, options as unknown as CloneNodeVisitorOptions<TS.ReturnStatement>);
-	}  else if (options.typescript.isSatisfiesExpression?.(node)) {
+	} else if (options.typescript.isSatisfiesExpression?.(node)) {
 		return cloneSatisfiesExpression(node, options as unknown as CloneNodeVisitorOptions<TS.SatisfiesExpression>);
 	} else if (options.typescript.isNewExpression(node)) {
 		return cloneNewExpression(node, options as unknown as CloneNodeVisitorOptions<TS.NewExpression>);
@@ -550,7 +550,7 @@ function executeCloneNode<T extends MetaNode>(node: T | undefined, options: Clon
 		return cloneAsExpression(node, options as unknown as CloneNodeVisitorOptions<TS.AsExpression>);
 	} else if (
 		("isTypeAssertionExpression" in options.typescript && options.typescript.isTypeAssertionExpression(node)) ||
-		("isTypeAssertion" in options.typescript && options.typescript.isTypeAssertion(node))
+		(!("isTypeAssertionExpression" in options.typescript) && "isTypeAssertion" in options.typescript && (options.typescript as typeof TS).isTypeAssertion(node))
 	) {
 		return cloneTypeAssertion(node, options as unknown as CloneNodeVisitorOptions<TS.TypeAssertion>);
 	} else if (options.typescript.isAwaitExpression(node)) {
