@@ -3,7 +3,6 @@ import {CloneNodeVisitorOptions} from "./clone-node-options.js";
 
 export function cloneParameterDeclaration(node: TS.ParameterDeclaration, options: CloneNodeVisitorOptions<TS.ParameterDeclaration>): TS.ParameterDeclaration {
 	return options.factory.createParameterDeclaration(
-		options.hook("decorators", options.nextNodes(node.decorators), node.decorators),
 		options.hook("modifiers", options.nextNodes(node.modifiers), node.modifiers),
 		options.hook("dotDotDotToken", options.nextNode(node.dotDotDotToken), node.dotDotDotToken),
 		options.hook("name", options.nextNode(node.name), node.name),

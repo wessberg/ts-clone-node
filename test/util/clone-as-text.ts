@@ -40,7 +40,7 @@ function printNodeTree(node: TS.Node, typescript: typeof TS, nest?: number) {
 	for (let i = 0; i < nest; i++) space += " ";
 	console.log(
 		space,
-		typescript.isPropertyAccessChain?.(node) ? "PropertyAccessChain" : typescript.isTypePredicateNode(node) ? "TypePredicateNode" : typescript.SyntaxKind[node.kind]
+		typescript.isPropertyAccessChain?.(node) ? "PropertyAccessChain" : typescript.isImportTypeNode?.(node) ? "ImportTypeNode" : typescript.isTypePredicateNode(node) ? "TypePredicateNode" : typescript.SyntaxKind[node.kind]
 	);
 	node.forEachChild(child => printNodeTree(child, typescript, (nest ?? 0) + 1));
 }

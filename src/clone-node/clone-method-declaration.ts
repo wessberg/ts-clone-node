@@ -3,7 +3,6 @@ import {CloneNodeVisitorOptions} from "./clone-node-options.js";
 
 export function cloneMethodDeclaration(node: TS.MethodDeclaration, options: CloneNodeVisitorOptions<TS.MethodDeclaration>): TS.MethodDeclaration {
 	return options.factory.createMethodDeclaration(
-		options.hook("decorators", options.nextNodes(node.decorators), node.decorators),
 		options.hook("modifiers", options.nextNodes(node.modifiers), node.modifiers),
 		options.hook("asteriskToken", options.nextNode(node.asteriskToken), node.asteriskToken),
 		options.hook("name", options.nextNode(node.name), node.name),

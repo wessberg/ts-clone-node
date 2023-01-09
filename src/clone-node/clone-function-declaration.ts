@@ -3,7 +3,6 @@ import {CloneNodeVisitorOptions} from "./clone-node-options.js";
 
 export function cloneFunctionDeclaration(node: TS.FunctionDeclaration, options: CloneNodeVisitorOptions<TS.FunctionDeclaration>): TS.FunctionDeclaration {
 	return options.factory.createFunctionDeclaration(
-		options.hook("decorators", options.nextNodes(node.decorators), node.decorators),
 		options.hook("modifiers", options.nextNodes(node.modifiers), node.modifiers),
 		options.hook("asteriskToken", options.nextNode(node.asteriskToken), node.asteriskToken),
 		options.hook("name", options.nextNode(node.name), node.name),

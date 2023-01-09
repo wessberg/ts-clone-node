@@ -30,9 +30,6 @@ test("Performs an identical clone. #3", withTypeScript, (t, {typescript}) => {
 		A = 1,
 		B
 	}
-	function* myGenerator () {
-		yield true;
-	}
 	class Foo extends Bar implements Baz {
 	 get foo () {}
 	 set foo (val) {}
@@ -246,9 +243,10 @@ test("Performs an identical clone. #21", withTypeScriptVersions(">=3.7"), (t, {t
 
 test("Performs an identical clone. #22", withTypeScriptVersions(">=4.4"), (t, {typescript}) => {
 	const text = `\
-		class {
-			static { }
-		}
+class {
+	static {
+	}
+}
 `;
 	t.deepEqual(formatCode(cloneAsText(text, {typescript})), formatCode(text));
 });
@@ -274,7 +272,7 @@ test("Performs an identical clone. #25", withTypeScriptVersions(">=4.5"), (t, {t
 	t.deepEqual(formatCode(cloneAsText(text, {typescript})), formatCode(text));
 });
 
-test("Performs an identical clone. #26", withTypeScriptVersions(">=4.6"), (t, {typescript}) => {
+test("Performs an identical clone. #26", withTypeScriptVersions(">=4.7"), (t, {typescript}) => {
 	const text = `\
 	export type TypeFromRequire = import("pkg", { assert: { "resolution-mode": "require" } }).TypeFromRequire;
 `;
@@ -292,5 +290,22 @@ test("Performs an identical clone. #27", withTypeScriptVersions(">=4.5"), (t, {t
 test("Performs an identical clone. #28", withTypeScriptVersions(">=4.6"), (t, {typescript}) => {
 	const text = `\
 	const foo = import("pkg", { assert: { "type": "json" } })`;
+	t.deepEqual(formatCode(cloneAsText(text, {typescript})), formatCode(text));
+});
+
+test("Performs an identical clone. #29", withTypeScriptVersions(">=4.9"), (t, {typescript}) => {
+	const text = `\
+	const foo = {foo: "bar"} satisfies Record<string, "bar">;`
+	t.deepEqual(formatCode(cloneAsText(text, {typescript})), formatCode(text));
+});
+
+test("Performs an identical clone. #30", withTypeScriptVersions(">=4.9"), (t, {typescript}) => {
+	const text = `\
+	class Person {
+		accessor name: string;
+		constructor(name: string) {
+			this.name = name;
+		}
+	}`
 	t.deepEqual(formatCode(cloneAsText(text, {typescript})), formatCode(text));
 });
