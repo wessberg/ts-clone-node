@@ -96,7 +96,7 @@
 		"typescript-4-8-2": "npm:typescript@4.8.2"
 	},
 	"dependencies": {
-		"compatfactory": "^2.0.7"
+		"compatfactory": "^2.0.8"
 	},
 	"peerDependencies": {
 		"typescript": "^3.x || ^4.x"

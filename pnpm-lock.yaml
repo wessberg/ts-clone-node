@@ -9,7 +9,7 @@ specifiers:
   '@wessberg/prettier-config': 1.0.0
   '@wessberg/ts-config': ^2.0.4
   ava: ^3.15.0
-  compatfactory: ^2.0.7
+  compatfactory: ^2.0.8
   crosspath: 2.0.0
   dotcjs: 1.0.1
   eslint: ^8.31.0
@@ -53,7 +53,7 @@ specifiers:
   typescript-4-8-2: npm:typescript@4.8.2
 
 dependencies:
-  compatfactory: 2.0.7_typescript@4.9.4
+  compatfactory: 2.0.8_typescript@4.9.4
 
 devDependencies:
   '@types/node': 18.11.18
@@ -1524,8 +1524,8 @@ packages:
       typescript: 4.9.4
     dev: true
 
-  /compatfactory/2.0.7_typescript@4.9.4:
-    resolution: {integrity: sha512-CyG+b2Rx301B3Uxy3xyilnLgbm3TPP41mOG6m+NeA9bZodNQaYeaGtbTJ+DSGGQIaP+qSMIiw14dwod+vkk2IA==}
+  /compatfactory/2.0.8_typescript@4.9.4:
+    resolution: {integrity: sha512-lUzm+3JJhCAjm9CHYsmHCI2zrDpqL+Qk3ezjeIPTrKGmy6wSKUvhzG2gQztPEGkWVIOTs/cIpsGCgTNbKTp0CQ==}
     engines: {node: '>=14.9.0'}
     peerDependencies:
       typescript: '>=3.x || >= 4.x'
