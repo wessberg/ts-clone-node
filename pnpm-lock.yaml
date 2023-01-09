@@ -9,7 +9,7 @@ specifiers:
   '@wessberg/prettier-config': 1.0.0
   '@wessberg/ts-config': ^2.0.4
   ava: ^3.15.0
-  compatfactory: ^2.0.8
+  compatfactory: ^2.0.9
   crosspath: 2.0.0
   dotcjs: 1.0.1
   eslint: ^8.31.0
@@ -25,7 +25,7 @@ specifiers:
   pretty-quick: ^3.1.3
   rimraf: ^3.0.2
   rollup: ^3.9.1
-  rollup-plugin-ts: ^3.0.2
+  rollup-plugin-ts: ^3.1.0
   sandhog: ^2.0.2
   semver: ^7.3.8
   standard-changelog: ^2.0.27
@@ -53,7 +53,7 @@ specifiers:
   typescript-4-8-2: npm:typescript@4.8.2
 
 dependencies:
-  compatfactory: 2.0.8_typescript@4.9.4
+  compatfactory: 2.0.9_typescript@4.9.4
 
 devDependencies:
   '@types/node': 18.11.18
@@ -79,7 +79,7 @@ devDependencies:
   pretty-quick: 3.1.3_prettier@2.8.2
   rimraf: 3.0.2
   rollup: 3.9.1
-  rollup-plugin-ts: 3.0.2_esmavzhadgk2idmxtiodxm33ma
+  rollup-plugin-ts: 3.1.0_esmavzhadgk2idmxtiodxm33ma
   sandhog: 2.0.2
   semver: 7.3.8
   standard-changelog: 2.0.27
@@ -330,12 +330,19 @@ packages:
       config-chain: 1.1.13
     dev: true
 
-  /@rollup/pluginutils/4.2.1:
-    resolution: {integrity: sha512-iKnFXr7NkdZAIHiIWE+BX5ULi/ucVFYWD6TbAV+rZctiRTY2PL6tsIKhoIOaoskiWAkgu+VsbXgUVDNLHf+InQ==}
-    engines: {node: '>= 8.0.0'}
+  /@rollup/pluginutils/5.0.2_rollup@3.9.1:
+    resolution: {integrity: sha512-pTd9rIsP92h+B6wWwFbW8RkZv4hiR/xKsqre4SIuAOaOEQRxi0lqLke9k2/7WegC85GgUs9pjmOjCUi3In4vwA==}
+    engines: {node: '>=14.0.0'}
+    peerDependencies:
+      rollup: ^1.20.0||^2.0.0||^3.0.0
+    peerDependenciesMeta:
+      rollup:
+        optional: true
     dependencies:
+      '@types/estree': 1.0.0
       estree-walker: 2.0.2
       picomatch: 2.3.1
+      rollup: 3.9.1
     dev: true
 
   /@samverschueren/stream-to-observable/0.3.1_rxjs@6.6.7:
@@ -425,6 +432,10 @@ packages:
       '@types/keyv': 3.1.4
       '@types/node': 18.11.18
       '@types/responselike': 1.0.0
+    dev: true
+
+  /@types/estree/1.0.0:
+    resolution: {integrity: sha512-WulqXMDUTYAXCjZnk6JtIHPigp55cVtDgDrO2gHRwhyJto21+1zbVCtOYB2L1F9w4qCQ0rOGWBnBe0FNTiEJIQ==}
     dev: true
 
   /@types/http-cache-semantics/4.0.1:
@@ -1514,25 +1525,14 @@ packages:
       dot-prop: 5.3.0
     dev: true
 
-  /compatfactory/1.0.1_typescript@4.9.4:
-    resolution: {integrity: sha512-hR9u0HSZTKDNNchPtMHg6myeNx0XO+av7UZIJPsi4rPALJBHi/W5Mbwi19hC/xm6y3JkYpxVYjTqnSGsU5X/iw==}
-    engines: {node: '>=14.9.0'}
-    peerDependencies:
-      typescript: '>=3.x || >= 4.x'
-    dependencies:
-      helpertypes: 0.0.18
-      typescript: 4.9.4
-    dev: true
-
-  /compatfactory/2.0.8_typescript@4.9.4:
-    resolution: {integrity: sha512-lUzm+3JJhCAjm9CHYsmHCI2zrDpqL+Qk3ezjeIPTrKGmy6wSKUvhzG2gQztPEGkWVIOTs/cIpsGCgTNbKTp0CQ==}
+  /compatfactory/2.0.9_typescript@4.9.4:
+    resolution: {integrity: sha512-fvO+AWcmbO7P1S+A3mwm3IGr74eHMeq5ZLhNhyNQc9mVDNHT4oe0Gg0ksdIFFNXLK7k7Z/TYcLAUSQdRgh1bsA==}
     engines: {node: '>=14.9.0'}
     peerDependencies:
       typescript: '>=3.x || >= 4.x'
     dependencies:
       helpertypes: 0.0.19
       typescript: 4.9.4
-    dev: false
 
   /concat-map/0.0.1:
     resolution: {integrity: sha1-2Klr13/Wjfd5OnMDajug1UBdR3s=}
@@ -3958,11 +3958,11 @@ packages:
     engines: {node: '>=12'}
     dev: true
 
-  /magic-string/0.26.7:
-    resolution: {integrity: sha512-hX9XH3ziStPoPhJxLq1syWuZMxbDvGNbVchfrdCtanC7D13888bMFow61x8axrx+GfHLtVeAx2kxL7tTGRl+Ow==}
+  /magic-string/0.27.0:
+    resolution: {integrity: sha512-8UnnX2PeRAPZuN12svgR9j7M1uWMovg/CEnIwIG0LFkXSJJe4PdfUGiTGl8V9bsBHFUtfVINcSyYxd7q+kx9fA==}
     engines: {node: '>=12'}
     dependencies:
-      sourcemap-codec: 1.4.8
+      '@jridgewell/sourcemap-codec': 1.4.14
     dev: true
 
   /make-dir/3.1.0:
@@ -5473,8 +5473,8 @@ packages:
       glob: 7.2.3
     dev: true
 
-  /rollup-plugin-ts/3.0.2_esmavzhadgk2idmxtiodxm33ma:
-    resolution: {integrity: sha512-67qi2QTHewhLyKDG6fX3jpohWpmUPPIT/xJ7rsYK46X6MqmoWy64Ti0y8ygPfLv8mXDCdRZUofM3mTxDfCswRA==}
+  /rollup-plugin-ts/3.1.0_esmavzhadgk2idmxtiodxm33ma:
+    resolution: {integrity: sha512-SoSZXSBxaiJbh4Qed0ih7aSYHfLSa1ligs0ugZIZvdjgK2jwlFveLl/ZKn++wCp0p5zEx2O8tuokHjpeHPjgTg==}
     engines: {node: '>=14.9.0', npm: '>=7.0.0', pnpm: '>=3.2.0', yarn: '>=1.13'}
     peerDependencies:
       '@babel/core': '>=6.x || >=7.x'
@@ -5502,16 +5502,16 @@ packages:
       '@swc/helpers':
         optional: true
     dependencies:
-      '@rollup/pluginutils': 4.2.1
+      '@rollup/pluginutils': 5.0.2_rollup@3.9.1
       '@wessberg/stringutil': 1.0.19
       ansi-colors: 4.1.3
       browserslist: 4.21.4
       browserslist-generator: 1.0.66
-      compatfactory: 1.0.1_typescript@4.9.4
+      compatfactory: 2.0.9_typescript@4.9.4
       crosspath: 2.0.0
-      magic-string: 0.26.7
+      magic-string: 0.27.0
       rollup: 3.9.1
-      ts-clone-node: 1.0.0_typescript@4.9.4
+      ts-clone-node: 2.0.3_typescript@4.9.4
       tslib: 2.4.1
       typescript: 4.9.4
     dev: true
@@ -5728,11 +5728,6 @@ packages:
   /source-map/0.6.1:
     resolution: {integrity: sha512-UjgapumWlbMhkBgzT7Ykc5YXUT46F0iKu8SGXq0bcwP5dz/h0Plj6enJqjz1Zbq2l5WaqYnrVbwWOWMyF3F47g==}
     engines: {node: '>=0.10.0'}
-    dev: true
-
-  /sourcemap-codec/1.4.8:
-    resolution: {integrity: sha512-9NykojV5Uih4lgo5So5dtw+f0JgJX30KCNI8gwhz2J9A15wD0Ml6tjHKwf6fTSa6fAdVBdZeNOs9eJ71qCk8vA==}
-    deprecated: Please use @jridgewell/sourcemap-codec instead
     dev: true
 
   /spawn-please/2.0.1:
@@ -6115,13 +6110,13 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: true
 
-  /ts-clone-node/1.0.0_typescript@4.9.4:
-    resolution: {integrity: sha512-/cDYbr2HAXxFNeTT41c/xs/2bhLJjqnYheHsmA3AoHSt+n4JA4t0FL9Lk5O8kWnJ6jeB3kPcUoXIFtwERNzv6Q==}
+  /ts-clone-node/2.0.3_typescript@4.9.4:
+    resolution: {integrity: sha512-lUx7MrbzdWg5nNcjss9RNSDjJ5EPgPmxhVdux/kfqCSXgTure3rsHlKWnYOsksbZ+1oONPz8Luehhxah2s7dpw==}
     engines: {node: '>=14.9.0'}
     peerDependencies:
       typescript: ^3.x || ^4.x
     dependencies:
-      compatfactory: 1.0.1_typescript@4.9.4
+      compatfactory: 2.0.9_typescript@4.9.4
       typescript: 4.9.4
     dev: true
 

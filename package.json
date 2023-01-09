@@ -17,7 +17,7 @@
 		"rollup": "rollup -c rollup.config.js",
 		"preversion": "pnpm run lint && pnpm run build && dotcjs dist/cjs",
 		"version": "pnpm run preversion && pnpm run generate:all && git add .",
-		"release": "np --no-cleanup --no-yarn",
+		"release": "np --no-cleanup --no-yarn --no-tests",
 		"update:check": "pnpx npm-check-updates -x typescript-* --dep dev,prod",
 		"update:commit": "pnpx npm-check-updates -u -x typescript-*,ava --dep dev,prod && pnpm update && pnpm install"
 	},
@@ -54,7 +54,7 @@
 		"@wessberg/prettier-config": "1.0.0",
 		"crosspath": "2.0.0",
 		"dotcjs": "1.0.1",
-		"rollup-plugin-ts": "^3.0.2",
+		"rollup-plugin-ts": "^3.1.0",
 		"sandhog": "^2.0.2",
 		"ava": "^3.15.0",
 		"eslint": "^8.31.0",
@@ -96,7 +96,7 @@
 		"typescript-4-8-2": "npm:typescript@4.8.2"
 	},
 	"dependencies": {
-		"compatfactory": "^2.0.8"
+		"compatfactory": "^2.0.9"
 	},
 	"peerDependencies": {
 		"typescript": "^3.x || ^4.x"
