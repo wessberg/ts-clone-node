@@ -1,3 +1,12 @@
+## [2.0.1](https://github.com/wessberg/ts-clone-node/compare/v2.0.0...v2.0.1) (2023-01-09)
+
+
+### Features
+
+* handle decorated members ([b9b9791](https://github.com/wessberg/ts-clone-node/commit/b9b979179d59d29540ab0e2bf2ab89848ec6bad6))
+
+
+
 # [2.0.0](https://github.com/wessberg/ts-clone-node/compare/v1.0.0...v2.0.0) (2023-01-09)
 
 
