@@ -1,3 +1,7 @@
+## [2.0.4](https://github.com/wessberg/ts-clone-node/compare/v2.0.3...v2.0.4) (2023-01-09)
+
+
+
 ## [2.0.3](https://github.com/wessberg/ts-clone-node/compare/v2.0.2...v2.0.3) (2023-01-09)
 
 
