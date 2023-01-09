@@ -1,3 +1,12 @@
+## [2.0.2](https://github.com/wessberg/ts-clone-node/compare/v2.0.1...v2.0.2) (2023-01-09)
+
+
+### Bug Fixes
+
+* fix cloning type parameter declarations ([0d3c1a1](https://github.com/wessberg/ts-clone-node/commit/0d3c1a166a8252e6cee8c93440ddef1f5cd5310f))
+
+
+
 ## [2.0.1](https://github.com/wessberg/ts-clone-node/compare/v2.0.0...v2.0.1) (2023-01-09)
 
 
