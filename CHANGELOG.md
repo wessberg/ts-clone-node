@@ -1,3 +1,17 @@
+# [2.0.0](https://github.com/wessberg/ts-clone-node/compare/v1.0.0...v2.0.0) (2023-01-09)
+
+
+### Bug Fixes
+
+* add import assertion ([1e5835d](https://github.com/wessberg/ts-clone-node/commit/1e5835d9abaa503a5382e4b40cc802b9b6dfd3e0))
+
+
+### Features
+
+* implement support for TypeScript v4.9 ([988b10d](https://github.com/wessberg/ts-clone-node/commit/988b10dfbdfe64bd72dd14f813b4671e4954075b))
+
+
+
 # [1.0.0](https://github.com/wessberg/ts-clone-node/compare/v0.3.32...v1.0.0) (2022-05-30)
 
 
