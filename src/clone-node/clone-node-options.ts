@@ -23,9 +23,7 @@ export type CloneNodeHookFactory<T extends MetaNode> = (node: T, payload: CloneN
 
 export type CloneNodeHookInternal<T extends MetaNode> = <Key extends keyof T>(key: Key, newValue: NodeHookValue<T, Key>, oldValue: NodeHookValue<T, Key>) => NodeHookValue<T, Key>;
 
-export interface CloneNodeOptions<T extends MetaNode = MetaNode> {
-	hook: CloneNodeHookFactory<T>;
-	finalize: CloneNodeFinalizerCallback<T>;
+export interface BaseCloneNodeOptions {
 	typescript: typeof TS;
 	// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 	// @ts-ignore
@@ -35,6 +33,11 @@ export interface CloneNodeOptions<T extends MetaNode = MetaNode> {
 	preserveSymbols: boolean;
 	preserveComments: boolean;
 	debug: boolean;
+}
+
+export interface CloneNodeOptions<T extends MetaNode = MetaNode> extends BaseCloneNodeOptions{
+	hook: CloneNodeHookFactory<T>;
+	finalize: CloneNodeFinalizerCallback<T>;
 }
 
 export interface CloneNodeInternalOptions<T extends MetaNode = MetaNode> extends Omit<CloneNodeOptions<T>, "hook" | "finalize"> {

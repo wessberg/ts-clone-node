@@ -1,4 +1,5 @@
 import {TS} from "./ts.js";
+import {NodeArray, ModifierLike} from "typescript";
 
 export type MetaNode = TS.Node & {
 	jsDoc?: TS.JSDoc[];
@@ -9,4 +10,5 @@ export type MetaNode = TS.Node & {
 	_parent?: MetaNode;
 	localSymbol?: TS.Symbol;
 	emitNode?: {leadingComments?: TS.SynthesizedComment[]; trailingComments?: TS.SynthesizedComment[]};
+	modifiers?: NodeArray<ModifierLike>;
 };

@@ -3,7 +3,7 @@ import {CloneNodeVisitorOptions} from "./clone-node-options.js";
 import {getModifierLikes} from "./util/get-modifier-likes.js";
 
 export function cloneClassDeclaration(node: TS.ClassDeclaration, options: CloneNodeVisitorOptions<TS.ClassDeclaration>): TS.ClassDeclaration {
-	const modifierLikes = getModifierLikes(node);
+	const modifierLikes = getModifierLikes(node, options);
 	return options.factory.createClassDeclaration(
 		options.hook("modifiers", options.nextNodes(modifierLikes), modifierLikes),
 		options.hook("name", options.nextNode(node.name), node.name),

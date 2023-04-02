@@ -12,7 +12,7 @@ export interface CloneAsTextOptions<T extends MetaNode = TS.SourceFile> extends 
 	typescript: typeof TS;
 }
 
-export function cloneAsText<T extends MetaNode = TS.SourceFile>(text: string, {selectNode = sourceFile => sourceFile as unknown as T, ...options}: CloneAsTextOptions<T>): string {
+export function cloneAsText<T extends MetaNode = TS.SourceFile & MetaNode>(text: string, {selectNode = sourceFile => sourceFile as unknown as T, ...options}: CloneAsTextOptions<T>): string {
 	const parseResult = parse(text, options.typescript);
 
 	const selectedNode = selectNode(parseResult) as T;

@@ -3,7 +3,7 @@ import {CloneNodeVisitorOptions} from "./clone-node-options.js";
 import { getModifierLikes } from "./util/get-modifier-likes.js";
 
 export function cloneParameterDeclaration(node: TS.ParameterDeclaration, options: CloneNodeVisitorOptions<TS.ParameterDeclaration>): TS.ParameterDeclaration {
-	const modifierLikes = getModifierLikes(node);
+	const modifierLikes = getModifierLikes(node, options);
 	return options.factory.createParameterDeclaration(
 		options.hook("modifiers", options.nextNodes(modifierLikes), modifierLikes),
 		options.hook("dotDotDotToken", options.nextNode(node.dotDotDotToken), node.dotDotDotToken),

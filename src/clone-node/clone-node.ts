@@ -550,9 +550,11 @@ function executeCloneNode<T extends MetaNode>(node: T | undefined, options: Clon
 		return cloneAsExpression(node, options as unknown as CloneNodeVisitorOptions<TS.AsExpression>);
 	} else if (
 		("isTypeAssertionExpression" in options.typescript && options.typescript.isTypeAssertionExpression(node)) ||
-		(!("isTypeAssertionExpression" in options.typescript) && "isTypeAssertion" in options.typescript && (options.typescript as typeof TS).isTypeAssertion(node))
+		("isTypeAssertion" in options.typescript && (typeof options.typescript.isTypeAssertion === 'function') &&
+			(options.typescript.isTypeAssertion as (x: unknown) => x is TS.TypeAssertion)(node) &&
+			!("isTypeAssertionExpression" in options.typescript))
 	) {
-		return cloneTypeAssertion(node, options as unknown as CloneNodeVisitorOptions<TS.TypeAssertion>);
+		return cloneTypeAssertion(node as unknown as TS.TypeAssertion, options as unknown as CloneNodeVisitorOptions<TS.TypeAssertion>);
 	} else if (options.typescript.isAwaitExpression(node)) {
 		return cloneAwaitExpression(node, options as unknown as CloneNodeVisitorOptions<TS.AwaitExpression>);
 	} else if (options.typescript.isYieldExpression(node)) {

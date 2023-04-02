@@ -3,7 +3,7 @@ import {CloneNodeVisitorOptions} from "./clone-node-options.js";
 import {getModifierLikes} from "./util/get-modifier-likes.js";
 
 export function cloneClassExpression(node: TS.ClassExpression, options: CloneNodeVisitorOptions<TS.ClassExpression>): TS.ClassExpression {
-	const modifierLikes = getModifierLikes(node);
+	const modifierLikes = getModifierLikes(node, options);
 	return options.factory.createClassExpression(
 		options.hook("modifiers", options.nextNodes(modifierLikes), modifierLikes),
 		options.hook("name", options.nextNode(node.name), node.name),

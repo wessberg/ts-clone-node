@@ -3,7 +3,7 @@ import {CloneNodeVisitorOptions} from "./clone-node-options.js";
 import {getModifierLikes} from "./util/get-modifier-likes.js";
 
 export function cloneFunctionDeclaration(node: TS.FunctionDeclaration, options: CloneNodeVisitorOptions<TS.FunctionDeclaration>): TS.FunctionDeclaration {
-	const modifierLikes = getModifierLikes(node);
+	const modifierLikes = getModifierLikes(node, options);
 	return options.factory.createFunctionDeclaration(
 		options.hook("modifiers", options.nextNodes(modifierLikes), modifierLikes as TS.Modifier[]),
 		options.hook("asteriskToken", options.nextNode(node.asteriskToken), node.asteriskToken),
