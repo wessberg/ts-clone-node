@@ -295,7 +295,7 @@ test("Performs an identical clone. #28", withTypeScriptVersions(">=4.6"), (t, {t
 
 test("Performs an identical clone. #29", withTypeScriptVersions(">=4.9"), (t, {typescript}) => {
 	const text = `\
-	const foo = {foo: "bar"} satisfies Record<string, "bar">;`
+	const foo = {foo: "bar"} satisfies Record<string, "bar">;`;
 	t.deepEqual(formatCode(cloneAsText(text, {typescript})), formatCode(text));
 });
 
@@ -306,15 +306,14 @@ test("Performs an identical clone. #30", withTypeScriptVersions(">=4.9"), (t, {t
 		constructor(name: string) {
 			this.name = name;
 		}
-	}`
+	}`;
 	t.deepEqual(formatCode(cloneAsText(text, {typescript})), formatCode(text));
 });
-
 
 test("Performs an identical clone. #31", withTypeScript, (t, {typescript}) => {
 	const text = `\
 	@decorated()
 	class Person {
-	}`
+	}`;
 	t.deepEqual(formatCode(cloneAsText(text, {typescript})), formatCode(text));
 });

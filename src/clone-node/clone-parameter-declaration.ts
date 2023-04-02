@@ -1,6 +1,6 @@
 import {TS} from "./type/ts.js";
 import {CloneNodeVisitorOptions} from "./clone-node-options.js";
-import { getModifierLikes } from "./util/get-modifier-likes.js";
+import {getModifierLikes} from "./util/get-modifier-likes.js";
 
 export function cloneParameterDeclaration(node: TS.ParameterDeclaration, options: CloneNodeVisitorOptions<TS.ParameterDeclaration>): TS.ParameterDeclaration {
 	const modifierLikes = getModifierLikes(node, options);

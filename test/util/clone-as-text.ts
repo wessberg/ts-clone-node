@@ -12,7 +12,10 @@ export interface CloneAsTextOptions<T extends MetaNode = TS.SourceFile> extends 
 	typescript: typeof TS;
 }
 
-export function cloneAsText<T extends MetaNode = TS.SourceFile & MetaNode>(text: string, {selectNode = sourceFile => sourceFile as unknown as T, ...options}: CloneAsTextOptions<T>): string {
+export function cloneAsText<T extends MetaNode = TS.SourceFile & MetaNode>(
+	text: string,
+	{selectNode = sourceFile => sourceFile as unknown as T, ...options}: CloneAsTextOptions<T>
+): string {
 	const parseResult = parse(text, options.typescript);
 
 	const selectedNode = selectNode(parseResult) as T;
@@ -40,7 +43,13 @@ function printNodeTree(node: TS.Node, typescript: typeof TS, nest?: number) {
 	for (let i = 0; i < nest; i++) space += " ";
 	console.log(
 		space,
-		typescript.isPropertyAccessChain?.(node) ? "PropertyAccessChain" : typescript.isImportTypeNode?.(node) ? "ImportTypeNode" : typescript.isTypePredicateNode(node) ? "TypePredicateNode" : typescript.SyntaxKind[node.kind]
+		typescript.isPropertyAccessChain?.(node)
+			? "PropertyAccessChain"
+			: typescript.isImportTypeNode?.(node)
+			? "ImportTypeNode"
+			: typescript.isTypePredicateNode(node)
+			? "TypePredicateNode"
+			: typescript.SyntaxKind[node.kind]
 	);
 	node.forEachChild(child => printNodeTree(child, typescript, (nest ?? 0) + 1));
 }

@@ -35,7 +35,7 @@ export interface BaseCloneNodeOptions {
 	debug: boolean;
 }
 
-export interface CloneNodeOptions<T extends MetaNode = MetaNode> extends BaseCloneNodeOptions{
+export interface CloneNodeOptions<T extends MetaNode = MetaNode> extends BaseCloneNodeOptions {
 	hook: CloneNodeHookFactory<T>;
 	finalize: CloneNodeFinalizerCallback<T>;
 }

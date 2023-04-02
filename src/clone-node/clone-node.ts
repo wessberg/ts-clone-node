@@ -550,7 +550,8 @@ function executeCloneNode<T extends MetaNode>(node: T | undefined, options: Clon
 		return cloneAsExpression(node, options as unknown as CloneNodeVisitorOptions<TS.AsExpression>);
 	} else if (
 		("isTypeAssertionExpression" in options.typescript && options.typescript.isTypeAssertionExpression(node)) ||
-		("isTypeAssertion" in options.typescript && (typeof options.typescript.isTypeAssertion === 'function') &&
+		("isTypeAssertion" in options.typescript &&
+			typeof options.typescript.isTypeAssertion === "function" &&
 			(options.typescript.isTypeAssertion as (x: unknown) => x is TS.TypeAssertion)(node) &&
 			!("isTypeAssertionExpression" in options.typescript))
 	) {
