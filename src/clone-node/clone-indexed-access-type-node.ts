@@ -1,5 +1,5 @@
-import {TS} from "./type/ts.js";
-import {CloneNodeVisitorOptions} from "./clone-node-options.js";
+import type {TS} from "./type/ts.js";
+import type {CloneNodeVisitorOptions} from "./clone-node-options.js";
 
 export function cloneIndexedAccessTypeNode(node: TS.IndexedAccessTypeNode, options: CloneNodeVisitorOptions<TS.IndexedAccessTypeNode>): TS.IndexedAccessTypeNode {
 	return options.factory.createIndexedAccessTypeNode(

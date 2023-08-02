@@ -1,6 +1,6 @@
 import {cloneIdentifier} from "./clone-identifier.js";
 import {cloneTypeAliasDeclaration} from "./clone-type-alias-declaration.js";
-import {CloneNodeHook, CloneNodeInternalOptions, CloneNodeOptions, CloneNodeVisitorOptions, NodeHookValue} from "./clone-node-options.js";
+import type {CloneNodeHook, CloneNodeInternalOptions, CloneNodeOptions, CloneNodeVisitorOptions, NodeHookValue} from "./clone-node-options.js";
 import {cloneToken} from "./clone-token.js";
 import {cloneDecorator} from "./clone-decorator.js";
 import {cloneTypeParameterDeclaration} from "./clone-type-parameter-declaration.js";
@@ -158,9 +158,9 @@ import {cloneExportDeclaration} from "./clone-export-declaration.js";
 import {cloneNamedExports} from "./clone-named-exports.js";
 import {cloneExportSpecifier} from "./clone-export-specifier.js";
 import {cloneExportAssignment} from "./clone-export-assignment.js";
-import {TS} from "./type/ts.js";
+import type {TS} from "./type/ts.js";
 import {toInternalOptions} from "./util/to-internal-options.js";
-import {MetaNode} from "./type/meta-node.js";
+import type {MetaNode} from "./type/meta-node.js";
 import {isJsDocComment} from "./util/is-js-doc-comment.js";
 import {cloneJsDoc} from "./clone-js-doc-comment.js";
 import {isJsDocUnknownTag} from "./util/is-js-doc-unknown-tag.js";
@@ -227,9 +227,9 @@ import {cloneJsDocProtectedTag} from "./clone-js-doc-protected-tag.js";
 import {isJsDocPublicTag} from "./util/is-js-doc-public-tag.js";
 import {cloneJsDocPublicTag} from "./clone-js-doc-public-tag.js";
 import {clonePrivateIdentifier} from "./clone-private-identifier.js";
-import {SetParentNodesOptions} from "./type/set-parent-nodes-options.js";
+import type {SetParentNodesOptions} from "./type/set-parent-nodes-options.js";
 import {toSetParentNodesOptions} from "./util/to-set-parent-nodes-options.js";
-import {Mutable} from "helpertypes";
+import type {Mutable} from "helpertypes";
 import {isNamedTupleMember} from "./util/is-named-tuple-member.js";
 import {cloneNamedTupleMember} from "./clone-named-tuple-member.js";
 import {isJsDocDeprecatedTag} from "./util/is-js-doc-deprecated-tag.js";
@@ -253,6 +253,14 @@ import {cloneAssertEntry} from "./clone-assert-entry.js";
 import {isImportTypeAssertionContainer} from "./util/is-import-type-assertion-container.js";
 import {cloneImportTypeAssertionContainer} from "./clone-import-type-assertion-container.js";
 import {cloneSatisfiesExpression} from "./clone-satisfies-expression.js";
+import {isJsDocSatisfiesTag} from "./util/is-js-doc-satisfies-tag.js";
+import {cloneJsDocSatisfiesTag} from "./clone-js-doc-satisfies-tag.js";
+import {isJsDocOverloadTag} from "./util/is-js-doc-overload-tag.js";
+import {cloneJsDocOverloadTag} from "./clone-js-doc-overload-tag.js";
+import {cloneJsDocThrowsTag} from "./clone-js-doc-throws-tag.js";
+import {isJsDocThrowsTag} from "./util/is-js-doc-throws-tag.js";
+import {isJsxNamespacedName} from "./util/is-jsx-namespaced-name.js";
+import {cloneJsxNamespacedName} from "./clone-jsx-namespaced-name.js";
 
 export function setParentNodes<T extends MetaNode>(node: T, options: Partial<SetParentNodesOptions>): T {
 	return setParents(node, toSetParentNodesOptions(options));
@@ -550,9 +558,11 @@ function executeCloneNode<T extends MetaNode>(node: T | undefined, options: Clon
 		return cloneAsExpression(node, options as unknown as CloneNodeVisitorOptions<TS.AsExpression>);
 	} else if (
 		("isTypeAssertionExpression" in options.typescript && options.typescript.isTypeAssertionExpression(node)) ||
-		(!("isTypeAssertionExpression" in options.typescript) && "isTypeAssertion" in options.typescript && (options.typescript as typeof TS).isTypeAssertion(node))
+		(!("isTypeAssertionExpression" in options.typescript) &&
+			"isTypeAssertion" in options.typescript &&
+			Boolean((options.typescript as {isTypeAssertion(node: TS.Node): boolean}).isTypeAssertion(node)))
 	) {
-		return cloneTypeAssertion(node, options as unknown as CloneNodeVisitorOptions<TS.TypeAssertion>);
+		return cloneTypeAssertion(node as unknown as TS.TypeAssertion, options as unknown as CloneNodeVisitorOptions<TS.TypeAssertion>);
 	} else if (options.typescript.isAwaitExpression(node)) {
 		return cloneAwaitExpression(node, options as unknown as CloneNodeVisitorOptions<TS.AwaitExpression>);
 	} else if (options.typescript.isYieldExpression(node)) {
@@ -636,6 +646,8 @@ function executeCloneNode<T extends MetaNode>(node: T | undefined, options: Clon
 		return cloneJsxExpression(node, options as unknown as CloneNodeVisitorOptions<TS.JsxExpression>);
 	} else if (options.typescript.isJsxText(node)) {
 		return cloneJsxText(node, options as unknown as CloneNodeVisitorOptions<TS.JsxText>);
+	} else if (isJsxNamespacedName(node, options.typescript)) {
+		return cloneJsxNamespacedName(node, options as unknown as CloneNodeVisitorOptions<TS.JsxNamespacedName>);
 	} else if (isNotEmittedStatement(node, options.typescript)) {
 		return cloneNotEmittedStatement(node, options as unknown as CloneNodeVisitorOptions<TS.NotEmittedStatement>);
 	} else if (isCommaListExpression(node, options.typescript)) {
@@ -782,6 +794,12 @@ function executeCloneNode<T extends MetaNode>(node: T | undefined, options: Clon
 		return cloneJsDocLinkPlain(node, options as unknown as CloneNodeVisitorOptions<TS.JSDocLinkPlain>);
 	} else if (isJsDocMemberName(node, options.typescript)) {
 		return cloneJsDocMemberName(node, options as unknown as CloneNodeVisitorOptions<TS.JSDocMemberName>);
+	} else if (isJsDocSatisfiesTag(node, options.typescript)) {
+		return cloneJsDocSatisfiesTag(node, options as unknown as CloneNodeVisitorOptions<TS.JSDocSatisfiesTag>);
+	} else if (isJsDocOverloadTag(node, options.typescript)) {
+		return cloneJsDocOverloadTag(node, options as unknown as CloneNodeVisitorOptions<TS.JSDocOverloadTag>);
+	} else if (isJsDocThrowsTag(node, options.typescript)) {
+		return cloneJsDocThrowsTag(node, options as unknown as CloneNodeVisitorOptions<TS.JSDocThrowsTag>);
 	} else if (options.typescript.isToken(node)) {
 		return cloneToken(node, options as unknown as CloneNodeVisitorOptions<TS.Token<TS.SyntaxKind>>);
 	} else if (isTemplateLiteralTypeNode(node, options.typescript)) {

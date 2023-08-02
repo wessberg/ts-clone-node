@@ -1,5 +1,5 @@
-import {TS} from "./type/ts.js";
-import {CloneNodeVisitorOptions} from "./clone-node-options.js";
+import type {TS} from "./type/ts.js";
+import type {CloneNodeVisitorOptions} from "./clone-node-options.js";
 
 export function cloneIdentifier(node: TS.Identifier, options: CloneNodeVisitorOptions<TS.Identifier>): TS.Identifier {
 	const text = "text" in node ? node.text : options.typescript.unescapeLeadingUnderscores((node as TS.Identifier).escapedText);

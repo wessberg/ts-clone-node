@@ -1,5 +1,5 @@
-import {TS} from "./type/ts.js";
-import {CloneNodeVisitorOptions} from "./clone-node-options.js";
+import type {TS} from "./type/ts.js";
+import type {CloneNodeVisitorOptions} from "./clone-node-options.js";
 
 export function cloneJsxOpeningElement(node: TS.JsxOpeningElement, options: CloneNodeVisitorOptions<TS.JsxOpeningElement>): TS.JsxOpeningElement {
 	return options.factory.createJsxOpeningElement(

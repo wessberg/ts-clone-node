@@ -1,10 +1,11 @@
-import {CloneNodeFinalizerCallback, CloneNodeHookFactory, CloneNodeInternalOptions, CloneNodeOptions} from "../clone-node-options.js";
-import {MetaNode} from "../type/meta-node.js";
+import type {CloneNodeFinalizerCallback, CloneNodeHookFactory, CloneNodeInternalOptions, CloneNodeOptions} from "../clone-node-options.js";
+import type {MetaNode} from "../type/meta-node.js";
 import {ensureNodeFactory} from "compatfactory";
 import ts from "typescript";
+import type {TS} from "../type/ts.js";
 
 export function toInternalOptions<T extends MetaNode>(options: Partial<CloneNodeOptions<T>>): CloneNodeInternalOptions<T> {
-	const typescript = options.typescript ?? ts;
+	const typescript = options.typescript ?? (ts as typeof TS);
 	return {
 		...options,
 		typescript,

@@ -1,6 +1,6 @@
-import {CloneNodeVisitorOptions} from "./clone-node-options.js";
-import {TS} from "./type/ts.js";
-import {Mutable} from "helpertypes";
+import type {CloneNodeVisitorOptions} from "./clone-node-options.js";
+import type {TS} from "./type/ts.js";
+import type {Mutable} from "helpertypes";
 
 export function cloneJsDocSignature(node: Mutable<TS.JSDocSignature>, options: CloneNodeVisitorOptions<TS.JSDocSignature>): TS.JSDocSignature {
 	const baseNode = options.factory.createJSDocSignature(

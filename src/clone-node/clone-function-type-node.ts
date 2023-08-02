@@ -1,5 +1,5 @@
-import {TS} from "./type/ts.js";
-import {CloneNodeVisitorOptions} from "./clone-node-options.js";
+import type {TS} from "./type/ts.js";
+import type {CloneNodeVisitorOptions} from "./clone-node-options.js";
 
 export function cloneFunctionTypeNode(node: TS.FunctionTypeNode, options: CloneNodeVisitorOptions<TS.FunctionTypeNode>): TS.FunctionTypeNode {
 	return options.factory.createFunctionTypeNode(

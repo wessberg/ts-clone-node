@@ -1,6 +1,6 @@
-import {TS} from "./type/ts.js";
-import {CloneNodeVisitorOptions} from "./clone-node-options.js";
-import {Mutable} from "helpertypes";
+import type {TS} from "./type/ts.js";
+import type {CloneNodeVisitorOptions} from "./clone-node-options.js";
+import type {Mutable} from "helpertypes";
 
 export function cloneJsDocUnknownTag(node: Mutable<TS.JSDocUnknownTag>, options: CloneNodeVisitorOptions<TS.JSDocUnknownTag>): TS.JSDocUnknownTag {
 	const baseNode = options.factory.createJSDocUnknownTag(

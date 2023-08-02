@@ -1,5 +1,5 @@
-import {CloneNodeVisitorOptions} from "./clone-node-options.js";
-import {TS} from "./type/ts.js";
+import type {CloneNodeVisitorOptions} from "./clone-node-options.js";
+import type {TS} from "./type/ts.js";
 import {ensureNodeArray} from "./util/ensure-node-array.js";
 
 export function cloneMappedTypeNode(node: TS.MappedTypeNode, options: CloneNodeVisitorOptions<TS.MappedTypeNode>): TS.MappedTypeNode {

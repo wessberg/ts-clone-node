@@ -1,4 +1,4 @@
-import {format} from "prettier";
+import prettier from "@prettier/sync";
 import {formatWhitespace} from "./format-whitespace.js";
 
 interface FormatOptions {
@@ -11,7 +11,7 @@ export function formatCode(code: string, {parser = "typescript", onlyWhitespace 
 		return formatWhitespace(code);
 	}
 	try {
-		return format(code, {parser, endOfLine: "lf"});
+		return prettier.format(code, {parser, endOfLine: "lf"});
 	} catch {
 		return formatWhitespace(code);
 	}

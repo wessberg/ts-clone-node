@@ -1,5 +1,5 @@
-import {TS} from "./type/ts.js";
-import {CloneNodeVisitorOptions} from "./clone-node-options.js";
+import type {TS} from "./type/ts.js";
+import type {CloneNodeVisitorOptions} from "./clone-node-options.js";
 
 export function clonePropertySignature(node: TS.PropertySignature, options: CloneNodeVisitorOptions<TS.PropertySignature>): TS.PropertySignature {
 	return options.factory.createPropertySignature(

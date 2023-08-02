@@ -1,6 +1,6 @@
-import {TS} from "./type/ts.js";
-import {CloneNodeVisitorOptions} from "./clone-node-options.js";
-import {Mutable} from "helpertypes";
+import type {TS} from "./type/ts.js";
+import type {CloneNodeVisitorOptions} from "./clone-node-options.js";
+import type {Mutable} from "helpertypes";
 
 export function cloneJsDocTypeLiteral(node: Mutable<TS.JSDocTypeLiteral>, options: CloneNodeVisitorOptions<TS.JSDocTypeLiteral>): TS.JSDocTypeLiteral {
 	const baseNode = options.factory.createJSDocTypeLiteral(

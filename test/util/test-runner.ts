@@ -1,0 +1,91 @@
+import path from "crosspath";
+import fs from "fs";
+import semver from "semver";
+import avaTest, {type ExecutionContext} from "ava";
+import type * as TS from "typescript";
+import {ensureNodeFactory} from "compatfactory";
+
+function getNearestPackageJson(from = import.meta.url): Record<string, unknown> | undefined {
+	// There may be a file protocol in from of the path
+	const normalizedFrom = path.urlToFilename(from);
+	const currentDir = path.dirname(normalizedFrom);
+
+	const pkgPath = path.join(currentDir, "package.json");
+	if (fs.existsSync(pkgPath)) {
+		return JSON.parse(fs.readFileSync(pkgPath, "utf-8"));
+	} else if (currentDir !== normalizedFrom) {
+		return getNearestPackageJson(currentDir);
+	} else {
+		return undefined;
+	}
+}
+
+const pkg = getNearestPackageJson();
+// ava macros
+export interface ExecutionContextOptions {
+	typescript: typeof TS;
+	typescriptModuleSpecifier: string;
+	typescriptVersion: string;
+	factory: TS.NodeFactory;
+}
+
+export type ExtendedImplementation = (t: ExecutionContext, options: ExecutionContextOptions) => void | Promise<void>;
+
+const {devDependencies} = pkg as {devDependencies: Record<string, string>};
+
+// Set of all TypeScript versions parsed from package.json
+const availableTsVersions = new Set<string>();
+const TS_OPTIONS_RECORDS = new Map<string, ExecutionContextOptions>();
+
+const tsRangeRegex = /(npm:typescript@)?[\^~]*(.+)$/;
+const filter = process.env.TS_VERSION;
+
+for (const [specifier, range] of Object.entries(devDependencies)) {
+	const match = range.match(tsRangeRegex);
+	if (match !== null) {
+		const [, context, version] = match;
+		if (context === "npm:typescript@" || specifier === "typescript") {
+			availableTsVersions.add(version);
+			if (filter === undefined || (filter.toUpperCase() === "CURRENT" && specifier === "typescript") || semver.satisfies(version, filter, {includePrerelease: true})) {
+				const typescript = (await import(specifier)).default;
+				TS_OPTIONS_RECORDS.set(version, {
+					typescript,
+					typescriptModuleSpecifier: specifier,
+					typescriptVersion: version,
+					factory: ensureNodeFactory(typescript)
+				});
+			}
+		}
+	}
+}
+
+if (availableTsVersions.size === 0) {
+	throw new Error(`The TS_VERSION environment variable matches none of the available TypeScript versions.
+Filter: ${process.env.TS_VERSION}
+Available TypeScript versions: ${[...availableTsVersions].join(", ")}`);
+}
+
+interface TestRunOptions {
+	only: boolean;
+}
+
+export function test(title: string, tsVersionGlob: string | undefined, impl: ExtendedImplementation, runOptions?: Partial<TestRunOptions>) {
+	const allOptions =
+		tsVersionGlob == null || tsVersionGlob === "*"
+			? TS_OPTIONS_RECORDS.values()
+			: [...TS_OPTIONS_RECORDS.entries()].filter(([version]) => semver.satisfies(version, tsVersionGlob, {includePrerelease: true})).map(([, options]) => options);
+
+	for (const currentOptions of allOptions) {
+		const fullTitle = `${title} (TypeScript v${currentOptions.typescriptVersion})`;
+
+		if (Boolean(runOptions?.only)) {
+			avaTest.only(fullTitle, async t => impl(t, currentOptions));
+		} else {
+			avaTest(fullTitle, async t => impl(t, currentOptions));
+		}
+	}
+}
+
+test.only = function (title: string, tsVersionGlob: string | undefined, impl: ExtendedImplementation) {
+	return test(title, tsVersionGlob, impl, {only: true});
+};

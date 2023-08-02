@@ -1,5 +1,5 @@
-import {TS} from "./type/ts.js";
-import {CloneNodeVisitorOptions} from "./clone-node-options.js";
+import type {TS} from "./type/ts.js";
+import type {CloneNodeVisitorOptions} from "./clone-node-options.js";
 
 export function cloneTemplateLiteralTypeNode(node: TS.TemplateLiteralTypeNode, options: CloneNodeVisitorOptions<TS.TemplateLiteralTypeNode>): TS.TemplateLiteralTypeNode {
 	return options.factory.createTemplateLiteralType(

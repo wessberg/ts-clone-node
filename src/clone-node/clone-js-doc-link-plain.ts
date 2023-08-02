@@ -1,6 +1,6 @@
-import {TS} from "./type/ts.js";
-import {CloneNodeVisitorOptions} from "./clone-node-options.js";
-import {Mutable} from "helpertypes";
+import type {TS} from "./type/ts.js";
+import type {CloneNodeVisitorOptions} from "./clone-node-options.js";
+import type {Mutable} from "helpertypes";
 
 export function cloneJsDocLinkPlain(node: Mutable<TS.JSDocLinkPlain>, options: CloneNodeVisitorOptions<TS.JSDocLinkPlain>): TS.JSDocLinkPlain {
 	const baseNode = options.factory.createJSDocLinkPlain(

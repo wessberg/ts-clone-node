@@ -1,6 +1,6 @@
-import {TS} from "./type/ts.js";
-import {CloneNodeVisitorOptions} from "./clone-node-options.js";
-import {Mutable} from "helpertypes";
+import type {TS} from "./type/ts.js";
+import type {CloneNodeVisitorOptions} from "./clone-node-options.js";
+import type {Mutable} from "helpertypes";
 
 export function cloneVariableDeclaration(node: TS.VariableDeclaration, options: CloneNodeVisitorOptions<TS.VariableDeclaration>): TS.VariableDeclaration {
 	const clonedVariableDeclaration = options.factory.createVariableDeclaration(

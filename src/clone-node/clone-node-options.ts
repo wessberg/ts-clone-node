@@ -1,5 +1,5 @@
-import {TS} from "./type/ts.js";
-import {MetaNode} from "./type/meta-node.js";
+import type {TS} from "./type/ts.js";
+import type {MetaNode, Modifiersable} from "./type/meta-node.js";
 
 export type NodeHookValue<T extends MetaNode, Key extends keyof T> = T[Key] extends TS.NodeArray<infer ElementTypeA>
 	? ElementTypeA[] | readonly ElementTypeA[] | TS.NodeArray<ElementTypeA>
@@ -24,8 +24,8 @@ export type CloneNodeHookFactory<T extends MetaNode> = (node: T, payload: CloneN
 export type CloneNodeHookInternal<T extends MetaNode> = <Key extends keyof T>(key: Key, newValue: NodeHookValue<T, Key>, oldValue: NodeHookValue<T, Key>) => NodeHookValue<T, Key>;
 
 export interface CloneNodeOptions<T extends MetaNode = MetaNode> {
-	hook: CloneNodeHookFactory<T>;
-	finalize: CloneNodeFinalizerCallback<T>;
+	hook: CloneNodeHookFactory<T & Modifiersable>;
+	finalize: CloneNodeFinalizerCallback<T & Modifiersable>;
 	typescript: typeof TS;
 	// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 	// @ts-ignore

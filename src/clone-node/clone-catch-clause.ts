@@ -1,5 +1,5 @@
-import {TS} from "./type/ts.js";
-import {CloneNodeVisitorOptions} from "./clone-node-options.js";
+import type {TS} from "./type/ts.js";
+import type {CloneNodeVisitorOptions} from "./clone-node-options.js";
 
 export function cloneCatchClause(node: TS.CatchClause, options: CloneNodeVisitorOptions<TS.CatchClause>): TS.CatchClause {
 	return options.factory.createCatchClause(

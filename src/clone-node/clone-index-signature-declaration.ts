@@ -1,5 +1,5 @@
-import {CloneNodeVisitorOptions} from "./clone-node-options.js";
-import {TS} from "./type/ts.js";
+import type {CloneNodeVisitorOptions} from "./clone-node-options.js";
+import type {TS} from "./type/ts.js";
 
 export function cloneIndexSignatureDeclaration(node: TS.IndexSignatureDeclaration, options: CloneNodeVisitorOptions<TS.IndexSignatureDeclaration>): TS.IndexSignatureDeclaration {
 	return options.factory.createIndexSignature(

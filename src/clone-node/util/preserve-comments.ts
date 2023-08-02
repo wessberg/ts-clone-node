@@ -1,6 +1,6 @@
-import {MetaNode} from "../type/meta-node.js";
-import {TS} from "../type/ts.js";
-import {CloneNodeInternalOptions} from "../clone-node-options.js";
+import type {MetaNode} from "../type/meta-node.js";
+import type {TS} from "../type/ts.js";
+import type {CloneNodeInternalOptions} from "../clone-node-options.js";
 import {getOriginalNode} from "./get-original-node.js";
 
 function formatCommentRange({pos, end}: TS.CommentRange): string {

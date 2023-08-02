@@ -1,6 +1,6 @@
-import {TS} from "./type/ts.js";
-import {CloneNodeVisitorOptions} from "./clone-node-options.js";
-import {Mutable} from "helpertypes";
+import type {TS} from "./type/ts.js";
+import type {CloneNodeVisitorOptions} from "./clone-node-options.js";
+import type {Mutable} from "helpertypes";
 
 export function cloneJsDocReturnTag(node: Mutable<TS.JSDocReturnTag>, options: CloneNodeVisitorOptions<TS.JSDocReturnTag>): TS.JSDocReturnTag {
 	const baseNode = options.factory.createJSDocReturnTag(

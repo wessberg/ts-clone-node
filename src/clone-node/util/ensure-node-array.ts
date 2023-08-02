@@ -1,5 +1,5 @@
-import {MetaNode} from "../type/meta-node.js";
-import {TS} from "../type/ts.js";
+import type {MetaNode} from "../type/meta-node.js";
+import type {TS} from "../type/ts.js";
 import {isNodeArray} from "./is-node-array.js";
 
 export function ensureNodeArray<T extends MetaNode>(item: T[] | readonly T[] | TS.NodeArray<T>, factory: TS.NodeFactory): TS.NodeArray<T>;

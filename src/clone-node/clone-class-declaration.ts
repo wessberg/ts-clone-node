@@ -1,5 +1,5 @@
-import {TS} from "./type/ts.js";
-import {CloneNodeVisitorOptions} from "./clone-node-options.js";
+import type {TS} from "./type/ts.js";
+import type {CloneNodeVisitorOptions} from "./clone-node-options.js";
 import {getModifierLikes} from "./util/get-modifier-likes.js";
 
 export function cloneClassDeclaration(node: TS.ClassDeclaration, options: CloneNodeVisitorOptions<TS.ClassDeclaration>): TS.ClassDeclaration {

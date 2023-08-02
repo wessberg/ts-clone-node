@@ -1,5 +1,5 @@
-import {TS} from "../type/ts.js";
-import {MetaNode} from "../type/meta-node.js";
+import type {TS} from "../type/ts.js";
+import type {MetaNode} from "../type/meta-node.js";
 
 export function isNodeArray<T extends MetaNode>(item: unknown): item is TS.NodeArray<T> {
 	// tslint:disable-next-line

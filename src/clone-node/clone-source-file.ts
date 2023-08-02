@@ -1,6 +1,6 @@
-import {TS} from "./type/ts.js";
-import {CloneNodeVisitorOptions} from "./clone-node-options.js";
-import {Mutable} from "helpertypes";
+import type {TS} from "./type/ts.js";
+import type {CloneNodeVisitorOptions} from "./clone-node-options.js";
+import type {Mutable} from "helpertypes";
 
 export function cloneSourceFile(node: TS.SourceFile, options: CloneNodeVisitorOptions<TS.SourceFile>): TS.SourceFile {
 	// Support TypeScript 3.x which uses updateSourceFileNode, whereas TypeScript 4.x uses updateSourceFile
