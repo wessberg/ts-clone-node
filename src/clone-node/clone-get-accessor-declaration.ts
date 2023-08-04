@@ -1,6 +1,6 @@
 import type {TS} from "./type/ts.js";
 import type {CloneNodeVisitorOptions} from "./clone-node-options.js";
-import { getModifierLikes } from "./util/get-modifier-likes.js";
+import {getModifierLikes} from "./util/get-modifier-likes.js";
 
 export function cloneGetAccessorDeclaration(node: TS.GetAccessorDeclaration, options: CloneNodeVisitorOptions<TS.GetAccessorDeclaration>): TS.GetAccessorDeclaration {
 	const modifierLikes = getModifierLikes(node);
