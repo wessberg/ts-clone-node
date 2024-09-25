@@ -49,7 +49,7 @@ for (const [specifier, range] of Object.entries(devDependencies)) {
 			if (filter === undefined || (filter.toUpperCase() === "CURRENT" && specifier === "typescript") || semver.satisfies(version, filter, {includePrerelease: true})) {
 				const typescript = ((await import(specifier)) as {default: typeof TS}).default;
 				TS_OPTIONS_RECORDS.set(version, {
-					typescript: ((await import(specifier)) as {default: typeof TS}).default,
+					typescript,
 					typescriptModuleSpecifier: specifier,
 					typescriptVersion: version,
 					factory: ensureNodeFactory(typescript)
