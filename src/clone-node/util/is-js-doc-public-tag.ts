@@ -6,8 +6,8 @@ import type {MetaNode} from "../type/meta-node.js";
  */
 export function isJsDocPublicTag(node: MetaNode, typescript: typeof TS): node is TS.JSDocPublicTag {
 	// TypeScript 4.x
-	if (("isJSDocPublicTag" in typescript) as never) {
+	if ("isJSDocPublicTag" in typescript) {
 		return typescript.isJSDocPublicTag(node);
 	}
-	return node.kind === typescript.SyntaxKind.JSDocPublicTag;
+	return node.kind === (typescript as typeof TS).SyntaxKind.JSDocPublicTag;
 }

@@ -40,13 +40,13 @@ function printNodeTree(node: TS.Node, typescript: typeof TS, nest?: number) {
 	for (let i = 0; i < nest; i++) space += " ";
 	console.log(
 		space,
-		typescript.isPropertyAccessChain?.(node)
+		(typescript as Partial<typeof TS>).isPropertyAccessChain?.(node)
 			? "PropertyAccessChain"
-			: typescript.isImportTypeNode?.(node)
-			? "ImportTypeNode"
-			: typescript.isTypePredicateNode(node)
-			? "TypePredicateNode"
-			: typescript.SyntaxKind[node.kind]
+			: (typescript as Partial<typeof TS>).isImportTypeNode?.(node)
+				? "ImportTypeNode"
+				: (typescript as Partial<typeof TS>).isTypePredicateNode?.(node)
+					? "TypePredicateNode"
+					: typescript.SyntaxKind[node.kind]
 	);
-	node.forEachChild(child => printNodeTree(child, typescript, (nest ?? 0) + 1));
+	node.forEachChild(child => printNodeTree(child, typescript, nest + 1));
 }

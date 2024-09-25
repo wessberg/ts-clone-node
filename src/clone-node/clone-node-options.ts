@@ -1,11 +1,12 @@
 import type {TS} from "./type/ts.js";
 import type {MetaNode, Modifiersable} from "./type/meta-node.js";
 
-export type NodeHookValue<T extends MetaNode, Key extends keyof T> = T[Key] extends TS.NodeArray<infer ElementTypeA>
-	? ElementTypeA[] | readonly ElementTypeA[] | TS.NodeArray<ElementTypeA>
-	: T[Key] extends TS.NodeArray<infer ElementTypeB> | undefined
-	? ElementTypeB[] | readonly ElementTypeB[] | TS.NodeArray<ElementTypeB> | undefined
-	: T[Key];
+export type NodeHookValue<T extends MetaNode, Key extends keyof T> =
+	T[Key] extends TS.NodeArray<infer ElementTypeA>
+		? ElementTypeA[] | readonly ElementTypeA[] | TS.NodeArray<ElementTypeA>
+		: T[Key] extends TS.NodeArray<infer ElementTypeB> | undefined
+			? ElementTypeB[] | readonly ElementTypeB[] | TS.NodeArray<ElementTypeB> | undefined
+			: T[Key];
 
 export interface CloneNodeHookFactoryPayload {
 	depth: number;
@@ -13,7 +14,7 @@ export interface CloneNodeHookFactoryPayload {
 
 export type CloneNodeHookCallback<T extends MetaNode, Key extends keyof T> = (value: NodeHookValue<T, Key>, oldValue: NodeHookValue<T, Key>) => NodeHookValue<T, Key>;
 
-export type CloneNodeFinalizerCallback<T extends MetaNode> = (newNode: T, oldNode: T, payload: CloneNodeHookFactoryPayload) => T | void | undefined;
+export type CloneNodeFinalizerCallback<T extends MetaNode> = (newNode: T, oldNode: T, payload: CloneNodeHookFactoryPayload) => T | undefined;
 
 export type CloneNodeHook<T extends MetaNode> = {
 	[Key in keyof T]?: CloneNodeHookCallback<T, Key>;
@@ -39,7 +40,7 @@ export interface CloneNodeOptions<T extends MetaNode = MetaNode> {
 
 export interface CloneNodeInternalOptions<T extends MetaNode = MetaNode> extends Omit<CloneNodeOptions<T>, "hook" | "finalize"> {
 	hook: CloneNodeHookFactory<MetaNode>;
-	finalize: CloneNodeFinalizerCallback<MetaNode>;
+	finalize?: CloneNodeFinalizerCallback<MetaNode>;
 	commentRanges: Set<string>;
 	depth: number;
 }
@@ -50,8 +51,7 @@ export interface CloneNodeVisitorOptions<T extends MetaNode = MetaNode> extends 
 	nextNode<Next extends MetaNode>(node: Next): Next;
 	nextNode<Next extends MetaNode>(node: Next | undefined): Next | undefined;
 
-	nextNodes<Next extends MetaNode>(nodes: readonly Next[]): Next[];
-	nextNodes<Next extends MetaNode>(nodes: Next[]): Next[];
+	nextNodes<Next extends MetaNode>(nodes: readonly Next[] | Next[]): Next[];
 	nextNodes(nodes: undefined): undefined;
 	nextNodes<Next extends MetaNode>(nodes: readonly Next[] | Next[] | undefined): undefined;
 }

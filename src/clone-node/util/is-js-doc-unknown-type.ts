@@ -6,8 +6,8 @@ import type {MetaNode} from "../type/meta-node.js";
  */
 export function isJsDocUnknownType(node: MetaNode, typescript: typeof TS): node is TS.JSDocUnknownType {
 	// TypeScript 4.x
-	if (("isJSDocUnknownType" in typescript) as never) {
+	if ("isJSDocUnknownType" in typescript) {
 		return typescript.isJSDocUnknownType(node);
 	}
-	return node.kind === typescript.SyntaxKind.JSDocUnknownType;
+	return node.kind === (typescript as typeof TS).SyntaxKind.JSDocUnknownType;
 }

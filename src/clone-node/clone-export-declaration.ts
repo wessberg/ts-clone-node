@@ -6,6 +6,7 @@ export function cloneExportDeclaration(node: TS.ExportDeclaration, options: Clon
 		options.hook("modifiers", options.nextNodes(node.modifiers), node.modifiers),
 		options.hook("isTypeOnly", node.isTypeOnly, node.isTypeOnly),
 		options.hook("exportClause", options.nextNode(node.exportClause), node.exportClause),
-		options.hook("moduleSpecifier", options.nextNode(node.moduleSpecifier), node.moduleSpecifier)
+		options.hook("moduleSpecifier", options.nextNode(node.moduleSpecifier), node.moduleSpecifier),
+		options.hook("attributes", options.nextNode(node.attributes), node.attributes)
 	);
 }

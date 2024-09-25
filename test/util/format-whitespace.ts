@@ -10,9 +10,9 @@ export function formatWhitespace(code: string): string {
 
 	// Split into lines.
 	const [head, ...tail] = normalizedWhitespace.split(NEWLINE_CHARACTERS);
-	if (tail.length === 0) {
+	if (head == null || tail.length === 0) {
 		// If there's only one line, just trim the input
-		return head.trim();
+		return head?.trim() ?? "";
 	}
 
 	let indentation: number | undefined;

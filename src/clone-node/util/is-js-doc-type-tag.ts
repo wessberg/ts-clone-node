@@ -6,8 +6,8 @@ import type {MetaNode} from "../type/meta-node.js";
  */
 export function isJsDocTypeTag(node: MetaNode, typescript: typeof TS): node is TS.JSDocTypeTag {
 	// TypeScript 4.x
-	if (("isJSDocTypeTag" in typescript) as never) {
+	if ("isJSDocTypeTag" in typescript) {
 		return typescript.isJSDocTypeTag(node);
 	}
-	return node.kind === typescript.SyntaxKind.JSDocTypeTag;
+	return node.kind === (typescript as typeof TS).SyntaxKind.JSDocTypeTag;
 }

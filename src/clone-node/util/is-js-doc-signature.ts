@@ -6,8 +6,8 @@ import type {MetaNode} from "../type/meta-node.js";
  */
 export function isJsDocSignature(node: MetaNode, typescript: typeof TS): node is TS.JSDocSignature {
 	// TypeScript 4.x
-	if (("isJSDocSignature" in typescript) as never) {
+	if ("isJSDocSignature" in typescript) {
 		return typescript.isJSDocSignature(node);
 	}
-	return node.kind === typescript.SyntaxKind.JSDocSignature;
+	return node.kind === (typescript as typeof TS).SyntaxKind.JSDocSignature;
 }

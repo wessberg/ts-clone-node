@@ -261,6 +261,10 @@ import {cloneJsDocThrowsTag} from "./clone-js-doc-throws-tag.js";
 import {isJsDocThrowsTag} from "./util/is-js-doc-throws-tag.js";
 import {isJsxNamespacedName} from "./util/is-jsx-namespaced-name.js";
 import {cloneJsxNamespacedName} from "./clone-jsx-namespaced-name.js";
+import {cloneImportAttributes} from "./clone-import-attributes.js";
+import {cloneImportAttribute} from "./clone-import-attribute.js";
+import {isJsDocImportTag} from "./util/is-js-doc-import-tag.js";
+import {cloneJsDocImportTag} from "./clone-js-doc-import-tag.js";
 
 export function setParentNodes<T extends MetaNode>(node: T, options: Partial<SetParentNodesOptions>): T {
 	return setParents(node, toSetParentNodesOptions(options));
@@ -274,9 +278,11 @@ export function preserveNode<T extends MetaNode>(node: T | undefined, oldNode: T
 	executePreserveNode(node, oldNode, internalOptions);
 
 	if (node != null) {
-		const parentValue = node._parent ?? node.parent ?? oldNode?._parent ?? oldNode?.parent;
+		const parentValue = node._parent ?? (node.parent as TS.Node | undefined) ?? oldNode?._parent ?? oldNode?.parent;
 		if (internalOptions.setParents) {
-			(node as Mutable<T>).parent = parentValue;
+			if (parentValue != null) {
+				(node as Mutable<T>).parent = parentValue;
+			}
 		} else {
 			node._parent = parentValue;
 		}
@@ -295,7 +301,7 @@ export function cloneNode<T extends MetaNode>(node: T | undefined, options: Part
 	executePreserveNode(clone, node, internalOptions);
 
 	if (clone != null) {
-		const parentValue = node._parent ?? node.parent ?? clone._parent ?? clone.parent;
+		const parentValue = node._parent ?? (node.parent as TS.Node | undefined) ?? clone._parent ?? clone.parent;
 		if (internalOptions.setParents) {
 			(clone as Mutable<T>).parent = parentValue;
 		} else {
@@ -334,7 +340,7 @@ function nextNode<Next extends MetaNode>(node: Next | undefined, options: CloneN
 	setOriginalNodes(clone, node, options);
 	preserveSymbols(clone, node, options);
 
-	return options.finalize == null ? clone : (options.finalize(clone, node, payload(options)) as Next | undefined) ?? clone;
+	return options.finalize == null ? clone : ((options.finalize(clone, node, payload(options)) as Next | undefined) ?? clone);
 }
 
 function executePreserveNode<T extends MetaNode>(node: T | undefined, oldNode: T | undefined, options: CloneNodeInternalOptions<T>): void {
@@ -385,7 +391,7 @@ function executeCloneNode<T extends MetaNode>(node: T | undefined, options: Clon
 	}
 
 	// Note: isPrivateIdentifier may not be supported by the provided TypeScript version, so the invocation is optional.
-	else if (options.typescript.isPrivateIdentifier?.(node)) {
+	else if ((options.typescript as Partial<typeof TS>).isPrivateIdentifier?.(node)) {
 		return clonePrivateIdentifier(node, options as unknown as CloneNodeVisitorOptions<TS.PrivateIdentifier>);
 	} else if (options.typescript.isTypeAliasDeclaration(node)) {
 		return cloneTypeAliasDeclaration(node, options as unknown as CloneNodeVisitorOptions<TS.TypeAliasDeclaration>);
@@ -490,7 +496,7 @@ function executeCloneNode<T extends MetaNode>(node: T | undefined, options: Clon
 	}
 
 	// Note: isBigIntLiteral may not be supported by the provided TypeScript version, so the invocation is optional.
-	else if (options.typescript.isBigIntLiteral?.(node)) {
+	else if ((options.typescript as Partial<typeof TS>).isBigIntLiteral?.(node)) {
 		return cloneBigIntLiteral(node, options as unknown as CloneNodeVisitorOptions<TS.BigIntLiteral>);
 	} else if (options.typescript.isArrayLiteralExpression(node)) {
 		return cloneArrayLiteralExpression(node, options as unknown as CloneNodeVisitorOptions<TS.ArrayLiteralExpression>);
@@ -504,7 +510,7 @@ function executeCloneNode<T extends MetaNode>(node: T | undefined, options: Clon
 		return cloneThrowStatement(node, options as unknown as CloneNodeVisitorOptions<TS.ThrowStatement>);
 	} else if (options.typescript.isReturnStatement(node)) {
 		return cloneReturnStatement(node, options as unknown as CloneNodeVisitorOptions<TS.ReturnStatement>);
-	} else if (options.typescript.isSatisfiesExpression?.(node)) {
+	} else if ((options.typescript as Partial<typeof TS>).isSatisfiesExpression?.(node)) {
 		return cloneSatisfiesExpression(node, options as unknown as CloneNodeVisitorOptions<TS.SatisfiesExpression>);
 	} else if (options.typescript.isNewExpression(node)) {
 		return cloneNewExpression(node, options as unknown as CloneNodeVisitorOptions<TS.NewExpression>);
@@ -514,7 +520,7 @@ function executeCloneNode<T extends MetaNode>(node: T | undefined, options: Clon
 		return cloneExpressionStatement(node, options as unknown as CloneNodeVisitorOptions<TS.ExpressionStatement>);
 	} else if (options.typescript.isExpressionWithTypeArguments(node)) {
 		return cloneExpressionWithTypeArguments(node, options as unknown as CloneNodeVisitorOptions<TS.ExpressionWithTypeArguments>);
-	} else if (options.typescript.isPropertyAccessChain?.(node)) {
+	} else if ((options.typescript as Partial<typeof TS>).isPropertyAccessChain?.(node)) {
 		return clonePropertyAccessChain(node, options as unknown as CloneNodeVisitorOptions<TS.PropertyAccessChain>);
 	} else if (options.typescript.isPropertyAccessExpression(node)) {
 		return clonePropertyAccessExpression(node, options as unknown as CloneNodeVisitorOptions<TS.PropertyAccessExpression>);
@@ -594,7 +600,7 @@ function executeCloneNode<T extends MetaNode>(node: T | undefined, options: Clon
 	}
 
 	// Note: isMappedTypeNode may not be supported by the provided TypeScript version, so the invocation is optional.
-	else if (options.typescript.isMappedTypeNode?.(node)) {
+	else if ((options.typescript as Partial<typeof TS>).isMappedTypeNode?.(node)) {
 		return cloneMappedTypeNode(node, options as unknown as CloneNodeVisitorOptions<TS.MappedTypeNode>);
 	} else if (options.typescript.isOmittedExpression(node)) {
 		return cloneOmittedExpression(node, options as unknown as CloneNodeVisitorOptions<TS.OmittedExpression>);
@@ -695,30 +701,33 @@ function executeCloneNode<T extends MetaNode>(node: T | undefined, options: Clon
 	}
 
 	// Note: isNamespaceExport may not be supported by the provided TypeScript version, so the invocation is optional.
-	else if (options.typescript.isNamespaceExport?.(node)) {
+	else if ((options.typescript as Partial<typeof TS>).isNamespaceExport?.(node)) {
 		return cloneNamespaceExport(node, options as unknown as CloneNodeVisitorOptions<TS.NamespaceExport>);
 	}
 
 	// Note: isNamedTupleMember may not be supported by the provided TypeScript version, so the invocation is optional.
-	else if (isNamedTupleMember?.(node, options.typescript)) {
+	else if (isNamedTupleMember(node, options.typescript)) {
 		return cloneNamedTupleMember(node, options as unknown as CloneNodeVisitorOptions<TS.NamedTupleMember>);
 	}
 
 	// Note: isClassStaticBlockDeclaration may not be supported by the provided TypeScript version, so the invocation is optional.
-	else if (options.typescript.isClassStaticBlockDeclaration?.(node)) {
+	else if ((options.typescript as Partial<typeof TS>).isClassStaticBlockDeclaration?.(node)) {
 		return cloneClassStaticBlockDeclaration(node, options as unknown as CloneNodeVisitorOptions<TS.ClassStaticBlockDeclaration>);
+	} else if ((options.typescript as Partial<typeof TS>).isImportAttributes?.(node)) {
+		return cloneImportAttributes(node, options as unknown as CloneNodeVisitorOptions<TS.ImportAttributes>);
+	} else if ((options.typescript as Partial<typeof TS>).isImportAttribute?.(node)) {
+		return cloneImportAttribute(node, options as unknown as CloneNodeVisitorOptions<TS.ImportAttribute>);
 	}
 
 	// Note: isAssertClause may not be supported by the provided TypeScript version, so the invocation is optional.
-	else if (options.typescript.isAssertClause?.(node)) {
+	else if ((options.typescript as Partial<typeof TS>).isAssertClause?.(node)) {
 		return cloneAssertClause(node, options as unknown as CloneNodeVisitorOptions<TS.AssertClause>);
 	}
 
 	// Note: isAssertEntry may not be supported by the provided TypeScript version, so the invocation is optional.
-	else if (options.typescript.isAssertEntry?.(node)) {
+	else if ((options.typescript as Partial<typeof TS>).isAssertEntry?.(node)) {
 		return cloneAssertEntry(node, options as unknown as CloneNodeVisitorOptions<TS.AssertEntry>);
-	} // Note: isAssertEntry may not be supported by the provided TypeScript version, so the invocation is optional.
-	else if (isImportTypeAssertionContainer(node, options.typescript)) {
+	} else if (isImportTypeAssertionContainer(node, options.typescript)) {
 		return cloneImportTypeAssertionContainer(node, options as unknown as CloneNodeVisitorOptions<TS.ImportTypeAssertionContainer>);
 	} else if (options.typescript.isExportSpecifier(node)) {
 		return cloneExportSpecifier(node, options as unknown as CloneNodeVisitorOptions<TS.ExportSpecifier>);
@@ -796,6 +805,8 @@ function executeCloneNode<T extends MetaNode>(node: T | undefined, options: Clon
 		return cloneJsDocMemberName(node, options as unknown as CloneNodeVisitorOptions<TS.JSDocMemberName>);
 	} else if (isJsDocSatisfiesTag(node, options.typescript)) {
 		return cloneJsDocSatisfiesTag(node, options as unknown as CloneNodeVisitorOptions<TS.JSDocSatisfiesTag>);
+	} else if (isJsDocImportTag(node, options.typescript)) {
+		return cloneJsDocImportTag(node, options as unknown as CloneNodeVisitorOptions<TS.JSDocImportTag>);
 	} else if (isJsDocOverloadTag(node, options.typescript)) {
 		return cloneJsDocOverloadTag(node, options as unknown as CloneNodeVisitorOptions<TS.JSDocOverloadTag>);
 	} else if (isJsDocThrowsTag(node, options.typescript)) {

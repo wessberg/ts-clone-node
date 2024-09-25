@@ -6,8 +6,8 @@ import type {MetaNode} from "../type/meta-node.js";
  */
 export function isCommaListExpression(node: MetaNode, typescript: typeof TS): node is TS.CommaListExpression {
 	// TypeScript 4.x
-	if (("isCommaListExpression" in typescript) as never) {
+	if ("isCommaListExpression" in typescript) {
 		return typescript.isCommaListExpression(node);
 	}
-	return node.kind === typescript.SyntaxKind.CommaListExpression;
+	return node.kind === (typescript as typeof TS).SyntaxKind.CommaListExpression;
 }

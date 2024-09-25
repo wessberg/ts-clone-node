@@ -5,6 +5,6 @@ export function cloneIndexSignatureDeclaration(node: TS.IndexSignatureDeclaratio
 	return options.factory.createIndexSignature(
 		options.hook("modifiers", options.nextNodes(node.modifiers), node.modifiers),
 		options.hook("parameters", options.nextNodes(node.parameters), node.parameters),
-		options.hook("type", options.nextNode(node.type), node.type)!
+		options.hook("type", options.nextNode(node.type), node.type)
 	);
 }

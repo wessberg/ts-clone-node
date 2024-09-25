@@ -6,8 +6,8 @@ import type {MetaNode} from "../type/meta-node.js";
  */
 export function isJsDocNamepathType(node: MetaNode, typescript: typeof TS): node is TS.JSDocNamepathType {
 	// TypeScript 4.x
-	if (("isJSDocNamepathType" in typescript) as never) {
+	if ("isJSDocNamepathType" in typescript) {
 		return typescript.isJSDocNamepathType(node);
 	}
-	return node.kind === typescript.SyntaxKind.JSDocNamepathType;
+	return node.kind === (typescript as typeof TS).SyntaxKind.JSDocNamepathType;
 }

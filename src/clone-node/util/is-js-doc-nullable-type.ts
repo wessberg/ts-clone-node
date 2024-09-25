@@ -6,8 +6,8 @@ import type {MetaNode} from "../type/meta-node.js";
  */
 export function isJsDocNullableType(node: MetaNode, typescript: typeof TS): node is TS.JSDocNullableType {
 	// TypeScript 4.x
-	if (("isJSDocNullableType" in typescript) as never) {
+	if ("isJSDocNullableType" in typescript) {
 		return typescript.isJSDocNullableType(node);
 	}
-	return node.kind === typescript.SyntaxKind.JSDocNullableType;
+	return node.kind === (typescript as typeof TS).SyntaxKind.JSDocNullableType;
 }

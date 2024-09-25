@@ -6,8 +6,8 @@ import type {MetaNode} from "../type/meta-node.js";
  */
 export function isJsDocOverloadTag(node: MetaNode, typescript: typeof TS): node is TS.JSDocOverloadTag {
 	// TypeScript 5.x
-	if (("isJSDocOverloadTag" in typescript) as never) {
+	if ("isJSDocOverloadTag" in typescript) {
 		return typescript.isJSDocOverloadTag(node);
 	}
-	return node.kind === typescript.SyntaxKind.JSDocOverloadTag;
+	return node.kind === (typescript as typeof TS).SyntaxKind.JSDocOverloadTag;
 }

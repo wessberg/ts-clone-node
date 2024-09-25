@@ -6,8 +6,8 @@ import type {MetaNode} from "../type/meta-node.js";
  */
 export function isJsDocMemberName(node: MetaNode, typescript: typeof TS): node is TS.JSDocMemberName {
 	// TypeScript 4.x
-	if (("isJSDocMemberName" in typescript) as never) {
+	if ("isJSDocMemberName" in typescript) {
 		return typescript.isJSDocMemberName(node);
 	}
-	return node.kind === typescript.SyntaxKind.JSDocMemberName;
+	return node.kind === (typescript as typeof TS).SyntaxKind.JSDocMemberName;
 }

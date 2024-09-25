@@ -6,5 +6,5 @@ export function getOriginalNode<T extends MetaNode>(node: T, options: CloneNodeI
 		return getOriginalNode(node._original as T, options);
 	}
 
-	return (options.typescript.getOriginalNode(node) as T) ?? node;
+	return (options.typescript.getOriginalNode(node) as T | undefined) ?? node;
 }

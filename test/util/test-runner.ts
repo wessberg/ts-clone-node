@@ -1,7 +1,7 @@
 import path from "crosspath";
 import fs from "fs";
 import semver from "semver";
-import avaTest, {type ExecutionContext} from "ava";
+import testModule, {type TestContext} from "node:test";
 import type * as TS from "typescript";
 import {ensureNodeFactory} from "compatfactory";
 
@@ -12,7 +12,7 @@ function getNearestPackageJson(from = import.meta.url): Record<string, unknown> 
 
 	const pkgPath = path.join(currentDir, "package.json");
 	if (fs.existsSync(pkgPath)) {
-		return JSON.parse(fs.readFileSync(pkgPath, "utf-8"));
+		return JSON.parse(fs.readFileSync(pkgPath, "utf-8")) as Record<string, unknown>;
 	} else if (currentDir !== normalizedFrom) {
 		return getNearestPackageJson(currentDir);
 	} else {
@@ -29,7 +29,7 @@ export interface ExecutionContextOptions {
 	factory: TS.NodeFactory;
 }
 
-export type ExtendedImplementation = (t: ExecutionContext, options: ExecutionContextOptions) => void | Promise<void>;
+export type ExtendedImplementation = (t: TestContext, options: ExecutionContextOptions) => void | Promise<void>;
 
 const {devDependencies} = pkg as {devDependencies: Record<string, string>};
 
@@ -44,12 +44,12 @@ for (const [specifier, range] of Object.entries(devDependencies)) {
 	const match = range.match(tsRangeRegex);
 	if (match !== null) {
 		const [, context, version] = match;
-		if (context === "npm:typescript@" || specifier === "typescript") {
+		if (version != null && (context === "npm:typescript@" || specifier === "typescript")) {
 			availableTsVersions.add(version);
 			if (filter === undefined || (filter.toUpperCase() === "CURRENT" && specifier === "typescript") || semver.satisfies(version, filter, {includePrerelease: true})) {
-				const typescript = (await import(specifier)).default;
+				const typescript = ((await import(specifier)) as {default: typeof TS}).default;
 				TS_OPTIONS_RECORDS.set(version, {
-					typescript,
+					typescript: ((await import(specifier)) as {default: typeof TS}).default,
 					typescriptModuleSpecifier: specifier,
 					typescriptVersion: version,
 					factory: ensureNodeFactory(typescript)
@@ -69,7 +69,7 @@ interface TestRunOptions {
 	only: boolean;
 }
 
-export function test(title: string, tsVersionGlob: string | undefined, impl: ExtendedImplementation, runOptions?: Partial<TestRunOptions>) {
+export function test(title: string, tsVersionGlob: string | undefined, impl: ExtendedImplementation, runOptions?: Partial<TestRunOptions>): void {
 	const allOptions =
 		tsVersionGlob == null || tsVersionGlob === "*"
 			? TS_OPTIONS_RECORDS.values()
@@ -79,13 +79,9 @@ export function test(title: string, tsVersionGlob: string | undefined, impl: Ext
 		const fullTitle = `${title} (TypeScript v${currentOptions.typescriptVersion})`;
 
 		if (Boolean(runOptions?.only)) {
-			avaTest.only(fullTitle, async t => impl(t, currentOptions));
+			testModule(fullTitle, {only: true}, async t => impl(t, currentOptions));
 		} else {
-			avaTest(fullTitle, async t => impl(t, currentOptions));
+			testModule(fullTitle, async t => impl(t, currentOptions));
 		}
 	}
 }
-
-test.only = function (title: string, tsVersionGlob: string | undefined, impl: ExtendedImplementation) {
-	return test(title, tsVersionGlob, impl, {only: true});
-};

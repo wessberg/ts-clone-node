@@ -6,8 +6,8 @@ import type {MetaNode} from "../type/meta-node.js";
  */
 export function isJsDocVariadicType(node: MetaNode, typescript: typeof TS): node is TS.JSDocVariadicType {
 	// TypeScript 4.x
-	if (("isJSDocVariadicType" in typescript) as never) {
+	if ("isJSDocVariadicType" in typescript) {
 		return typescript.isJSDocVariadicType(node);
 	}
-	return node.kind === typescript.SyntaxKind.JSDocVariadicType;
+	return node.kind === (typescript as typeof TS).SyntaxKind.JSDocVariadicType;
 }

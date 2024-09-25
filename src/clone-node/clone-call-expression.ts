@@ -13,8 +13,9 @@ export function cloneCallExpression(node: TS.CallExpression, options: CloneNodeV
 	// so if the arguments of the new CallExpression has a ParenthesizedExpression that weren't there before, remove it.
 	for (let i = 0; i < clonedCallExpression.arguments.length; i++) {
 		const argument = clonedCallExpression.arguments[i];
+		const nodeArgument = node.arguments[i];
 
-		if (!options.typescript.isParenthesizedExpression(node.arguments[i]) && options.typescript.isParenthesizedExpression(argument)) {
+		if (nodeArgument != null && argument != null && !options.typescript.isParenthesizedExpression(nodeArgument) && options.typescript.isParenthesizedExpression(argument)) {
 			(clonedCallExpression.arguments[i] as Mutable<TS.Expression>) = argument.expression;
 		}
 	}

@@ -6,8 +6,8 @@ import type {MetaNode} from "../type/meta-node.js";
  */
 export function isRestTypeNode(node: MetaNode, typescript: typeof TS): node is TS.RestTypeNode {
 	// TypeScript 4.x
-	if (("isRestTypeNode" in typescript) as never) {
+	if ("isRestTypeNode" in typescript) {
 		return typescript.isRestTypeNode(node);
 	}
-	return node.kind === typescript.SyntaxKind.RestType;
+	return node.kind === (typescript as typeof TS).SyntaxKind.RestType;
 }

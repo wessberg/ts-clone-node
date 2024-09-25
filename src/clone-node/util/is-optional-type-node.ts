@@ -6,8 +6,8 @@ import type {MetaNode} from "../type/meta-node.js";
  */
 export function isOptionalTypeNode(node: MetaNode, typescript: typeof TS): node is TS.OptionalTypeNode {
 	// TypeScript 4.x
-	if (("isOptionalTypeNode" in typescript) as never) {
+	if ("isOptionalTypeNode" in typescript) {
 		return typescript.isOptionalTypeNode(node);
 	}
-	return node.kind === typescript.SyntaxKind.OptionalType;
+	return node.kind === (typescript as typeof TS).SyntaxKind.OptionalType;
 }

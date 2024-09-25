@@ -6,8 +6,8 @@ import type {MetaNode} from "../type/meta-node.js";
  */
 export function isJsDocLinkCode(node: MetaNode, typescript: typeof TS): node is TS.JSDocLinkCode {
 	// TypeScript 4.x
-	if (("isJSDocLinkCode" in typescript) as never) {
+	if ("isJSDocLinkCode" in typescript) {
 		return typescript.isJSDocLinkCode(node);
 	}
-	return node.kind === typescript.SyntaxKind.JSDocLinkCode;
+	return node.kind === (typescript as typeof TS).SyntaxKind.JSDocLinkCode;
 }

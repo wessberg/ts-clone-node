@@ -17,11 +17,7 @@ export function toInternalOptions<T extends MetaNode>(options: Partial<CloneNode
 		commentRanges: new Set(),
 		debug: options.debug ?? false,
 		depth: 0,
-		hook: (options.hook as CloneNodeHookFactory<MetaNode>) ?? (() => ({})),
-		finalize:
-			(options.finalize as CloneNodeFinalizerCallback<MetaNode> | undefined) ??
-			(() => {
-				// Noop
-			})
+		hook: (options.hook as CloneNodeHookFactory<MetaNode> | undefined) ?? (() => ({})),
+		finalize: (options.finalize as CloneNodeFinalizerCallback<MetaNode> | undefined) ?? (() => undefined)
 	};
 }

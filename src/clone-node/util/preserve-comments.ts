@@ -22,7 +22,7 @@ function getCommentRanges<T extends MetaNode>(node: T, options: PreserveComments
 	const comments: TSComment[] = [];
 	const originalNode = getOriginalNode(node, options);
 
-	const sourceFile = originalNode.getSourceFile();
+	const sourceFile = originalNode.getSourceFile() as TS.SourceFile | undefined;
 
 	if (sourceFile == null || originalNode.pos === -1 || originalNode.end === -1) return [];
 

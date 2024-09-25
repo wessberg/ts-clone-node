@@ -6,8 +6,8 @@ import type {MetaNode} from "../type/meta-node.js";
  */
 export function isJsDocComment(node: MetaNode, typescript: typeof TS): node is TS.JSDoc {
 	// TypeScript 4.x
-	if (("isJSDoc" in typescript) as never) {
+	if ("isJSDoc" in typescript) {
 		return typescript.isJSDoc(node);
 	}
-	return node.kind === typescript.SyntaxKind.JSDocComment;
+	return node.kind === (typescript as typeof TS).SyntaxKind.JSDocComment;
 }

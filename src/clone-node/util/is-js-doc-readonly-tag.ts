@@ -6,8 +6,8 @@ import type {MetaNode} from "../type/meta-node.js";
  */
 export function isJsDocReadonlyTag(node: MetaNode, typescript: typeof TS): node is TS.JSDocReadonlyTag {
 	// TypeScript 4.x
-	if (("isJSDocReadonlyTag" in typescript) as never) {
+	if ("isJSDocReadonlyTag" in typescript) {
 		return typescript.isJSDocReadonlyTag(node);
 	}
-	return node.kind === typescript.SyntaxKind.JSDocReadonlyTag;
+	return node.kind === (typescript as typeof TS).SyntaxKind.JSDocReadonlyTag;
 }

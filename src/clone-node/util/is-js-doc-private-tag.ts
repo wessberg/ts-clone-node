@@ -6,8 +6,8 @@ import type {MetaNode} from "../type/meta-node.js";
  */
 export function isJsDocPrivateTag(node: MetaNode, typescript: typeof TS): node is TS.JSDocPrivateTag {
 	// TypeScript 4.x
-	if (("isJSDocPrivateTag" in typescript) as never) {
+	if ("isJSDocPrivateTag" in typescript) {
 		return typescript.isJSDocPrivateTag(node);
 	}
-	return node.kind === typescript.SyntaxKind.JSDocPrivateTag;
+	return node.kind === (typescript as typeof TS).SyntaxKind.JSDocPrivateTag;
 }
